@@ -1,0 +1,44 @@
+@media all and (min-width:667px) {
+
+    .main-menu ul {
+        display: block !important;
+    }
+
+}
+
+@media all and (max-width:667px) {
+    .logo {
+        text-align: center;
+        overflow: hidden;
+        margin-bottom: 45px;
+    }
+
+    .menu-bar {
+        display: block;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .single-service {
+        margin-bottom: 23px;
+    }
+
+    .single-service {
+        margin-bottom: 20px;
+    }
+
+    .main-menu ul {
+        float: none;
+        display: none;
+        margin-top: 25px;
+    }
+
+    .main-menu ul li {
+        float: none;
+        display: block;
+    }
+
+    .main-menu ul li a {
+        padding: 10px 20px;
+    }
+}
