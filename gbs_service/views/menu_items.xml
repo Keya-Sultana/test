@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <menuitem
+                id="product_template_service_for_account_menu"
+                name="Service"
+                parent="account.menu_finance_payables"
+                sequence="120"
+                action="gbs_service.product_template_service_action"/>
+
+    </data>
+</odoo>

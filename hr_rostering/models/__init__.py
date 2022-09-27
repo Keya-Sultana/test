@@ -1,0 +1,6 @@
+import hr_shifting
+import hr_shifting_history
+import hr_shift_alter
+import hr_shift_employee_batch
+import employee_alter_approbation
+import hr_shift_alter_batch
