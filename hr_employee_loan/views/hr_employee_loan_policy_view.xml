@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="hr_employee_loan_policy_form" model="ir.ui.view">
+			<field name="name">hr.employee.loan.policy.form</field>
+			<field name="model">hr.employee.loan.policy</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Employee Loan policy">
+					<sheet>
+					Name<h2><field name="name" /></h2>
+					Code<h2><field name="code" /></h2>
+					<group>
+						<group>
+							<field name="policy_type_id" />
+							<field name="basis_id" />
+							<field name="value" />
+							<field name="company_id" readonly="1" groups="base.group_multi_company"/>
+						</group>
+						<group>
+							<field name="check_on_application"/>
+							<field name="application_blocker_type" attrs="{'invisible': [('check_on_application', '=', False)]}"/>
+							<field name="check_on_approval"/>
+							<field name="approval_blocker_type" attrs="{'invisible': [('check_on_approval', '=', False)]}"/>
+						</group>
+					</group>
+					<notebook position="inside" invisible="1">
+						<page string="Employee Categories">
+							<field name="employee_tag_ids" />	
+						</page>
+						<page string="Employee's">
+							<field name="employee_ids"/>
+						</page>
+					</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record id="hr_employee_loan_policy_tree" model="ir.ui.view">
+			<field name="name">hr.employee.loan.policy.tree</field>
+			<field name="model">hr.employee.loan.policy</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Employee Loan policy">
+					<field name="name" />
+					<field name="code" />
+					<field name="policy_type_id" />
+					<field name="value" />
+					<field name="company_id" groups="base.group_multi_company" />
+				</tree>
+			</field>
+		</record>
+		
+        <record model="ir.actions.act_window" id="hr_loan_policy_action">
+            <field name="name">Loan Policies</field>
+            <field name="res_model">hr.employee.loan.policy</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="loan_policy_menu" name="Loan Policies" parent="configuration_menu" sequence="10"
+                  action="hr_loan_policy_action" groups="base.group_user" />   
+    </data>
+</odoo>
