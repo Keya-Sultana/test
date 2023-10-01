@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="paperformat_backend_landscape" model="report.paperformat">
+            <field name="name">Custom Landscape Report</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">25</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">17</field>
+            <field name="dpi">90</field>
+        </record>
+
+    <record id="report_purchase_quatation_compare" model="ir.actions.report">
+        <field name="name">Comparative Bid Analysis</field>
+        <field name="model">purchase.requisition</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">purchase_quotation_compare.template_purchaserequisitions_doc</field>
+        <field name="report_file">purchase_quotation_compare.template_purchaserequisitions_doc</field>
+        <field name="paperformat_id" ref="paperformat_backend_landscape"/>
+        <field name="binding_model_id" ref="purchase_requisition.model_purchase_requisition"/>
+        <field name="binding_type">report</field>
+    </record>
+<!--    <record id="report_purchase_quatation_compare" model="ir.actions.report">-->
+<!--        <field name="model">purchase.requisition</field>-->
+<!--        <field name="name">Comparative Bid Analysis</field>-->
+<!--        <field name="report_name">purchase_quotation_compare.template_purchaserequisitions_doc</field>-->
+<!--        <field name="file">purchase_quotation_compare.template_purchaserequisitions_doc</field>-->
+<!--        <field name="paperformat_id" ref="paperformat_backend_landscape"/>-->
+<!--        <field name="report_type">qweb-pdf</field>-->
+<!--    </record>-->
+
+</odoo>

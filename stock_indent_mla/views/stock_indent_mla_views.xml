@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <record id="stock_indent_form_inherit_irn_status" model="ir.ui.view">
+        <field name="name">stock.indent.form.inherit.irn.status</field>
+        <field name="model">indent.indent</field>
+        <field name="inherit_id" ref="stock_indent.view_stock_indent_indent_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='approve_indent']" position="replace">
+                <field name="current_user_is_approver_or_not" invisible="True"/>
+                <button string="Approve" type="object" name="mla_approve_actions" class="oe_highlight"
+                        attrs="{'invisible': ['|',['current_user_is_approver_or_not','=',False],['state','!=','waiting_approval']]}"
+                        context="{'approve_method': 'approve_indent'}"/>
+            </xpath>
+            <xpath expr="//button[@name='reject_indent']" position="replace">
+                <field name="current_user_is_approver_or_not" invisible="True"/>
+                <button string="Reject" type="object" name="reject_indent"
+                        attrs="{'invisible': ['|',['current_user_is_approver_or_not','=',False],['state','!=','waiting_approval']]}"/>
+            </xpath>
+
+
+            <xpath expr="//field[@name='stock_location_id']" position="after">
+                <field name="pending_approver"
+                       attrs="{'invisible': ['|',['pending_approver','=',False],['state','!=','waiting_approval']]}"/>
+            </xpath>
+            <xpath expr="//field[@name='product_uom_qty']" position="replace">
+                <field name="current_user_is_approver_or_not" invisible="1"/>
+                <field name="product_uom_qty" sum="Total Qty"
+                       attrs="{'readonly': [['current_user_is_approver_or_not','=',False]]}" force_save="1"/>
+            </xpath>
+
+
+        </field>
+    </record>
+    <record model="ir.ui.view" id="inherit_indent_indent_list">
+        <field name="name">indent.indent.inherited.list</field>
+        <field name="model">indent.indent</field>
+        <field name="inherit_id" ref="stock_indent.view_indent_indent_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='approve_date']" position="after">
+                <field name="pending_approver" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.mla</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="90"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div class="app_settings_block" data-string="Multi Level Approval" id="mla"
+                         string="Multi Level Approval" data-key="multi_level_approval">
+                        <h2>Multi Level Approval Management</h2>
+                        <div class="row mt16 o_settings_container" id="mla_setting">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <div class="row">
+                                        <field name="overlapping_approval" class="col-lg-1 ml16"/>
+                                        <label for="overlapping_approval" class="o_light_label"/>
+                                    </div>
+                                    <div class="row">
+                                        <field name="required_approval" class="col-lg-1 ml16"/>
+                                        <label for="required_approval" class="o_light_label"/>
+                                    </div>
+                                    <div class="row">
+                                        <field name="conditional_approval" class="col-lg-1 ml16"/>
+                                        <label for="conditional_approval" class="o_light_label"/>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="MLA_config_settings_action" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'multi_level_approval', 'bin_size': False}</field>
+        </record>
+
+        <menuitem id="MLA_config_settings_menu" name="Settings"
+                  parent="menu_approval_root" sequence="2" action="MLA_config_settings_action"
+                  groups="base.group_system"/>
+    </data>
+</odoo>

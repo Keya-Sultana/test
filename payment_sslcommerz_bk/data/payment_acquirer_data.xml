@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="payment_acquirer_sslcommerz" model="payment.acquirer">
+        <field name="name">SSLCOMMERZ</field>
+        <field name="image_128" type="base64" file="payment_sslcommerz/static/src/img/paypal_icon.png"/>
+        <field name="module_id" ref="base.module_payment_sslcommerz"/>
+        <field name="description" type="html">
+            <p>
+                PayPal is the easiest way to accept payments via Paypal or credit cards.
+            </p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><i class="fa fa-check"/>Online Payment</li>
+                <li class="list-inline-item"><i class="fa fa-check"/>Payment Status Tracking</li>
+            </ul>
+        </field>
+        <!-- https://www.paypal.com/us/selfhelp/article/Which-credit-cards-can-I-accept-with-PayPal-Merchant-Services-FAQ1525#business -->
+        <field name="payment_icon_ids"
+               eval="[(6, 0, [
+                   ref('payment.payment_icon_cc_maestro'),
+                   ref('payment.payment_icon_cc_mastercard'),
+                   ref('payment.payment_icon_cc_american_express'),
+                   ref('payment.payment_icon_cc_visa'),
+               ])]"/>
+        <field name="provider">none</field>
+        <field name="redirect_form_view_id" ref="redirect_form"/>
+        <field name="support_authorization">False</field>
+        <field name="support_fees_computation">True</field>
+        <field name="support_refund"></field>
+        <field name="support_tokenization">False</field>
+    </record>
+
+    <record id="payment_method_sslcommerz" model="account.payment.method">
+        <field name="name">sslcommerz</field>
+        <field name="code">sslcommerz</field>
+        <field name="payment_type">inbound</field>
+    </record>
+
+</odoo>

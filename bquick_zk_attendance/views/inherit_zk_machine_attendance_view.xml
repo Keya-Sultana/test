@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <record id="inherit_view_zk_report_daily_attendance_tree" model="ir.ui.view">
+            <field name="name">zk.report.daily.attendance.tree</field>
+            <field name="model">zk.report.daily.attendance</field>
+            <field name="inherit_id" ref="hr_zk_attendance.view_zk_report_daily_attendance_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//tree/field[@name='address_id']" position="after">
+                        <field name="machine_id"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="inherit_view_zk_machine_from" model="ir.ui.view">
+            <field name="name">zk.machine.form.inherit</field>
+            <field name="model">zk.machine</field>
+            <field name="inherit_id" ref="hr_zk_attendance.view_zk_machine_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//sheet" position="after">
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <!-- Inherit Menu -->
+
+        <menuitem id="hr_attendance.menu_hr_attendance_root" name="Attendances" sequence="205" groups="hr_attendance.group_hr_attendance,hr_attendance.group_hr_attendance_kiosk,bquick_zk_attendance.biometric_manager_access"
+                  web_icon="hr_attendance,static/description/icon.png"/>
+
+        <menuitem id="hr_zk_attendance.zk_machine_menu" parent="hr_attendance.menu_hr_attendance_root"
+                  name="Biometric Manager" sequence="50"
+                  groups="bquick_zk_attendance.biometric_manager_access"/>
+
+        <menuitem id="hr_zk_attendance.zk_machine_sub_menu" parent="hr_zk_attendance.zk_machine_menu"
+                  name="Device Configuration" action="hr_zk_attendance.zk_machine_action" sequence="1"
+                  groups="bquick_zk_attendance.biometric_manager_access"/>
+        <menuitem id="hr_zk_attendance.menu_zk_attendance_view" name="Attendance log" action="hr_zk_attendance.action_zk_report_daily_attendance" parent="hr_zk_attendance.zk_machine_menu"
+                  sequence="2" groups="hr_attendance.group_hr_attendance_user,bquick_zk_attendance.biometric_manager_access"/>
+
+</odoo>

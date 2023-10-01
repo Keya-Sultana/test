@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <record id="purchase_order_form_inherit_irn_status" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.irn.status</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form[1]/header[1]/button[@name='button_confirm'][2]" position="replace"/>
+            <xpath expr="//header/button[@name='print_quotation']" position="after">
+                <field name="current_user_is_approver_or_not" invisible="True"/>
+                <button string="Approve" type="object" name="new_approval_po" attrs="{'invisible': [('current_user_is_approver_or_not', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_ref']" position="after">
+                <field name="pending_approver"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+</odoo>

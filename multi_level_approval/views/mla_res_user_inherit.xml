@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <record id="res_user_form_inherit_irn_status" model="ir.ui.view">
+        <field name="name">res.user.form.inherit.irn.status</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+
+
+            <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+                <page string="Approval" name="studio_page_iUCpO">
+                                    <group name="Group_studio" string="Multi Level Approval">
+                                        <field name="transfer_approvation"/>
+                                        <field name="transfer_user"  attrs="{'invisible': [('transfer_approvation','=',False)]}"/>
+                                        <field name="start_date" attrs="{'invisible': [('transfer_approvation','=',False)]}"/>
+                                        <field name="end_date" attrs="{'invisible': [('transfer_approvation','=',False)]}"/>
+                                    </group>
+                </page>
+
+            </xpath>
+
+
+        </field>
+    </record>
+
+
+</odoo>

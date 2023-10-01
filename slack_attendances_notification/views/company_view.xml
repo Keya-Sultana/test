@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_company_slack_inherit_form">
+            <field name="name">Inherit Res Company for Attendances</field>
+            <field name="inherit_id" ref="slack_connector.view_company_slack_inherit_form"/>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='slack']/group[@name='grp-slack-channel']" position="after">
+                    <group string="Notification Channel" name="grp-slack-channel-config">
+                        <group>
+                            <field name="att_monitor_channel_id"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+	</data>
+</odoo>

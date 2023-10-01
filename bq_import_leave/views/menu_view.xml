@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- SALE ORDER MENU -->
+    <menuitem name="Import Time Offs" action="bq_import_leave_action" id="bq_import_leave_menu" parent="hr_holidays.menu_hr_holidays_approvals" groups="bq_import_leave.bq_import_leave_group" />
+</odoo>

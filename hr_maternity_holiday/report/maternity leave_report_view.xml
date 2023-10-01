@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<!-- Definition of the report -->
+        <record id="action_report_maternity" model="ir.actions.report">
+           <field name="name">Maternity Benefit Bill</field>
+           <field name="model">hr.maternity.holiday</field>
+           <field name="report_type">qweb-pdf</field>
+           <field name="report_name">hr_maternity_holiday.report_maternity_qweb</field>
+           <field name="report_file">hr_maternity_holiday.report_maternity_qweb</field>
+      </record>
+
+
+		<!-- Main template -->
+		<template id="report_maternity_qweb">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="o">
+				<t t-call="web.external_layout">
+					<div class="page">
+                        <div>
+                            <style type="text/css">
+                                .report-title { text-align:center; }
+                                .odo-bg-gray, .odo-bg-gray > td { background-color: #B4FDF0; }
+                            </style>
+                            <div class="text-center">
+                                <h3 style="text-decoration: underline; margin-top:30px; margin-bottom:30px;">Maternity Benefit Bill(<span t-field="o.template_id.pay_days"/> Days)</h3>
+                            </div>
+
+                            <table class="table table-condensed table-bordered">
+                                <tr>
+                                    <td><strong>Name:</strong></td>
+                                    <td style="width:25%;"><span t-field="o.employee_id.name"/></td>
+                                    <td style="width:15%;"></td>
+                                    <td><strong>Date:</strong></td>
+                                    <td style="width:20%;"><span t-esc="time.strftime('%Y-%m-%d')" /></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>ID:</strong></td>
+                                    <td style="width:25%;"><span t-field="o.employee_id.identification_id"/></td>
+                                    <td style="width:15%;"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Designation:</strong></td>
+                                    <td style="width:25%;"><span t-field="o.employee_id.job_id.name"/></td>
+                                    <td style="width:15%;"></td>
+                                    <td><strong>Gross Salary:</strong></td>
+                                    <td style="width:20%;"><span t-field="o.ex_salary_amount"/>0</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Department:</strong></td>
+                                    <td style="width:25%;"><span t-field="o.employee_id.department_id.name"/></td>
+                                    <td style="width:15%;"></td>
+                                    <td><strong>Total Days:</strong></td>
+                                    <td style="width:20%;"><span t-field="o.template_id.pay_days"/> Days</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Date of Join:</strong></td>
+                                    <td style="width:25%;"><span t-field="o.employee_id.initial_employment_date"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Leaves Duration:</strong></td>
+                                    <td style="width:25%;"><span t-field="o.date_from"/> to <span t-field="o.date_to"/>=<span t-field="o.number_of_days_temp"/> days</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Joining Date After Leaves:</strong></td>
+                                    <td style="width:25%;"><span t-field="o.joining_after_leave"/></td>
+                                </tr>
+                            </table><br/>
+
+                           <!-- <p style="text-decoration: underline;"><strong>Previous 3 month Actual Earned</strong></p>
+                            <table class="table table-bordered table-report-xs table-striped"
+                                        style="margin-bottom: 10px; table-layout: fixed;">
+								<thead>
+									<tr style="background-color:#B4FDF0;
+												border-bottom: 1px solid #030303;">
+                                        <th class="text-center" style="width:6%;">S/L No</th>
+                                        <th class="text-center" >Month Name</th>
+                                        <th class="text-center" style="width:10%;">Wages</th>
+                                        <th class="text-center" style="width:10%;">Pay Days</th>
+                                        <th class="text-center" style="width:10%;">Attendance Bonus</th>
+                                        <th class="text-center" style="width:8%;">OT</th>
+                                        <th class="text-center" style="width:8%;">PF Deduction</th>
+                                        <th class="text-center" style="width:8%;">Total</th>
+                                        <th class="text-center" style="width:20%;">Total Working Days</th>
+									</tr>
+								</thead>
+								<tbody>
+                                    <tr>
+                                        <td class="text-center"></td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center"></td>
+
+                                        <td class="text-center">
+
+                                        </td>
+                                    </tr>
+
+								</tbody>
+							</table>  -->
+
+                            <table class="table table-sm">
+                                <tr>
+                                    <td style="border: 1px solid black"><strong>Previous 3 (Three) Months Actual Earning   =</strong></td>
+                                    <td style="border: 1px solid black; width:15%;text-align:right"><span t-field="o.ex_salary_amount"/>0</td>
+                                    <td style="border: 1px solid black; width:10%;"><strong>TK</strong></td>
+                                </tr>
+                                <tr>
+                                    <t t-set="pay_days_Total" t-value="o.maternity_allowance / o.template_id.pay_days"/>
+                                    <td style="border: 1px solid black"><strong>Previous 3 (Three) Months Actual Pay Days   =</strong></td>
+                                    <td style="border: 1px solid black; width:15%;text-align:right"><span t-field="o.ex_salary_days"/></td>
+                                    <td style="border: 1px solid black; width:10%;"><strong>Days</strong></td>
+                                </tr>
+                                <tr>
+                                    <t t-set="earning_perday" t-value="o.maternity_allowance / o.template_id.pay_days"/>
+                                    <td style="border: 1px solid black"><strong>Previous 3 (Three) Months Average Actual Earning per Day  =</strong></td>
+                                    <td style="border: 1px solid black; width:15%;text-align:right"><span t-esc="'%.2f'% earning_perday" /></td>
+                                    <td style="border: 1px solid black; width:10%;"><strong>TK</strong></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black"><strong>Maternity Benefit    =</strong></td>
+                                    <td style="border: 1px solid black; width:15%;text-align:right"><span t-field="o.maternity_allowance"/>0</td>
+                                    <td style="border: 1px solid black; width:10%;"><strong>TK</strong></td>
+                                </tr>
+                            </table><br/>
+
+                            <table class="table table-sm">
+                                <tr>
+                                    <th style="border: 1px solid black;text-align:center;">Name of Payment </th>
+                                    <th style="border: 1px solid black;text-align:center;">Amount</th>
+                                    <th style="border: 1px solid black;text-align:center;">TK</th>
+                                    <th style="border: 1px solid black;text-align:center;">Receiver's Signature</th>
+                                </tr>
+                                <tr>
+                                    <t t-set="benefit_before_leave" t-value="o.maternity_allowance / 2"/>
+                                    <td style="border: 1px solid black;text-align:center;"><strong>Maternity Benefit before Leave = ½ of total benefit  </strong></td>
+                                    <td style="border: 1px solid black; width:15%;text-align:right"><span t-esc="'%.2f'% benefit_before_leave" /></td>
+                                    <td style="border: 1px solid black; width:10%;text-align:center">TK</td>
+                                    <td style="border: 1px solid black; width:25%;"></td>
+                                </tr>
+                                <tr>
+                                    <t t-set="benefit_after_leave" t-value="o.maternity_allowance / 2"/>
+                                    <td style="border: 1px solid black;text-align:center;"><strong>Maternity Benefit After Leave = ½ of total benefit   </strong></td>
+                                    <td style="border: 1px solid black; width:15%;text-align:right"><span t-esc="'%.2f'% benefit_after_leave" /></td>
+                                    <td style="border: 1px solid black; width:10%;text-align:center">TK</td>
+                                    <td style="border: 1px solid black; width:25%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black;text-align:center;"><strong>Total Amount =</strong></td>
+                                    <td style="border: 1px solid black; width:15%;text-align:right"><span t-field="o.maternity_allowance"/>0</td>
+                                    <td style="border: 1px solid black; width:10%;text-align:center">TK</td>
+                                    <td style="border: 1px solid black; width:25%;"></td>
+                                </tr>
+                            </table><br/>
+
+<!--                            <strong>Taka In Word: <span t-esc="o.amount_to_text(o.maternity_allowance)"/> Only</strong>-->
+                            <strong>Taka In Word: <span t-esc="o.maternity_allowance"/> Only</strong>
+                            <br/><br/>
+
+                            <div class="row" style="margin: 5px">
+                                <div class="col-3 text-center">
+                                    <strong style="border-top: 1px solid black; padding-top:5px;">HR &amp; Admin</strong>
+                                </div>
+                                <div class="col-3 text-center">
+                                    <strong style="border-top: 1px solid black; padding-top:5px;">Internal Audit</strong>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <strong style="border-top: 1px solid black; padding-top:5px;">Accounts &amp; Finance</strong>
+                                </div>
+                                <div class="col-2 text-center">
+                                    <strong style="border-top: 1px solid black; padding-top:5px;">CEO</strong>
+                                </div>
+                            </div>
+
+                        </div>
+
+					</div>
+				</t>
+				</t>
+			</t>
+		</template>
+
+
+	</data>
+</odoo>

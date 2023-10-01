@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <record id="view_mrp_production_request_tree" model="ir.ui.view">
+        <field name="name">mrp.production.request.tree</field>
+        <field name="model">mrp.production.request</field>
+        <field name="arch" type="xml">
+            <tree string="Manufacturing Request">
+                <field name="requested_by"/>
+                <field name="deadline"/>
+<!--                <field name="work_email"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mrp_production_request_form" model="ir.ui.view">
+        <field name="name">mrp.production.request.form</field>
+        <field name="model">mrp.production.request</field>
+        <field name="arch" type="xml">
+            <form string="Manufacturing Request">
+                <header>
+                    <button name="%(add_production_request_view_action)d" type="action" class="oe_highlight"  string="Add Production"/>
+                    <field name="state" statusbar_visible="draft,in_progress,done" widget="statusbar" />
+                </header>
+                <sheet>
+                    <label for="requested_by" string="Manufacturing Request" />
+                    <group name="request">
+                        <group>
+                            <field name="requested_by" />
+                            <field name="requested_date" />
+                            <label for="planned_date_begin" string="Planned Date"/>
+                                <div class="w-100">
+                                    <div class="o_row">
+                                        <field name="planned_date_begin" widget="daterange" options='{"related_end_date": "planned_date_end"}'/>
+                                        <i class="fa fa-long-arrow-right mx-2 oe_edit_only" aria-label="Arrow icon" title="Arrow"/>
+                                        <i class="fa fa-long-arrow-right mx-2 oe_read_only" aria-label="Arrow icon" title="Arrow" attrs="{'invisible': [('planned_date_begin', '=', False), ('planned_date_end', '=', False)]}"/>
+                                        <field name="planned_date_end" widget="daterange" options='{"related_start_date": "planned_date_begin"}'/>
+                                    </div>
+                                </div>
+                            <field name="deadline" />
+                            <field name="description" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="mrp_production" string="Manufacturing Orders">
+                            <field name="order_line" >
+                                <tree editable="bottom">
+<!--                                    <field name="sequence" widget="handle"/>-->
+                                    <field name="product_id" />
+                                    <field name="product_uom" />
+                                    <field name="product_uom_qty" />
+                                    <field name="remark" />
+                                    <field name="company_id" invisible="1"/>
+                                    <field name="product_uom_category_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mrp_production_request" model="ir.actions.act_window">
+        <field name="name">Manufacturing Requests</field>
+        <field name="res_model">mrp.production.request</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        action="action_mrp_production_request"
+        id="menu_mrp_production_request"
+        parent="mrp.menu_mrp_manufacturing"
+        sequence="10"
+    />
+
+</odoo>

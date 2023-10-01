@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Department -->
+        <record id="restrict_on_depart" model="ir.rule">
+            <field name="name">Restriction on Deletion of Department</field>
+            <field name="model_id" ref="hr.model_hr_department"/>
+            <field name="domain_force">[(0, '=', 1)]</field>
+            <field name="perm_read">0</field>
+            <field name="perm_write">0</field>
+            <field name="perm_create">0</field>
+            <field name="perm_unlink">1</field>
+        </record>
+
+        <!-- Employee -->
+        <record id="restrict_on_employee" model="ir.rule">
+            <field name="name">Restriction on Deletion of Employee</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="domain_force">[(0, '=', 1)]</field>
+            <field name="perm_read">0</field>
+            <field name="perm_write">0</field>
+            <field name="perm_create">0</field>
+            <field name="perm_unlink">1</field>
+        </record>
+
+        <!-- Contract -->
+        <record id="restrict_on_contract" model="ir.rule">
+            <field name="name">Restriction on Deletion of Contract</field>
+            <field name="model_id" ref="hr_contract.model_hr_contract"/>
+            <field name="domain_force">[(0, '=', 1)]</field>
+            <field name="perm_read">0</field>
+            <field name="perm_write">0</field>
+            <field name="perm_create">0</field>
+            <field name="perm_unlink">1</field>
+        </record>
+
+        <!-- Job Position -->
+        <record id="restrict_on_job" model="ir.rule">
+            <field name="name">Restriction on Deletion of Job Position</field>
+            <field name="model_id" ref="hr.model_hr_job"/>
+            <field name="domain_force">[(0, '=', 1)]</field>
+            <field name="perm_read">0</field>
+            <field name="perm_write">0</field>
+            <field name="perm_create">0</field>
+            <field name="perm_unlink">1</field>
+        </record>
+
+        <!-- Employee Tag -->
+        <record id="restrict_on_tag" model="ir.rule">
+            <field name="name">Restriction on Deletion of Employee Tag</field>
+            <field name="model_id" ref="hr.model_hr_employee_category"/>
+            <field name="domain_force">[(0, '=', 1)]</field>
+            <field name="perm_read">0</field>
+            <field name="perm_write">0</field>
+            <field name="perm_create">0</field>
+            <field name="perm_unlink">1</field>
+        </record>
+
+        <!-- Employee Skill -->
+        <record id="restrict_on_skill" model="ir.rule">
+            <field name="name">Restriction on Deletion of Employee Skill</field>
+            <field name="model_id" ref="hr_skills.model_hr_skill"/>
+            <field name="domain_force">[(0, '=', 1)]</field>
+            <field name="perm_read">0</field>
+            <field name="perm_write">0</field>
+            <field name="perm_create">0</field>
+            <field name="perm_unlink">1</field>
+        </record>
+
+        <!-- Resume Line Type -->
+        <record id="restrict_on_resume_line" model="ir.rule">
+            <field name="name">Restriction on Deletion of Resume Line</field>
+            <field name="model_id" ref="hr_skills.model_hr_resume_line_type"/>
+            <field name="domain_force">[(0, '=', 1)]</field>
+            <field name="perm_read">0</field>
+            <field name="perm_write">0</field>
+            <field name="perm_create">0</field>
+            <field name="perm_unlink">1</field>
+        </record>
+
+    </data>
+</odoo>

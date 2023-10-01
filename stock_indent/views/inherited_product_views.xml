@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+
+    <record model="ir.ui.view" id="inherit_product_product_list">
+        <field name="name">product.product.inherited.tree</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='lst_price']" position="attributes">
+                <attribute name="groups">stock.group_stock_user</attribute>
+            </xpath>
+            <xpath expr="//field[@name='standard_price']" position="attributes">
+                <attribute name="groups">stock.group_stock_user</attribute>
+            </xpath>
+            <xpath expr="//field[@name='qty_available']" position="attributes">
+                <attribute name="groups">stock.group_stock_user</attribute>
+            </xpath>
+<!--            <xpath expr="//field[@name='virtual_available']" position="attributes">-->
+<!--                <attribute name="groups">stock.group_stock_user</attribute>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+
+</odoo>

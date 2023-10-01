@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="view_form_indent_type" model="ir.ui.view">
+            <field name="name">indent.type.form</field>
+            <field name="model">indent.type</field>
+            <field name="arch" type="xml">
+                <form string="Indent Types">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="indent_issuer" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_tree_indent_type" model="ir.ui.view">
+            <field name="name">indent.type.tree</field>
+            <field name="model">indent.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_indent_type">
+            <field name="name">Indent Types</field>
+            <field name="res_model">indent.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_indent_type" name="Indent Types"
+                  parent="stock.menu_warehouse_config"
+                  action="action_indent_type" sequence="5"
+                  groups="stock.group_stock_manager"/>
+
+    </data>
+</odoo>

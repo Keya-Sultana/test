@@ -1,0 +1,37 @@
+{
+    'name': 'GBS Purchase Requisition',
+    'author': 'Odoo Bangladesh',
+    'website': 'www.odoo.com.bd',
+    'category': 'Purchase Requisition',
+    'version': "1.0.0",
+    'license': 'LGPL-3',
+    'depends': [
+        'purchase',
+        'purchase_requisition',
+        'purchase_operating_unit',
+        'stock_indent',
+        'indent_operating_unit',
+        # 'ir_sequence_operating_unit',
+        # 'commercial',
+        # 'gbs_application_group',
+        # 'web.report_layout',
+        # 'base_suspend_security',
+    ],
+    'data': [
+        'data/pr_sequence.xml',
+        'security/security.xml',
+        # 'security/ir_rule.xml',
+        'security/ir.model.access.csv',
+        'wizard/pr_wizard_view.xml',
+        'wizard/pr_from_where_wizard_view.xml',
+        'views/gbs_purchase_requisition_view.xml',
+        'views/pr_commercial_menu_views.xml',
+        'views/stock_indent_view.xml',
+        'report/gbs_purchase_requisition_report.xml',
+    ],
+
+    'description': 
+    "This module are compatible for PR",
+    'installable': True,
+    'application': True,
+}

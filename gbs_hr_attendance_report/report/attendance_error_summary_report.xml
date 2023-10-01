@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_att_error_summary">
+            <t t-call="web.html_container">
+                <t t-call="web.internal_layout">
+
+                    <div class="page" style="page-break-inside: auto">
+                        <div>
+                            <div class="">
+                                <h3 class="text-center">Attendance Error Summary</h3>
+                            </div>
+                            <hr/>
+                            <br/>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div>
+                                        <t t-if="data['operating_unit_name']">
+                                            <strong>Operating Unit:</strong>
+                                            <span t-esc="data['operating_unit_name']"/>
+                                        </t>
+                                    </div>
+                                    <div>
+                                        <t t-if="data['department_name']">
+                                            <strong>Department:</strong>
+                                            <span t-esc="data['department_name']"/>
+                                        </t>
+                                    </div>
+                                    <div>
+                                        <t t-if="data['emp_name']">
+                                            <strong>Employee Name:</strong>
+                                            <span t-esc="data['emp_name']"/>
+                                        </t>
+                                    </div>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <div>
+                                        <strong>From:</strong>
+                                        <span t-esc="data['from_date']"/>
+                                    </div>
+                                    <div>
+                                        <strong>To:</strong>
+                                        <span t-esc="data['to_date']"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+
+                        <div class="row">
+                            <table class="table table-report table-bordered table-striped">
+                                <thead>
+                                    <thead>
+                                        <tr class="odo-bg-gray">
+                                            <th>SN</th>
+                                            <th>Employee</th>
+                                            <th>Acc No</th>
+                                            <th>Emp. Type</th>
+                                            <th>Designation</th>
+                                            <th style="min-width:90px">Check_in</th>
+                                            <th style="min-width:90px">Check_out</th>
+                                        </tr>
+                                    </thead>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="data_list" t-as="k">
+                                        <t t-if="k['val']">
+                                            <td class="odo-bg-info"
+                                                    t-att-colspan="data_list_len">
+                                                <strong t-esc="k['name']"></strong>
+                                            </td>
+
+                                            <t t-foreach="k['val']" t-as="a">
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <span t-esc="a_index+1"/>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-nowrap" t-esc="a['name']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-nowrap" t-esc="a['acc_no']"/>
+                                                    </td>
+                                                     <td>
+                                                        <span class="text-nowrap" t-esc="a['is_executive']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-nowrap" t-esc="a['designation']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-nowrap" t-esc="a['check_in']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-nowrap" t-esc="a['check_out']"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+        <record id="action_report_att_error_summary" model="ir.actions.report">
+			<field name="name">Error Summary</field>
+			<field name="model">hr.attendance</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">gbs_hr_attendance_report.report_att_error_summary</field>
+			<field name="report_file">gbs_hr_attendance_report.report_att_error_summary</field>
+			<field name="binding_model_id" ref="hr_attendance.model_hr_attendance"/>
+			<field name="binding_type">report</field>
+		</record>
+
+    </data>
+</odoo>
+

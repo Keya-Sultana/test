@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_bank_acc" model="ir.ui.view">
+        <field name="name">res.partner.bank.view</field>
+        <field name="model">res.partner.bank</field>
+        <field name="inherit_id" ref="base.view_partner_bank_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='bank_id']" position="after">
+                <field name="bank_branch"/>
+                <field name="bank_account_title"/>
+                <field name="swift_code"/>
+                <field name="account_open_date"/>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="bank_nominee"/>
+                <field name="bank_nominee_nid"/>
+                <field name="address"/>
+                <field name="mobile"/>
+            </xpath>
+
+            <xpath expr="//field[@name='currency_id']" position="after">
+                <field name="is_payroll_account" string="Is Payroll A/C"/>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_id']" position="replace">
+                <field name="partner_id" attrs="{'invisible':[('is_payroll_account','=',False)]}"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="0">
+        <template id="sslcommerz_form">
+            <div>
+                <input type="hidden" name="data_set" t-att-data-action-url="GatewayPageURL" data-remove-me=""/>
+                <input type="hidden" name="tran_id" t-att-value="tran_id"/>
+                <input type="hidden" name="currency" t-att-value="currency"/>
+                <input type="hidden" name="product_name" t-att-value="product_name"/>
+                <input type="hidden" name="product_category" t-att-value="product_category"/>
+                <input type="hidden" name="product_profile" t-att-value="product_profile"/>
+                <input type="hidden" name="num_of_item" t-att-value="num_of_item"/>
+                <input type="hidden" name="cus_name" t-att-value="cus_name"/>
+                <input type="hidden" name="cus_email" t-att-value="cus_email"/>
+                <input type="hidden" name="cus_phone" t-att-value="cus_phone"/>
+                <input type="hidden" name="cus_add1" t-att-value="cus_add1"/>
+                <input type="hidden" name="cus_city" t-att-value="cus_city"/>
+                <input type="hidden" name="cus_country" t-att-value="cus_country"/>
+                <input type="hidden" name="cus_state" t-att-value="cus_state"/>
+                <input type="hidden" name="cus_postcode" t-att-value="cus_postcode"/>
+                <input type="hidden" name="shipping_method" t-att-value="shipping_method"/>
+                <input type="hidden" name="sessionkey" t-att-value="sessionkey"/>
+                <input type="hidden" name="emi_option" t-att-value="emi_option"/>
+                <input type="hidden" name="total_amount" t-att-value="total_amount"/>
+                <input type="hidden" name="fail_url" t-att-value="fail_url"/>
+                <input type="hidden" name="cancel_url" t-att-value="cancel_url"/>
+                <input type="hidden" name="ipn_url" t-att-value="ipn_url"/>
+                <input type="hidden" name="success_url" t-att-value="success_url"/>
+                <input type="hidden" name="return_url" t-att-value="return_url"/>
+                <input type="hidden" name="notify_url" t-att-value="notify_url"/>
+            </div>
+        </template>
+    </data>
+</odoo>

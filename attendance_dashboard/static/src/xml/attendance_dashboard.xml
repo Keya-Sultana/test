@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <!-- This template is for a table at the top of purchase views that shows some KPIs. -->
+    <t t-name="attendance_dashboard.AttendanceDashboard">
+        <div class="o_attendance_dashboard container">
+            <div class="row">
+                <div class="col-sm">
+                    <table class="table table-sm attendance-dashboard">
+                        <!-- thead needed to avoid list view rendering error for some reason -->
+                        <thead>
+                            <tr>
+                                <!-- can't use th tag due to list rendering error when no values in list... -->
+                                <td class="o_text">
+                                    <div>Last attendance data pull: <t t-esc="values['last_data_pull']"/></div>
+                                </td>
+                                <td>
+                                    <button name="sync_manually" class="btn btn-primary o_dashboard_action" style="text-transform: none">Sync Manually</button>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table></div>
+            </div></div>
+    </t>
+</templates>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="stock_indent.IndentDashboard">
+        <div class="o_indent_dashboard container-fluid py-4 border-bottom bg-white">
+            <div class="row justify-content-start gap-3 gap-lg-0">
+                <div class="col-12 col-lg-5 col-xl-5 col-xxl-4 flex-grow-1 flex-lg-grow-0 flex-shrink-0 pr-0" style="border-right: 1px solid #bcbcbc;">
+                    <div class="row gap-4">
+                        <div class="col-3 col-sm-2 d-flex align-items-center py-2 justify-content-end text-end justify-content-lg-start text-lg-start">
+                            All Indents
+                        </div>
+                        <div class="row col-9 col-sm-10 gap-1">
+                            <div class="col-3 p-0">
+                                <a href="#" class="btn btn-primary w-100 h-100 border-0 rounded-0 text-capitalize fw-normal">
+                                    <div class="fs-2" t-out="indentData['total_indents']"/>Total Indents
+                                </a>
+                            </div>
+                            <div class="col-3 p-0" t-on-click="setSearchContext" title="All Waiting indents" filter_name="waiting_approval">
+                                <a href="#" class="btn btn-primary w-100 h-100 border-0 rounded-0 text-capitalize fw-normal">
+                                    <div class="fs-2" t-out="indentData['all_waiting']"/>Waiting for Approval
+                                </a>
+                            </div>
+                            <div class="col-3 p-0" t-on-click="setSearchContext" title="All in progress indents" filter_name="inprogress">
+                                <a href="#" class="btn btn-primary w-100 h-100 border-0 rounded-0 text-capitalize fw-normal">
+                                    <div class="fs-2" t-out="indentData['all_to_send']"/>In Progress
+                                </a>
+                            </div>
+                            <div class="col-3 p-0" t-on-click="setSearchContext" title="All Issued indents" filter_name="received">
+                                <a href="#" class="btn btn-primary w-100 h-100 border-0 rounded-0 text-capitalize fw-normal">
+                                    <div class="fs-2" t-out="indentData['all_issued']"/>Issued
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gap-4">
+                        <div class="col-3 col-sm-2 d-flex align-items-center py-2 justify-content-end text-end justify-content-lg-start text-lg-start">
+                            My Indents
+                        </div>
+                        <div class="col-9 col-sm-10 row gap-2">
+                            <div class="col-3 p-0">
+                                <a href="#" class="btn btn-light d-flex align-items-center w-100 h-100 p-0 border-0 bg-100 fw-normal">
+                                    <div class="w-100 p-2" t-out="indentData['my_total_indents']"/>
+                                </a>
+                            </div>  
+                            <div class="col-3 p-0" t-on-click="setSearchContext" title="All Waiting indents" filter_name="waiting_approval,own">
+                                <a href="#" class="btn btn-light d-flex align-items-center w-100 h-100 p-0 border-0 bg-100 fw-normal">
+                                    <div class="w-100 p-2" t-out="indentData['my_waiting']"/>
+                                </a>
+                            </div>  
+                            <div class="col-3 p-0" t-on-click="setSearchContext" title="All in progress indents" filter_name="inprogress,own">
+                                <a href="#" class="btn btn-light d-flex align-items-center w-100 h-100 p-0 border-0 bg-100 fw-normal">
+                                    <div class="w-100 p-2" t-out="indentData['my_to_send']"/>
+                                </a>
+                            </div>
+                            <div class="col-3 p-0" t-on-click="setSearchContext" title="My Issued indents" filter_name="received,own">
+                                <a href="#" class="btn btn-light d-flex align-items-center w-100 h-100 p-0 border-0 bg-100 fw-normal">
+                                    <div class="w-100 p-2" t-out="indentData['my_issued']"/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-7 col-xl-7 col-xxl-8 flex-grow-1 flex-lg-grow-0 flex-shrink-0" style="padding-left: 2.5rem;">
+                    <div class="row gap-4">
+                        <div class="col-9 col-sm-12 row gap-1">
+                            <t t-set="i" t-value="0"/>
+                            <t t-foreach="indentData['all_indent_types']" t-as="all_indent_types" t-key="all_indent_types['indent_type']">
+                                <div class="d-flex flex-column col-2 p-0 mx-0" title="All in progress indents">
+                                    <a href="#" class="btn btn-primary w-100 h-100 border-0 rounded-0 text-capitalize fw-normal">
+                                        <div class="fs-2" t-esc="all_indent_types['indent_type_count']"/>
+                                        <span t-esc="all_indent_types['indent_type'][1]" />
+                                    </a>
+                                    <a t-if="indentData['my_indent_types'][i]" href="#" class="btn btn-light d-flex align-items-center w-100 p-0 border-0 bg-100 fw-normal">
+                                        <div class="w-100 p-2" t-if="indentData['my_indent_types'][i]['indent_type'][1] == all_indent_types['indent_type'][1]" t-esc="indentData['my_indent_types'][i]['indent_type_count']" />
+                                        <div t-else="" class="w-100 p-2">0</div>
+                                        <t t-if="indentData['my_indent_types'][i]['indent_type'][1] == all_indent_types['indent_type'][1]" t-set="i" t-value="i+1"/>
+                                    </a>
+                                    <a t-else="" href="#" class="btn btn-light d-flex align-items-center w-100 p-0 border-0 bg-100 fw-normal">
+                                        <div class="w-100 p-2">0</div>
+                                    </a>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

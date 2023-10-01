@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="report_bankletter_document">
+	<t t-call="web.html_container">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <div>
+                    <p><span t-esc="cur_month"/> <span t-esc="cur_day"/>, <span t-esc="cur_year"/></p><br/>
+                    <p>To</p>
+                    <p>The Manager,</p>
+                    <p> <span t-esc="bank_name"/></p>
+                    <p><span t-esc="bank_street1"/></p>
+                    <p><span t-esc="bank_street2"/></p>
+                    <p><span t-esc="bank_city"/> <span t-esc="bank_zip"/></p>
+
+                    <br/><br/>
+
+                    <p><b><u>Subject: Disbursement of <span t-esc="payslip_report_name"/> into the Account of employee of <span t-esc="company_name"/> from A/C:<span t-esc="mother_bank_ac"/>.</u></b></p>
+                    <br/><br/>
+                    <p>Dear Sir,</p>
+                    <p>We would like to inform you that, a list of employees belongs to
+                        My Company showing amount of taka as salary/wages to the right side of
+                        their names. Total amount of money is Tk. <b><span t-esc="total_net"/>/-</b> (<span t-esc="amount_to_text_bdt"/> Only).</p>
+
+                    <p>We therefore request you to take necessary steps to credit the amount of
+                        wages in favor of their personal accounts. </p>
+
+                    <br/><br/><br/><br/>
+                    <div>
+                        <p>Yours Sincerely</p>
+                            <p><span t-esc="company_name"/></p>
+                            <p class="mt32">Chairperson / Managing Director</p>
+<!--                        <p>Thanking You</p>-->
+<!--                        <br/><br/><br/>-->
+<!--                        <p>Saidur Rahman</p>-->
+<!--                        <p>Chief Executive Officer</p>-->
+<!--                        <p><b>YUKO LEATHER GOODS LTD.</b></p>-->
+                    </div>
+
+
+                    <p style = "page-break-after: always;"> </p>
+
+                    <p><u>CD A/C Name: <span t-esc="bank_ac_name"/></u></p>
+                    <p><u>CD A/C NUMBER: <span t-esc="mother_bank_ac"/></u></p>
+                    <p><u><span t-esc="payslip_report_name"/></u></p>
+
+                    <p class="text-right"><b>Date:</b> <span t-esc="time.strftime('%Y-%m-%d')" /></p>
+
+                    <table class="table table-report-sm table-bordered table-striped">
+                        <thead>
+                            <tr style="background-color:#B4FDF0;
+                                border-bottom: 1px solid #030303;">
+                                <th>SN</th>
+                                <th>Account Holder</th>
+                                <th>Designation</th>
+                                <th>Department</th>
+                                <th>A/C No.</th>
+                                <th>Amount (Tk.)</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="k">
+                                <t t-if="k['val']">
+                                    <t t-foreach="k['val']" t-as="p">
+                                        <tr>
+                                            <td><span t-esc="p['sn']"/></td>
+                                            <td><span t-esc="p['emp_name']"/></td>
+                                            <td><span t-esc="p['emp_desig']"/></td>
+                                            <td><span t-esc="p['emp_dep']"/></td>
+                                            <td><span t-esc="p['acc_no']"/></td>
+                                            <td class="text-right">
+                                                <span t-esc="p['NET']"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </t>
+                            <td style="background-color:#B4FDF0; text-align:center; border-bottom: 1px solid #030303; color:#000000;" t-att-colspan="docs_len">
+                                <h5 style="float:right;">
+                                    <b> Total: <span t-esc="total_net"/></b>
+                                </h5>
+                            </td>
+                        </tbody>
+                    </table>
+
+    <!--			<p><b>IN WORDS: <span t-esc="amount_to_text_bdt"/> Only</b></p>-->
+
+
+                </div>
+            </div>
+        </t>
+	</t>
+</template>
+
+<!--    now no need-->
+<!--<template id="report_bankletter">-->
+<!--    <t t-call="web.html_container">-->
+<!--        <t t-foreach="docs" t-as="doc">-->
+<!--            <t t-call="hr_payroll_bank_letter_report.report_bankletter_document" t-lang="doc.partner_id.lang"/>-->
+<!--        </t>-->
+<!--    </t>-->
+<!--</template>-->
+
+	<record id="action_report_bankletter" model="ir.actions.report">
+        <field name="name">Bank Letter</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr_payroll_bank_letter_report.report_bankletter_document</field>
+        <field name="report_file">hr_payroll_bank_letter_report.report_bankletter_document</field>
+        <field name="binding_model_id" ref="hr_payroll.model_hr_payslip_run"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

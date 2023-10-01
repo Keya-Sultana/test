@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <!-- Tree View -->
+        <record id="hr_attendance_error_tree" model="ir.ui.view">
+            <field name="name">hr.attendance.error.tree</field>
+            <field name="model">hr.attendance</field>
+            <field name="arch" type="xml">
+                <tree string="Error Attendances" editable="bottom">
+                    <field name="employee_id" readonly="True"></field>
+                    <field name="department_id" readonly="True"></field>
+                    <field name="duty_date" readonly="True"></field>
+                    <field name="check_in" readonly="True"></field>
+                    <field name="check_out" readonly="True"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_attendance_view_form_hr" model="ir.ui.view">
+            <field name="name">hr.attendance.form.inherit.hr</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance_error_tree" />
+            <field name="groups_id" eval="[(6, 0, [ref('hr.group_hr_user') ])]" />
+            <field name="arch" type="xml">
+                <field name="check_in" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                <field name="check_out" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+            </field>
+        </record>
+
+
+</odoo>

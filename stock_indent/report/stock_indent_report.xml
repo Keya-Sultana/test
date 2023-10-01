@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record id="action_report_indent_indent" model="ir.actions.report">
+			<field name="name">Stock Indent</field>
+			<field name="model">indent.indent</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">stock_indent.report_stock_indent_view</field>
+			<field name="report_file">stock_indent.report_stock_indent_view</field>
+<!--			<field name="paperformat_id" ref="gbs_hr_attendance_report.paperformat_backend_landscape"/>-->
+			<field name="binding_model_id" ref="stock_indent.model_indent_indent"/>
+			<field name="binding_type">report</field>
+		</record>
+
+        <template id="report_stock_indent_view">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="d">
+                    <t t-call="web.external_layout">
+                        <div class="page" style="page-break-inside: auto">
+                            <style>
+                                .table-caption {
+                                border: 1px solid #ddd;
+                                border-bottom: none;
+                                font-size: 14px;
+                                font-weight: bold;
+                                margin: 0;
+                                padding: 5px 5px;
+                                }
+                            </style>
+                            <div>
+                                <h4 class="text-center">Indent Form</h4>
+                                <hr class="hr-sm mb-0"/>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <h6><b>Indent No: </b><span t-field="d.name"/></h6>
+                                        <h6><b>Department: </b><span t-field="d.stock_location_id"/></h6>
+                                    </div>
+                                    <div class="col-4">
+                                        <h6><b>Date: </b><span t-field="d.indent_date"/></h6>
+                                        <h6><b>Type: </b><span t-field="d.indent_type"/></h6>
+                                    </div>
+                                </div><br/>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h6><b>The material is required for: </b><span t-field="d.material_required_for"/></h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="row">
+                                    <table class="table table-report table-bordered table-striped">
+                                        <thead>
+                                            <tr class="odo-bg-gray">
+                                                <th>SL</th>
+                                                <th>Item Name</th>
+                                                <th>Unit</th>
+                                                <th>Quantity</th>
+                                                <th>Receive Qty</th>
+                                                <th>Remarks</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="d.product_lines" t-as="p">
+                                                <tr style="page-break-inside: avoid">
+                                                    <td><span t-esc="p_index+1"/></td>
+                                                    <td><span t-esc="p.product_id.name"/></td>
+                                                    <td class="text-center"><span t-esc="p.product_uom.name"/></td>
+                                                    <td class="text-center"><span t-esc="p.product_uom_qty"/></td>
+                                                    <td class="text-center"><span t-esc="p.received_qty"/></td>
+                                                    <td><span t-esc="p.remarks"/></td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div><br/><br/>
+<!--                                <div class="row">-->
+<!--                                    <div class="col-4" style="display:inline; text-decoration:overline;">-->
+<!--                                        <h6 class="text-center"><b> Prepared by </b></h6>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-4" style="display:inline; text-decoration:overline;">-->
+<!--                                        <h6 class="text-center"><b> Approved by </b></h6>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-4" style="display:inline; text-decoration:overline;">-->
+<!--                                        <h6 class="text-center"><b> Issue by </b></h6>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-4" style="display:inline; text-decoration:overline;">-->
+<!--                                        <h6 class="text-center"><b> Received by </b></h6>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

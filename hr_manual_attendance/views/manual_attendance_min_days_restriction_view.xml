@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<data>
+		<record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.hr.attendance</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="hr_attendance.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <div name="pincode_setting_container" position="after">
+                    <h2>Minimum Days Restriction</h2>
+                    <div class="row mt16 o_settings_container" name="min_days_restriction_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="min_days_restriction"/>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <span><field name="min_days_restriction" class="oe_inline"/> days</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </field>
+        </record>
+		
+		<!-- Tree View -->
+<!--		<record id="hr_manual_attendance_min_day_tree" model="ir.ui.view">-->
+<!--			<field name="name">hr_manual_attendance_min_day_tree_view</field>-->
+<!--			<field name="model">hr.manual.attendance.min.days</field>-->
+<!--			<field name="arch" type="xml">-->
+<!--				<tree string="Minimum Days Restriction">-->
+<!--					<field name="min_days_restriction" />-->
+<!--				</tree>-->
+<!--			</field>-->
+<!--		</record>-->
+		
+		<!-- Form View -->
+<!--		<record id="hr_manual_attendance_min_day_form" model="ir.ui.view">-->
+<!--			<field name="name">hr_manual_attendance_min_day_form_view</field>-->
+<!--			<field name="model">hr.manual.attendance.min.days</field>-->
+<!--			<field name="type">form</field>-->
+<!--			<field name="arch" type="xml">-->
+<!--				<form string="Minimum Days Restriction">-->
+<!--					<sheet>-->
+<!--						<group>-->
+<!--							<field name="min_days_restriction" />-->
+<!--						</group>-->
+<!--			        </sheet>-->
+<!--				</form>-->
+<!--			</field>-->
+<!--		</record>-->
+		
+<!--		<record id="hr_manual_attendance_min_day_ac" model="ir.actions.act_window">-->
+<!--			<field name="name">Minimum Days Restriction</field>-->
+<!--			<field name="res_model">hr.manual.attendance.min.days</field>-->
+<!--			<field name="view_mode">tree,form</field>-->
+<!--		</record>-->
+		
+		<!-- Menu Item -->
+<!--		<menuitem id="menu_hr_manual_attendance_min_day" name="Minimum Days Restriction" parent="hr_attendance.menu_hr_attendance_settings"  -->
+<!--					groups="hr_attendance.group_hr_attendance,base.group_system" sequence="7" action="hr_manual_attendance_min_day_ac" />-->
+		
+	</data>
+</odoo>

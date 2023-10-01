@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<!-- Definition of the report -->
+		<record id="acrion_work_schedule_report" model="ir.actions.report">
+			<field name="name">Employee work schedule report</field>
+			<field name="model">resource.calendar</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">hr_rostering.report_work_schedule_qweb</field>
+			<field name="report_file">hr_rostering.report_work_schedule_qweb</field>
+			<field name="binding_model_id" ref="hr_rostering.model_resource_calendar"/>
+			<field name="binding_type">report</field>
+		</record>
+<!--		<report id="work_schedule_report"-->
+<!--				model="resource.calendar"-->
+<!--				string="Employee work schedule report"-->
+<!--				name="hr_rostering.report_work_schedule_qweb"-->
+<!--				file="hr_rostering.report_work_schedule_qweb"-->
+<!--				report_type="qweb-pdf"-->
+<!--        />-->
+
+		<!-- Main template -->
+		<template id="report_work_schedule_qweb">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="o">
+				<t t-call="web.external_layout">
+					<div class="page">
+                        <div>
+                            <style type="text/css">
+                                .report-title { text-align:center; }
+                                .odo-bg-gray, .odo-bg-gray > td { background-color: #B4FDF0; }
+                            </style>
+                            <div class="clearfix">
+                                <h3 class="report-title" style="margin-top:30px; margin-bottom:30px;">Employee work schedule report</h3>
+                            </div>
+
+							<div class="row mb32">
+	    						<div class="col-4">
+	        						<p>
+	            						<p>
+	                						Name : <span t-field="o.name"/>
+										</p>
+	            					</p>
+								</div>
+							</div>
+							<br/>
+
+								<p><b>Working Time </b></p>
+								<table class="table table-bordered table-striped">
+									<thead>
+										<tr class="odo-bg-gray">
+											<th>Name</th>
+											<th>Day of Week</th>
+											<th>Work From</th>
+											<th>Work To</th>
+											<th>Grace Time</th>
+										</tr>
+									</thead>
+									<tbody>
+                                    <t t-foreach="o.attendance_ids" t-as="l">
+                                        <tr style="page-break-inside: avoid">
+                                            <td><span t-field="l.name"/></td>
+											<td><span t-field="l.dayofweek"/></td>
+											<td><t t-esc="'%02d:%02d' % (int(l.hour_from), l.hour_from % 1 * 60)" /></td>
+											<td><t t-esc="'%02d:%02d' % (int(l.hour_to), l.hour_to % 1 * 60)" /></td>
+											<td><t t-esc="'%02d:%02d' % (int(l.grace_time), l.grace_time % 1 * 60)" /></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+								</table>
+
+
+                        </div>
+
+					</div>
+				</t>
+				</t>
+			</t>
+		</template>
+
+
+	</data>
+</odoo>

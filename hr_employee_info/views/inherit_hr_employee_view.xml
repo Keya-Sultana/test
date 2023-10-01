@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_hr_employee_family_view" model="ir.ui.view">
+            <field name="name">hr.employee. family.view.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr_family.hr_employee_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='fam_spouse']" position="replace">
+                    <group string="Spouse" name="fam_spouse" attrs="{'invisible':[('marital','=','single')]}">
+                        <field name="fam_spouse"/>
+                        <field name="fam_spouse_employer"/>
+                        <field name="fam_spouse_tel"/>
+                    </group>
+<!--                    <field name="spouse_birthdate"/>-->
+                </xpath>
+                <xpath expr="//group[@name='fam_children']" position="replace">
+                    <group string="Children" name="fam_children" attrs="{'invisible':[('marital','=','single')]}">
+                        <field name="fam_children_ids" nolabel="1"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+ <!-- Inherited Employee Form view-->
+    <record id="inherit_hr_employee_form" model="ir.ui.view">
+        <field name="name">inherit. hr.employee.view.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='employee_type']" position="after">
+                <field name="employee_card_no"/>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']/group/group/field[@name='address_home_id']" position="after">
+                <field name="permanent_address"/>
+            </xpath>
+            <xpath expr="//div[@name='div_km_home_work']" position="after">
+                <field name="religion"/>
+                <field name="blood_group"/>
+                <field name="hobbie_interest" widget="many2many_tags"/>
+            </xpath>
+            <xpath expr="//field[@name='passport_id']" position="replace">
+                <field name="nid_no"/>
+                <field name="tin"/>
+            </xpath>
+            <xpath expr="//field[@name='birthday']" position="after">
+                <field name="age"/>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']/group/group[4]" position="replace">
+                <group string="Dependant" attrs="{'invisible':[('marital','=','single')]}">
+                    <field name="children"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='emergency_phone']" position="after">
+                <field name="relation"/>
+            </xpath>
+            <xpath expr="//field[@name='marital']" position="after">
+                <field name="marriage_date" attrs="{'invisible': [('marital', 'not in', ['married', 'cohabitant'])]}"/>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']/group/group[6]" position="replace">
+                <group string="Work Permit" name="work_permit">
+                    <field name="work_permit" widget="boolean_toggle"/>
+                    <field name="visa_no"  attrs="{'invisible': [('work_permit', '=', False)]}"/>
+                    <field name="permit_no"  attrs="{'invisible': [('work_permit', '=', False)]}"/>
+                    <field name="wp_place_issue"  attrs="{'invisible': [('work_permit', '=', False)]}"/>
+                    <field name="visa_expire" attrs="{'invisible': [('work_permit', '=', False)]}"/>
+                    <field name="work_permit_expiration_date" attrs="{'invisible': [('work_permit', '=', False)]}"/>
+                    <field name="has_work_permit" attrs="{'invisible': [('work_permit', '=', False)]}"/>
+                </group>
+                <group string="Passport" name="passport_no">
+                    <field name="passport" widget="boolean_toggle"/>
+                    <field name="passport_id"  attrs="{'invisible': [('passport', '=', False)]}"/>
+                    <field name="date_issue"  attrs="{'invisible': [('passport', '=', False)]}"/>
+                    <field name="passport_issue_place" attrs="{'invisible': [('passport', '=', False)]}"/>
+                    <field name="date_expiry" attrs="{'invisible': [('passport', '=', False)]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

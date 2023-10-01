@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payment_acquirer_sslcommerz" model="payment.acquirer">
+        <field name="name">SSLCommerz</field>
+        <field name="display_as">Credit Card (powered by SSLCommerz)</field>
+        <field name="image_128" type="base64" file="payment_sslcommerz/static/src/img/sslcommerz_icon.png"/>
+        <field name="module_id" ref="base.module_payment_sslcommerz"/>
+        <field name="description" type="html">
+            <p>
+                SSLCommerz is the easiest way to accept payments via Cards, Mobile Banking, Internet banking and E-Wallets.
+            </p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><i class="fa fa-check"/>Online Payment</li>
+                <li class="list-inline-item"><i class="fa fa-check"/>Payment Status Tracking</li>
+            </ul>
+        </field>
+        <!-- https://www.adyen.com/payment-methods -->
+        <field name="payment_icon_ids" eval='[(6, 0, [ref("payment.payment_icon_cc_mastercard"),
+                                                        ref("payment.payment_icon_cc_visa"),
+                                                        ref("payment_sslcommerz.payment_icon_amex_city_bank"),
+                                                        ref("payment_sslcommerz.payment_icon_nexus"),
+                                                        ref("payment_sslcommerz.payment_icon_qcash"),
+                                                        ref("payment_sslcommerz.payment_icon_fastcash"),
+                                                        ref("payment_sslcommerz.payment_icon_bkash"),
+                                                        ref("payment_sslcommerz.payment_icon_nagad"),
+                                                        ref("payment_sslcommerz.payment_icon_dbblmobilebanking"),
+                                                        ref("payment.payment_icon_cc_american_express"),
+                                                        ref("payment_sslcommerz.payment_icon_city_touch")
+                                                        ])]'/>
+    </record>
+
+    <record id="payment_sslcommerz.payment_acquirer_sslcommerz" model="payment.acquirer">
+        <field name="provider">sslcommerz</field>
+<!--        <field name="inline_form_view_id" ref="inline_form"/>-->
+<!--        <field name="support_authorization">False</field>-->
+<!--        <field name="support_fees_computation">False</field>-->
+<!--        <field name="support_refund">partial</field>-->
+<!--        <field name="support_tokenization">True</field>-->
+<!--        <field name="allow_tokenization">True</field>-->
+<!--            <field name="company_id" ref="base.main_company"/>-->
+<!--            <field name="view_template_id" ref="sslcommerz_form"/>-->
+    </record>
+
+    <!--        <record id="payment_method_sslcommerz" model="account.payment.method">-->
+<!--            <field name="name">SSLCommerz</field>-->
+<!--            <field name="code">sslcommerz</field>-->
+<!--            <field name="payment_type">inbound</field>-->
+<!--        </record>-->
+
+    <data noupdate="1">
+
+
+<!--        <record id="payment_method_sslcommerz" model="account.payment.method">-->
+<!--            <field name="name">SSLCommerz</field>-->
+<!--            <field name="code">sslcommerz</field>-->
+<!--            <field name="payment_type">inbound</field>-->
+<!--        </record>-->
+
+    </data>
+</odoo>

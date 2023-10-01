@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record id="hr_contract_view_tree" model="ir.ui.view">
+            <field name="name">hr.contract.tree</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='job_id']" position="after">
+                         <field name="contractual" />
+
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="hr_contract_view_form_inherit" model="ir.ui.view">
+            <field name="name">hr.contract.form.seniority</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//group/group/field[@name='structure_type_id']" position="after">
+                        <field name="contractual" />
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="hr_contract_form_in_inherit" model="ir.ui.view">
+            <field name="name">hr.contract.form.in.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='salary_info']" position="inside">
+                    <group string="Allowance" >
+                        <field name="driver_salay"/>
+                        <field name="house_rent_allowance_metro_nonmetro"/>
+                        <field name="supplementary_allowance"/>
+                    </group>
+                    <group string="Deduction" >
+                        <field name="tds"/>
+                        <field name="voluntary_provident_fund"/>
+                        <field name="medical_insurance"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+<!--        <record id="hr_contract_view_form_new" model="ir.ui.view">-->
+<!--            <field name="name">hr.contract.form.with.allowance</field>-->
+<!--            <field name="model">hr.contract</field>-->
+<!--            <field name="inherit_id" ref="l10n_in_hr_payroll.hr_contract_form_in_inherit"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <data>-->
+<!--                    <xpath expr="//field[@name='supplementary_allowance']" position="after">-->
+
+<!--                        <field name="transport_allowance" />-->
+<!--                    </xpath>-->
+<!--                </data>-->
+<!--            </field>-->
+<!--        </record>-->
+    </data>
+</odoo>

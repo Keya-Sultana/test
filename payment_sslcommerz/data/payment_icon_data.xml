@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="payment_icon_amex_city_bank" model="payment.icon">
+        <field name="name">AMEX-City Bank</field>
+        <field name="image" type="base64" file="payment_sslcommerz/static/src/img/amex.png"/>
+    </record>
+    <record id="payment_icon_nexus" model="payment.icon">
+        <field name="name">NEXUS</field>
+        <field name="image" type="base64" file="payment_sslcommerz/static/src/img/dbblnexus.png"/>
+    </record>
+    <record id="payment_icon_qcash" model="payment.icon">
+        <field name="name">QCash</field>
+        <field name="image" type="base64" file="payment_sslcommerz/static/src/img/qcash.png"/>
+    </record>
+    <record id="payment_icon_fastcash" model="payment.icon">
+        <field name="name">Fast Cash</field>
+        <field name="image" type="base64" file="payment_sslcommerz/static/src/img/fastcash.png"/>
+    </record>
+    <record id="payment_icon_bkash" model="payment.icon">
+        <field name="name">bKash</field>
+        <field name="image" type="base64" file="payment_sslcommerz/static/src/img/bkash.png"/>
+    </record>
+    <record id="payment_icon_nagad" model="payment.icon">
+        <field name="name">Nagad</field>
+        <field name="image" type="base64" file="payment_sslcommerz/static/src/img/nagad.png"/>
+    </record>
+    <record id="payment_icon_dbblmobilebanking" model="payment.icon">
+        <field name="name">DBBL Mobile Banking</field>
+        <field name="image" type="base64" file="payment_sslcommerz/static/src/img/dbblmobilebank.png"/>
+    </record>
+    <record id="payment_icon_city_touch" model="payment.icon">
+        <field name="name">Citytouch</field>
+        <field name="image" type="base64" file="payment_sslcommerz/static/src/img/citytouch.png"/>
+    </record>
+</odoo>

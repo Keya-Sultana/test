@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_zk_machine_bdam,Biometric Device User,hr_zk_attendance.model_zk_machine,bquick_zk_attendance.biometric_manager_access,1,1,1,0
+access_hr_employee_bdam,Biometric Device User,hr.model_hr_employee,bquick_zk_attendance.biometric_manager_access,1,0,0,0
+access_zk_report_daily_attendance_bdam,Biometric Device User,hr_zk_attendance.model_zk_report_daily_attendance,bquick_zk_attendance.biometric_manager_access,1,1,1,0
+access_zk_machine_attendance_bdam,Biometric Device User,model_zk_machine_attendance,bquick_zk_attendance.biometric_manager_access,1,1,1,0
+
+

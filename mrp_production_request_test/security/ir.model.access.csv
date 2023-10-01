@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mrp_production_request_user,mrp_production_request,model_mrp_production_request,base.group_user,1,1,1,1
+access_production_request_line,production_request_line,model_production_request_line,base.group_user,1,1,1,1
+
+access_add_production_request_user,add_production_request,model_add_production_request,base.group_user,1,1,1,1
+access_add_production_request_line,add_production_request_line,model_add_production_request_line,base.group_user,1,1,1,1
+

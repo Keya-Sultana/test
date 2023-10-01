@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="rule_shift_alter_employee" model="ir.rule">
+        <field name="name">HR SHIFT ALTER (General Employee)</field>
+        <field name="model_id" ref="model_hr_shift_alter"/>
+        <field name="domain_force">['|',('employee_id.user_id','=',user.id),('employee_id','child_of',[e.id for e in user.employee_ids])]</field>
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_unlink" eval="True" />
+        <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+    </record>
+
+    <record id="hr_shift_alter_for_dept_manager" model="ir.rule">
+        <field name="name">Alter Rostering Permission for Department Manager</field>
+        <field name="model_id" ref="model_hr_shift_alter"/>
+        <field name="domain_force">['|',('employee_id.parent_id','in',[e.id for e in user.employee_ids]),
+            ('employee_id','child_of',[e.id for e in user.employee_ids])]</field>
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+<!--        <field name="groups" eval="[(4,ref('gbs_application_group.group_dept_manager'))]"/>   ai module.group missing-->
+    </record>
+
+     <record id="rule_shift_alter_manager" model="ir.rule">
+        <field name="name">HR SHIFT ALTER(HR Manager)</field>
+        <field name="model_id" ref="model_hr_shift_alter"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="groups" eval="[(4,ref('hr_attendance.group_hr_attendance_manager'))]"/>
+    </record>
+
+    <record id="hr_shift_alter_rule_holidays_officer" model="ir.rule">
+        <field name="name">HR Shift Alter(Multi Operating Unit)</field>
+        <field name="model_id" ref="model_hr_shift_alter"/>
+        <field name="domain_force">[('employee_id.operating_unit_id.id','in',user.operating_unit_ids.ids)]</field>
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="groups" eval="[(4,ref('hr_attendance.group_hr_attendance_user'))]"/>
+    </record>
+
+</odoo>
+

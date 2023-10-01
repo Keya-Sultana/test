@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_clone_shift_employees" model="ir.ui.view">
+            <field name="name">clone.shift.batch.employees.wizard</field>
+            <field name="model">clone.shift.batch.employees</field>
+            <field name="arch" type="xml">
+                <form string="Employees">
+                    <group col="3">
+                        <group><field name="name"/></group>
+                        <group><field name="effective_from"/></group>
+                        <group><field name="effective_end"/></group>
+                    </group>
+                    <footer>
+                        <button icon="fa-cogs" string="Create Employee Shifting Batch" name="create_employee_shift_batch" type="object" class="oe_highlight"  />
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_clone_batch_employees" model="ir.actions.act_window">
+            <field name="name">Generate Employee Shifting Batch</field>
+            <field name="res_model">clone.shift.batch.employees</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_clone_shift_employees"/>
+<!--            <field name="context">{'default_effective_end': context.get('effective_end', False),'default_shift_id': context.get('shift_id', False),'default_effective_from': context.get('effective_from', False)}</field>-->
+            <field name="target">new</field>
+        </record>
+
+    </data>
+
+</odoo>

@@ -1,0 +1,30 @@
+{
+    'name': 'Maternity Leave Management',
+    'version': "1.0.0",
+    'summary': 'Holidays, Allocation and Leave Requests',
+    'category': 'Human Resource',
+    'sequence': 55,
+    'author': 'Odoo Bangladesh',
+    'company': 'Odoo Bangladesh',
+    'website': 'www.odoo.com.bd',
+    'depends': [
+                'hr_holidays',
+                # 'hr_payroll',
+                # "amount_to_word_bd",
+                # "base",
+                # 'gbs_application_group',
+                ],
+    'data': [
+             'security/ir.model.access.csv',
+             'data/hr_maternity_holidays_data.xml',
+             'report/maternity leave_report_view.xml',
+             "views/maternity_template_views.xml",
+             "views/maternity_holiday_view.xml",
+            ],
+    'test': [],
+    'license': 'LGPL-3',
+    'images': ['static/description/banner.png'],
+    'installable': True,
+    'auto_install': False,
+}
+

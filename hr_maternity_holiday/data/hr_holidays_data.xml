@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Sick leave -->
+        <record id="holiday_status_ml" model="hr.holidays.status">
+            <field name="name">Maternity Leaves</field>
+            <field name="limit" eval="True"/>
+            <field name="color_name">violet</field>
+        </record>
+
+
+        <!-- Holidays-related subtypes for messaging / Chatter -->
+        <record id="mt_holidays_confirmed" model="mail.message.subtype">
+            <field name="name">Confirmed</field>
+            <field name="res_model">hr.holidays</field>
+            <field name="description">Request created and waiting confirmation</field>
+        </record>
+
+        <record id="mt_holidays_first_validated" model="mail.message.subtype">
+            <field name="name">Waiting Second Validation</field>
+            <field name="res_model">hr.holidays</field>
+            <field name="default" eval="False"/>
+            <field name="description">Request validated, waiting second validation</field>
+        </record>
+
+        <record id="mt_holidays_approved" model="mail.message.subtype">
+            <field name="name">Approved</field>
+            <field name="res_model">hr.holidays</field>
+            <field name="description">Request approved</field>
+        </record>
+
+        <record id="mt_holidays_refused" model="mail.message.subtype">
+            <field name="name">Refused</field>
+            <field name="res_model">hr.holidays</field>
+            <field name="default" eval="False"/>
+            <field name="description">Request refused</field>
+        </record>
+
+    </data>
+</odoo>

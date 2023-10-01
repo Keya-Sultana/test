@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_company_slack_inherit_form">
+            <field name="name">res.company.form.inherit</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Slack Configuration" name="slack">
+                        <group string="Slack Channels" name="grp-slack-channel">
+                            <field name="slack_channels">
+                                <tree string="Channels">
+                                    <field name="name" string="Channel"/>
+                                    <field name="webhook_url"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="name" string="Channel"/>
+                                        <field name="webhook_url"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+	</data>
+</odoo>

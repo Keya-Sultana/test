@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_maternity_holiday_approbation,hr.maternity.holiday.approbation,model_hr_maternity_holiday_approbation,base.group_user,1,1,1,0
+
+access_hr_maternity_holiday,hr.maternity.holiday,model_hr_maternity_holiday,base.group_user,1,1,1,0
+access_hr_maternity_holiday,hr.maternity.holiday,model_hr_maternity_holiday,hr.group_hr_user,1,1,1,1
+access_hr_maternity_template,hr.maternity.template,model_hr_maternity_template,base.group_user,1,1,1,0
+
+access_hr_maternity_template_line,hr.maternity.template.line,model_hr_maternity_template_line,hr.group_hr_user,1,1,1,0
+
+
+

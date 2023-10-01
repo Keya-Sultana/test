@@ -1,0 +1,2 @@
+-- Exclude dependency from hr_manual_attendance model
+-- Exclude dependency from hr_short_leave model

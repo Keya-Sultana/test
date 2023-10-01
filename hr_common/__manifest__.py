@@ -1,0 +1,16 @@
+{
+    'name': 'HR Common',
+    'version': "1.0.0",
+    'license': 'LGPL-3',
+    'category': 'Human Resources',
+    'sequence': 101,
+    'summary': '',
+    'description': """ """,
+    'author': 'Odoo Bangladesh',
+    'website': 'www.odoo.com.bd',
+    'depends': [],
+    'data': [],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

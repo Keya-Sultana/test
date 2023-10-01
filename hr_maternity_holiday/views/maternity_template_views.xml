@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+	<data>
+
+            <!-- Maternity Template Tree View  -->
+
+        <record model="ir.ui.view" id="maternity_template_view">
+            <field name="name">Maternity Template List View</field>
+            <field name="model">hr.maternity.template</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+               <tree decoration-info="state == 'draft'">
+                   <field name="name"/>
+                   <field name="pay_days"/>
+                   <field name="state"/>
+               </tree>
+            </field>
+        </record>
+
+        <!--  Maternity Template Form View  -->
+
+        <record id="maternity_template_form_view" model="ir.ui.view">
+            <field name="name">Maternity Template Form View</field>
+            <field name="model">hr.maternity.template</field>
+            <field name="arch" type="xml">
+                <form string="Maternity Template">
+                    <header>
+                          <button name="action_confirm" type="object" states="draft"
+                                string="Confirm" class="oe_highlight"/>
+
+                          <button name="action_validate" type="object" states="confirm"
+                                string="Validate" class="oe_highlight"/>
+                          <button name="action_refuse" type="object" states="confirm"
+                                string="Refused"/>
+                          <button name="action_cancel" type="object" states="confirm"
+                                string="Cancel"/>
+
+                          <button string="Reset to Draft" name="action_draft" type="object"
+                                  attrs="{'invisible': [('state', 'not in', ['validate'])]}"/>
+
+                          <field name="state" widget="statusbar" statusbar_visible="draft,confirm,validate"/>
+                      </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="pay_days" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="last_payslip_count" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Salary Rules">
+<!--                                <field name="sal_rule_ids" attrs="{'readonly':[('state','!=','draft')]}">-->
+<!--                                    <tree>-->
+<!--                                        <field name="name"/>-->
+<!--                                        <field name="code"/>-->
+<!--                                        <field name="category_id"/>-->
+<!--                                     </tree>-->
+<!--                                </field>-->
+                                <field name="line_ids" attrs="{'readonly':[('state','!=','draft')]}">
+                                    <tree editable="bottom">
+                                        <field name="rule_id" options='{"no_open": 1,"no_create": 1, "no_create_edit":1}'/>
+                                        <field name="mapping_code" />
+                                        <field name="revised_pay_days"/>
+                                     </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Maternity Template Action View  -->
+
+        <record model="ir.actions.act_window" id="action_maternity_template">
+			<field name="name">Maternity Template</field>
+			<field name="res_model">hr.maternity.template</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+        <menuitem action="action_maternity_template" id="menu_action_maternity_template"
+			parent="hr_holidays.menu_hr_holidays_configuration" sequence="6" />
+
+
+    </data>
+
+</odoo>
+
+
+

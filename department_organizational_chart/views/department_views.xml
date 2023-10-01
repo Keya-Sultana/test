@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="department_view_form_inherit_org_chart" model="ir.ui.view">
+        <field name="name">hr.department.view.form.inherit.org.chart</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="replace">
+                <form string="department">
+                    <sheet>
+                        <div id="o_partner_container">
+                            <div id="o_partner_main">
+                                <group>
+                                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                                    <field name="active" invisible="1"/>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="manager_id"/>
+                                        <field name="parent_id"/>
+                                        <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                                    </group>
+                                </group>
+                            </div>
+                            <div id="o_partner_right">
+                                <h4 class="o_org_chart_title mb16 mt0">Hierarchy</h4>
+                                <field nolabel="1" name="child_org_ids" widget="depart_chart_org" context="{'default_department_id': active_id, 'default_lang': lang, 'default_type': 'other'}"/>
+                            </div>
+                        </div>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

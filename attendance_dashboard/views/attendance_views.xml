@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_attendance_tree_inherit" model="ir.ui.view">
+        <field name="name">hr.attendance.tree</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="gbs_hr_attendance_error_correction.hr_attendance_error_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="replace">
+                <tree string="Attendance Dashboard" editable="bottom"
+                      class="o_attendance_dashboard" js_class="attendance_list_dashboard" sample="1">
+                    <field name="employee_id" readonly="True"/>
+                    <field name="department_id" readonly="True"/>
+                    <field name="duty_date" readonly="True"/>
+                    <field name="check_in" readonly="True"/>
+                    <field name="check_out" readonly="True"/>
+<!--                    <field name="worked_hours" string="Work Hours" widget="float_time" readonly="True"/>-->
+                </tree>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,46 @@
+<odoo>
+
+    <record id="production_request_mo_view" model="ir.ui.view">
+        <field name="name">Production Request Create MO</field>
+        <field name="model">production.request.create.mo</field>
+        <field name="arch" type="xml">
+            <form string="Production Request mo">
+                <group>
+                    <group>
+                        <field name="product_id"/>
+                        <label for="product_qty" string="Quantity"/>
+                        <div class="o_row no-gutters d-flex">
+                            <field name="product_qty" class="oe_inline text-left"/>
+                            <label for="product_uom_id" string="" class="oe_inline"/>
+                            <field name="product_uom_category_id" invisible="1"/>
+                            <field name="product_uom_id" options="{'no_open': True, 'no_create': True}" force_save="1"
+                                   groups="uom.group_uom"/>
+                        </div>
+                        <field name="bom_id"/>
+                    </group>
+                </group>
+                <notebook>
+                        <page string="Components" name="components">
+                            <field name="move_raw_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id" force_save="1"/>
+                                    <field name="location_id" string="From" readonly="1"  optional="show"/>
+                                    <field name="product_qty"/>
+                                    <field name="product_uom_id"/>
+                                </tree>
+
+                            </field>
+                        </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="create_mo_view_action" model="ir.actions.act_window">
+        <field name="name">Create MO</field>
+        <field name="res_model">production.request.create.mo</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

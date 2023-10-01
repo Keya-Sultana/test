@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="zk_res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.zk.attendance</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="hr_attendance.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@data-key='hr_attendance']" position="inside">
+                    <h2>Receive Attendance</h2>
+                    <div class="row mt16 o_settings_container" name="attendance_receive_date_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="attendance_receive_date"/>
+                                <span title="Values set here are company-specific." aria-label="Values set here are company-specific."/>
+                                <div class="mt16">
+                                    <field name="attendance_receive_date"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    <record id="inherit_view_res_company_from" model="ir.ui.view">
+            <field name="name">res.company.form.inherit</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//notebook/page/group/group/field[@name='vat']" position="after">
+                        <field name="attendance_receive_date"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+</odoo>

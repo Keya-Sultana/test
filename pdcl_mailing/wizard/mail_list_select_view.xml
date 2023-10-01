@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_mail_list_make" model="ir.ui.view">
+            <field name="name">Create Mail List</field>
+            <field name="model">partner.list.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Create Mail">
+                    <strong><separator string="Please select Mail" /></strong>
+                    <group>
+                            <label for="mail_type"/>
+                            <div>
+                                <field name="mail_type" class="oe_inline" placeholder="Please Select"/>
+                            </div>
+                            <label for="mail_list_id" attrs="{'invisible':[('mail_type', '!=', 'mail_list')]}"/>
+                            <div>
+                                <field name="mail_list_id" class="oe_inline" placeholder="Please Select"
+                                       options="{'no_quick_create': True, 'no_create_edit': True, 'no_open': True}"
+                                       attrs="{'invisible':[('mail_type', '!=', 'mail_list')],'required':[('mail_type', '==', 'mail_list')]}"/>
+                            </div>
+<!--                            <label for="mail_contract_id" attrs="{'invisible': [('mail_type', '!=', 'mail_contract')]}"/>-->
+<!--                            <div>-->
+<!--                                <field name="mail_contract_id" class="oe_inline" placeholder="Please Select"-->
+<!--                                       options="{'no_quick_create': True, 'no_create_edit': True, 'no_open': True}"-->
+<!--                                       attrs="{'invisible': [('mail_type', '!=', 'mail_contract')],'required': [('mail_type','==', 'mail_contract')]}"/>-->
+<!--                            </div>-->
+
+                        </group>
+                    <footer>
+                        <button name="make_mail" string="Create Mail" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_mail_list_mail" model="ir.actions.act_window">
+            <field name="name">Make Mail</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">partner.list.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <!-- TODO: check if we need this -->
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+            <field name="binding_view_types">list</field>
+        </record>
+
+
+</odoo>

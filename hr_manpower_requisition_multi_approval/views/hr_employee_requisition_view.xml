@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+		<record id="view_hr_employee_requisition_form" model="ir.ui.view">
+			<field name="name">hr.employee.requisition</field>
+			<field name="model">hr.employee.requisition</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="hr_manpower_requisition.employee_requisition_form_view" />
+			<field name="arch" type="xml">
+				<button name="action_valid" position="replace">
+					<button string="Validate" name="action_validate" states="confirm"
+						type="object" groups="hr.group_hr_manager"
+						class="oe_highlight" />
+				</button>
+				<button name="action_confirm" position="after">
+					<field name="current_user_is_approver" invisible="True" />
+					<button string="Approve" name="btn_action_approve" type="object"
+						attrs="{'invisible': ['|', ('current_user_is_approver', '!=', True),('state', '!=', 'confirm')]}"
+						class="oe_highlight" />
+				</button>
+				<field name="job_id" position="after">
+					<field name="pending_approver" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+				</field>
+				<xpath expr="//notebook/page[1]" position="after">
+					<page string="Approbations">
+						<field name="approbations">
+							<tree>
+								<field name="approver_id" />
+								<field name="date" />
+							</tree>
+						</field>
+					</page>
+				</xpath>
+			</field>
+		</record>
+
+
+		
+	</data>
+</odoo>
