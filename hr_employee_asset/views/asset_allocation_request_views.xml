@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    All Asset Menu-->
+    <menuitem id="main_employee_asset_menu" name="Employee Assets" groups="base.group_user" parent="hr.menu_hr_root"
+              sequence="93"/>
+
+    <!-- Sequence Records -->
+    <record id="seq_asset_allocation_request" model="ir.sequence">
+        <field name="name">Asset Allocation Request Sequence</field>
+        <field name="code">employee.asset.allocation.request</field>
+        <field name="active">TRUE</field>
+        <field name="prefix">AA/</field>
+        <field name="padding">5</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="asset_allocation_request_form" model="ir.ui.view">
+        <field name="name">employee.asset.allocation.request.form view</field>
+        <field name="model">employee.asset.allocation.request</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Asset Allocation Requests" delete="false" copy='0'>
+                <header>
+                    <field name="replace_button" invisible="1"/>
+                    <button name="action_confirm" type="object" string="Submit To Manager" states="draft" class="oe_highlight"/>
+                    <button name="action_allocate" type="object" string="Allocate" states="applied" class="oe_highlight"/>
+                    <button name="action_reject" type="object" string="Reject" states="applied"/>
+                    <button name="action_return" type="object" string="Return" states="allocated" class="oe_highlight"/>
+
+                    <button name="%(action_asset_replace_wizard)d" type="action" string="Replace"
+                            attrs="{'invisible': [('replace_button', '=', False)]}"/>
+
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h5><field name="name"/></h5>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id" options="{'no_quick_create':True,'no_create_edit':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="operating_unit_id"/>
+                            <field name="equipment_id"
+                                   domain="[('state','=','available'),'|', ('operating_unit_id', '=', False), ('operating_unit_id', '=', operating_unit_id)]"
+                                   attrs="{'readonly':[('state','!=','draft')]}"
+                                   options="{'no_quick_create':True,'no_create_edit':True}">
+                            </field>
+                            <field name="allocation_type" widget="radio" options="{'horizontal': true}"/>
+                        </group>
+                        <group>
+                            <field name="request_date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <label for="asset_duration" attrs="{'invisible': [('allocation_type','!=','on_demand')]}"/>
+                            <div class="o_row" name="div_km_home_work" attrs="{'invisible': [('allocation_type','!=','on_demand')]}">
+                                <field name="asset_duration" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <span>- Days</span>
+                            </div>
+                            <field name="allocation_date" attrs="{'invisible': [('state', 'not in', ['allocated','returned'])]}"/>
+                            <field name="expected_return_date" attrs="{'invisible': [('state', 'not in', ['allocated','returned'])]}"/>
+                            <field name="return_date" attrs="{'invisible': [('state', 'not in', ['returned'])]}"/>
+                        </group>
+                    </group>
+                    <notebook position="inside">
+                        <page string="Description">
+                            <field name="asset_note" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!--    Tree View-->
+    <record id="asset_allocation_request_tree_view" model="ir.ui.view">
+        <field name="name">employee.asset.allocation.request.tree</field>
+        <field name="model">employee.asset.allocation.request</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Asset Allocation Requests">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="equipment_id"/>
+                <field name="request_date"/>
+                <field name="expected_return_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--    Search view-->
+    <record id="asset_allocation_request_search" model="ir.ui.view">
+        <field name="name">asset.allocation.request.search.view</field>
+        <field name="model">employee.asset.allocation.request</field>
+        <field name="arch" type="xml">
+            <search string="Asset Allocation Search">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="allocation_type"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_asset_request_view" model="ir.actions.act_window">
+            <field name="name">Request Asset Form</field>
+            <field name="res_model">employee.asset.allocation.request</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="asset_allocation_request_form"/>
+        </record>
+
+    <record model="ir.actions.act_window" id="asset_allocation_request_action">
+        <field name="name">Asset Allocation Requests</field>
+        <field name="res_model">employee.asset.allocation.request</field>
+        <field name="domain">[]</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="asset_allocation_request_search"/>
+    </record>
+
+    <menuitem
+            id="menu_asset_allocation_request"
+            name="Asset Allocation Request"
+            parent="main_employee_asset_menu"
+            action="asset_allocation_request_action"
+            sequence="4"/>
+</odoo>

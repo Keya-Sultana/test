@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="view_asset_replacement_wizard" model="ir.ui.view">
+            <field name="name">asset.replacement.wizard</field>
+            <field name="model">asset.replacement.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Wizard Details">
+                    <sheet>
+                        <group>
+                            <field name="equipment_id" domain="[('state','=','available'), ('operating_unit_id', '=', False)]"
+                                       options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Request Replacement" name="action_request_replacement" type="object"
+                                class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_asset_replace_wizard" model="ir.actions.act_window">
+            <field name="name">Replace Asset</field>
+            <field name="res_model">asset.replacement.wizard</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_asset_replacement_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+</odoo>

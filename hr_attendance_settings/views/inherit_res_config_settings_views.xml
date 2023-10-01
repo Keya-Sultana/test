@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_res_config_settings_from_view" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.hr.attendance</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="hr_attendance.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@data-key='hr_attendance']" position="inside">
+                    <h2>Monthly Attendance Rule</h2>
+                    <div class="row mt16 o_settings_container" name="monthly_attendance_rule_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+<!--                                <label for="late_salary_deduction_rule"/>-->
+                                <span title="Values set here are company-specific." aria-label="Values set here are company-specific."/>
+                                <div class="mt16">
+                                    <p><b>One Day salary will deduct for each
+                                    <field name="late_salary_deduction_rule" class="oe_inline" nolable="1" style="width: 30px !important"/>
+                                        day's late.</b></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Attendance Device In/Out Rule</h2>
+                    <div class="row mt16 o_settings_container" name="in_out_rule_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span title="Values set here are company-specific." aria-label="Values set here are company-specific."/>
+                                <div class="mt16">
+                                    <p><strong>From the Attendance device if consecutive multiple Check In or Check Out
+                                        are occur within
+                                        <field name="time_duration" class="oe_inline" nolable="1" style="width: 30px !important"/>
+                                        seconds, then system will consider only first Check In/Check Out.
+                                        </strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Attendance Synchronization</h2>
+                    <div class="row mt16 o_settings_container" name="server_url_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span title="Values set here are company-specific." aria-label="Values set here are company-specific."/>
+                                <div class="mt16">
+                                    <p><strong>From Base URL <field name="server_url" class="oe_inline" nolable="1" style="width: 40% !important"/> Attendance Data Can Pull</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" id="employee_code" title="Skip Unmapped Employee Code.">
+                            <div class="o_setting_left_pane">
+                                <field name="skip_unmapped_emp_code"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Skip Unmapped Employee Code</span>
+                            </div>
+<!--                            <div class="text-muted">-->
+<!--                                Skip Unmapped Employee Code-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    <record id="inherit_view_res_company_from" model="ir.ui.view">
+            <field name="name">res.company.form.inherit</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//notebook/page/group/group/field[@name='vat']" position="after">
+                        <field name="late_salary_deduction_rule"/>
+                        <field name="time_duration"/>
+                        <field name="server_url"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+<!--    Setting menu-->
+    <record id="action_attendance_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="hr_res_config_settings_from_view"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'hr_attendance', 'bin_size': False}</field>
+    </record>
+
+    <menuitem id="menu_attendance_general_settings"
+        name="Settings"
+        parent="hr_attendance.menu_hr_attendance_settings"
+        sequence="0"
+        action="action_attendance_config_settings"
+        groups="base.group_system"/>
+</odoo>

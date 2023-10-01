@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Sequence Records -->
+        <record id="seq_employee_assessment_request" model="ir.sequence">
+            <field name="name">Employee Assessment Request Sequence</field>
+            <field name="code">employee.assessment.request</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">EAR/</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="view_employee_assessment_request_tree" model="ir.ui.view">
+            <field name="name">employee.assessment.request.tree</field>
+            <field name="model">employee.assessment.request</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Assessment Requests">
+                    <field name="employee_name"/>
+                    <field name="department"/>
+                    <field name="responsible_user"/>
+                    <field name="assessment_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_employee_assessment_request_form" model="ir.ui.view">
+            <field name="name">employee.assessment.request.form</field>
+            <field name="model">employee.assessment.request</field>
+            <field name="arch" type="xml">
+                <form string="Employee Assessment Request">
+                    <header>
+                        <button name="generate_checklist_lines" string="Generate Checklist" type="object" states="draft"
+                                class="btn-primary"/>
+                        <button name="start_assessment" string="Start Assessment" type="object" states="confirm"
+                                class="btn-primary"/>
+                        <button name="complete_assessment" string="Mark Done" type="object" states="ongoing"
+                                class="btn-primary"/>
+                        <button name="cancel_assessment" string="Cancel" type="object" states="draft,confirm"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,ongoing,complete"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group name="main">
+                            <group>
+                                <field name="employee_name"
+                                       attrs="{'readonly':[('state','in',('confirm','complete','ongoing'))]}"
+                                       options="{'no_edit':True,'no_open':True}"/>
+                                <field name="assessment_type_id"
+                                       attrs="{'readonly':[('state','in',('confirm','complete','ongoing'))]}"
+                                       options="{'no_edit':True,'no_open':True}"/>
+                                <field name="assessment_id"
+                                       attrs="{'readonly':[('state','in',('confirm','complete','ongoing'))]}"
+                                       options="{'no_edit':True,'no_open':True}"/>
+                                <field name="responsible_user"
+                                       attrs="{'readonly':[('state','in',('confirm','complete','ongoing'))]}"
+                                       options="{'no_edit':True,'no_open':True}"/>
+                            </group>
+                            <group>
+                                <field name="date"
+                                       attrs="{'readonly':[('state','in',('confirm','complete','ongoing'))]}"
+                                       options="{'no_edit':True,'no_open':True}"/>
+                                <field name="initiation_date"
+                                       attrs="{'readonly':[('state','in',('confirm','complete','ongoing'))]}"
+                                       options="{'no_edit':True,'no_open':True}"/>
+                                <field name="deadline_date"
+                                       attrs="{'readonly':[('state','in',('confirm','complete','ongoing'))]}"
+                                       options="{'no_edit':True,'no_open':True}"/>
+                                <field name="department"/>
+                                <field name="job_id"/>
+                                <field name="parent_id"/>
+                                <!--                                <field name="employee_company" options="{'no_edit':True,'no_open':True}"/>-->
+                            </group>
+
+                        </group>
+                        <notebook colspan="4">
+                            <page name="checklist_lines" string="Assessment Checklists Lines"
+                                  attrs="{'invisible': [('state', '=', 'draft')],
+                                  }">
+                                <field name="line_ids"
+                                       attrs="{'readonly':[('state','in',('complete','ongoing'))]}"
+                                       widget="section_and_note_one2many"
+                                       options="{'no_open':True}">
+                                    <tree string="Checklist Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_product_control" string="Add a line"/>
+                                            <create name="add_section_control" string="Add a section"
+                                                    context="{'default_display_type': 'line_section'}"/>
+
+                                        </control>
+                                        <field name="display_type" invisible="1"/>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="checklist_item_id"
+                                               attrs="{
+                                                    'required': [('display_type', '=', False)],
+                                                }"
+                                               options="{'no_open': True}"
+                                               force_save="1"
+                                        />
+                                        <field name="user_id"
+                                               attrs="{
+                                                    'required': [('display_type', '=', False)],
+                                                }"
+                                        />
+                                        <field name="marking"/>
+                                        <field name="assessment_value"/>
+
+                                        <field name="name" widget="section_and_note_text" optional="show"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="note_book"
+                                  string="Notes">
+                                <field name="note_id" colspan="4" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_employee_assessment_request_search" model="ir.ui.view">
+            <field name="name">employee.assessment.request.search</field>
+            <field name="model">employee.assessment.request</field>
+            <field name="arch" type="xml">
+                <search string="Employee Assessment Requests">
+                    <field name="employee_name"/>
+                    <field name="department"/>
+                    <newline/>
+                    <!--                    <group expand="0" string="Group By...">-->
+                    <!--                        <filter string="department" domain="[]"-->
+                    <!--                            context="{'group_by':'department'}" />-->
+                    <!--                    </group>-->
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_employee_assessment_request">
+            <field name="name">Employee Assessment Requests</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.assessment.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_employee_assessment_request_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <field class="oe_view_nocontent_create">
+                    Create Employee Assessment
+                </field>
+            </field>
+        </record>
+        <menuitem action="action_employee_assessment_request" id="menu_employee_assessment_child"
+                  name="Assessment Requests"
+                  parent="menu_employee_assessment" sequence="1" groups="hr.group_hr_manager,hr.group_hr_user"/>
+    </data>
+</odoo>

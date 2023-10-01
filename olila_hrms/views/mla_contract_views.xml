@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <record id="hr_employee_contract_inherit_irn_status" model="ir.ui.view">
+        <field name="name">hr.contract.form.inherit.irn.status</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header" position="inside">
+                <button name="action_confirm" type="object" states="draft" string="Confirm" class="oe_highlight"/>
+                <field name="current_user_is_approver_or_not" invisible="True"/>
+                <button string="Approve" type="object" name="new_approval_po"
+                        attrs="{'invisible': ['|',['current_user_is_approver_or_not','=',False],['state','!=','to approve']]}"/>
+                <button string="Reject" type="object" name="action_reject"
+                        attrs="{'invisible': ['|',['current_user_is_approver_or_not','=',False],['state','!=','to approve']]}"/>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="draft,to approve"
+                       attrs="{'invisible':['|',['state','=','open'],['state','=','close']]}"/>
+
+            </xpath>
+
+            <xpath expr="//field[@name='state' and @widget='statusbar']" position="replace">
+                <field name="state" widget="statusbar" options="{'clickable': '1'}"
+                       statusbar_visible="open,close,cancel"
+                       attrs="{'invisible':['|',['state','=','draft'],['state','=','to approve']]}"
+                />
+            </xpath>
+
+
+            <xpath expr="//field[@name='contractual']" position="before">
+                <field name="pending_approver"
+                       attrs="{'invisible': ['|',['current_user_is_approver_or_not','=',False],['state','!=','to approve']]}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+</odoo>

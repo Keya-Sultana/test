@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_user_assessment_line,assessment.line,model_assessment_line,hr.group_hr_user,1,1,1,1
+access_user_assessment_checklist_line,assessment.checklist.line,model_assessment_checklist_line,hr.group_hr_user,1,1,1,1
+access_user_assessment_checklist_item,assessment.checklist.item,model_assessment_checklist_item,hr.group_hr_user,1,1,1,1
+access_user_employee_assessment_request,employee.assessment.request,model_employee_assessment_request,hr.group_hr_user,1,1,1,1
+access_manager_employee_assessment_request,assessment.checklist,model_assessment_checklist,hr.group_hr_user,1,1,1,1
+access_manager_assessment_line,assessment.line,model_assessment_line,base.group_user,1,1,0,0
+access_manager_assessment_type,assessment.type,model_assessment_type,base.group_user,1,1,1,1
+access_manager_employee_assessment,employee.assessment,model_employee_assessment,base.group_user,1,1,1,1

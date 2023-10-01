@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Sequence Records -->
+    <record id="seq_training_program" model="ir.sequence">
+        <field name="name">Training Program Sequence</field>
+        <field name="code">hr.training.program</field>
+        <field name="active">TRUE</field>
+        <field name="prefix">TP-</field>
+        <field name="padding">5</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="view_training_program_form" model="ir.ui.view">
+        <field name="name">hr.training.program.form view</field>
+        <field name="model">hr.training.program</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Training Program">
+                <header>
+                    <button name="%(action_training_by_employees)d" type="action" states="draft" string="Assign Employees" class="oe_highlight"/>
+                    <button name="action_confirm" type="object" states="draft" string="Confirm" class="oe_highlight"/>
+
+                    <button string="Approve" states="to approve" name="action_done" type="object" class="oe_highlight"/>
+                    <button string="Reject" states="to approve" name="action_reject" type="object"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,to approve,approve"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="type_id" options="{'no_create': True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="training_id" domain="[('type_id', '=', type_id)]" options="{'no_create': True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="venue" attrs="{'readonly':[('state','!=','draft')]}"/>
+
+                        </group>
+                        <group>
+                            <field name="training_name" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="start_date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="end_date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <label for="duration"/>
+                            <div class="o_row" name="div_km_home_work">
+                                <field name="duration" readoly="1"/>
+                                <span>- Days</span>
+                            </div>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="remark" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    </group>
+                    <notebook>
+                        <page string="Employees">
+                            <group>
+                                <field name="emp_training_ids" nolabel="1" readoly="1"
+                                       attrs="{'readonly':[('state','!=','draft')]}">
+                                    <tree string="Training Employees">
+                                        <field name="employee_id"/>
+<!--                                        <field name="state"/>-->
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!--    Tree View-->
+    <record id="training_program_tree_view" model="ir.ui.view">
+        <field name="name">hr.training.program.tree</field>
+        <field name="model">hr.training.program</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Training">
+                <field name="name"/>
+                <field name="type_id"/>
+                <field name="training_id"/>
+                <field name="training_name"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--    Search view-->
+    <record id="training_program_search" model="ir.ui.view">
+        <field name="name">hr.training.program.search.view</field>
+        <field name="model">hr.training.program</field>
+        <field name="arch" type="xml">
+            <search string="Training Program Search">
+                <field name="name"/>
+                <field name="training_id"/>
+                <field name="type_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="training_program_action">
+        <field name="name">Training Plan</field>
+        <field name="res_model">hr.training.program</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="training_program_search"/>
+    </record>
+
+    <menuitem id="main_training_program_menu" name="Employee Training" groups="base.group_user"
+              parent="hr.menu_hr_root"
+              sequence="97"/>
+
+    <menuitem
+            id="menu_training_program_action"
+            parent="main_training_program_menu"
+            action="training_program_action"
+            sequence="1"/>
+</odoo>

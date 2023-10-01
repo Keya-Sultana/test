@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<data>
+		<record id="inherit_payslip_report_wizard_view" model="ir.ui.view">
+            <field name="name">inherit.payslip.report.wizard</field>
+            <field name="model">payslip.report.wizard</field>
+            <field name="inherit_id" ref="gbs_hr_payroll.payslip_report_wizard_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group[1]" position="after">
+                    <group>
+						<button string="Top Sheet" name="process_top_sheet_print" type="object" class="oe_highlight"/>
+					</group>
+                </xpath>
+            </field>
+        </record>
+	</data>
+</odoo>

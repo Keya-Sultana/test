@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_applicant_view_form_olila" model="ir.ui.view">
+        <field name="name">Jobs - Recruitment Form olila</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='toggle_active']" position="after">
+                <button name="acknowledgement_mail" string="Acknowledgement Application" type="object" class="oe_highlight"/>
+                <button name="interview_letter_mail" string="Interview Invitation Letter" type="object" class="oe_highlight"/>
+                <button name="regret_letter_mail" string="Regret Letter" type="object" class="oe_highlight"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_phone']" position="attributes">
+                <attribute name="string">Home Phone</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_mobile']" position="attributes">
+                <attribute name="string">Personal Phone</attribute>
+            </xpath>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="agency" placeholder="Agency"/>
+                <field name="resume_uploaded" widget="many2many_binary" class="oe_inline"/>
+            </xpath>
+            <xpath expr="//div/h2" position="replace">
+                <h2>
+                    <div class="row">
+                        <div>
+                        <label for="partner_name" class="oe_edit_only"/>
+                        <field name="partner_name"/>
+                        </div>
+                        <div class="oe_right">
+                            <field name="images" widget="image"  class="oe_avatar"/>
+                        </div>
+                    </div>
+                </h2>
+<!--                <field name="image_1920" widget='image'/>-->
+            </xpath>
+            <xpath expr="//field[@name='type_id']" position="after">
+                <field name="nidid" placeholder="NID No............."/>
+                <field name="nid_issue_place" placeholder="Place of Issue............."/>
+                <field name="birth_date" placeholder="Date of Birth............"/>
+                <field name="fam_father_name" placeholder="Father’s Name"/>
+                <field name="fam_mother_name" placeholder="Mother’s Name"/>
+                <field name="permanent_address" placeholder="Present Address"/>
+                <field name="present_address" placeholder="Permanent Address"/>
+                <field name="is_applied_before"/>
+            </xpath>
+            <xpath expr="//field[@name='source_id']" position="after">
+                <field name="emergency_contact"/>
+                <field name="relation" placeholder="Relation..........."/>
+                <field name="religion"/>
+                <field name="gender"/>
+                <field name="blood_group"/>
+                <field name="marital"/>
+                <field name="marriage_date" attrs="{'invisible':[('marital','=','single')]}"/>
+                <field name="applicant_spouse" attrs="{'invisible':[('marital','=','single')]}"/>
+                <field name="applicant_spouse_nid" attrs="{'invisible':[('marital','=','single')]}"/>
+                <field name="applicant_spouse_birthday" attrs="{'invisible':[('marital','=','single')]}"/>
+                <field name="applicant_spouse_occupation" attrs="{'invisible':[('marital','=','single')]}"/>
+                <field name="country_id" placeholder="Nationality"/>
+                <field name="willing_to_relocate"/>
+            </xpath>
+            <xpath expr="//group/group[4]" position="after">
+                <group string="Passport" name="passport_no">
+                    <field name="passport" widget="boolean_toggle"/>
+                    <field name="passport_no"  attrs="{'invisible': [('passport', '=', False)]}"/>
+                    <field name="date_issue"  attrs="{'invisible': [('passport', '=', False)]}"/>
+                    <field name="passport_issue_place" attrs="{'invisible': [('passport', '=', False)]}"/>
+                    <field name="date_expiry" attrs="{'invisible': [('passport', '=', False)]}"/>
+                </group>
+                <group string="Work Permit" name="work_permit">
+                    <field name="work_permit" widget="boolean_toggle"/>
+                    <field name="visa_no"  attrs="{'invisible': [('work_permit', '=', False)]}"/>
+                    <field name="permit_no"  attrs="{'invisible': [('work_permit', '=', False)]}"/>
+                    <field name="wp_place_issue"  attrs="{'invisible': [('work_permit', '=', False)]}"/>
+                    <field name="visa_expire" attrs="{'invisible': [('work_permit', '=', False)]}"/>
+                </group>
+                <group string="Prior Convictions" name="prior_conviction">
+                    <field name="prior_conviction" widget="boolean_toggle"/>
+                    <field name="offense_description"  attrs="{'invisible': [('prior_conviction', '=', False)]}"/>
+                    <field name="statute_ordinance"  attrs="{'invisible': [('prior_conviction', '=', False)]}"/>
+                    <field name="date_of_charge"  attrs="{'invisible': [('prior_conviction', '=', False)]}"/>
+                    <field name="date_of_conviction" attrs="{'invisible': [('prior_conviction', '=', False)]}"/>
+                    <field name="conviction_id" attrs="{'invisible': [('prior_conviction', '=', False)]}"/>
+                </group>
+                <group string="Notice Period" name="notice_period">
+                    <field name="notice_period" widget="boolean_toggle"/>
+                    <field name="mention_period"  attrs="{'invisible': [('notice_period', '=', False)]}"/>
+                </group>
+            </xpath>
+            <xpath expr="//group" position="after">
+                <notebook>
+                    <page string="Educational Qualification">
+                        <group string="Educational Qualification" name="education">
+                        <field name="education_ids" nolabel="1">
+                            <tree editable="top">
+                                <field name="institute_university"/>
+                                <field name="location" />
+                                <field name="degree_level"/>
+                                <field name="major_subject"/>
+                                <field name="year_from"/>
+                                <field name="year_to"/>
+                            </tree>
+                        </field>
+                        </group>
+                    </page>
+                    <page string="Professional Qualification">
+                        <group string="Professional Qualification" name="professional">
+                        <field name="professional_ids" nolabel="1">
+                            <tree editable="top">
+                                <field name="name_of_qualification"/>
+                                <field name="institute_university" />
+                                <field name="location"/>
+                                <field name="year_from"/>
+                                <field name="year_to"/>
+                                <field name="country_id"/>
+                            </tree>
+                        </field>
+                        </group>
+                    </page>
+                    <page string="Work Experience">
+                        <group string="Work Experience" name="Work_experience">
+                            <field name="work_experience_ids" nolabel="1">
+                            <tree editable="top">
+                                <field name="employee_name"/>
+                                <field name="employee_address" />
+                                <field name="job_title"/>
+                                <field name="department_name"/>
+                                <field name="Job_responsibilities"/>
+                                <field name="phone"/>
+                                <field name="email"/>
+                                <field name="supervisor_manager"/>
+                                <field name="title"/>
+                                <field name="last_salary"/>
+                                <field name="service_from"/>
+                                <field name="service_to"/>
+                                <field name="service_duration"/>
+                                <field name="reason_for_leaving"/>
+                            </tree>
+                        </field>
+                        </group>
+                    </page>
+                    <page string="Skills">
+                        <group string="Skills" name="skill">
+                            <field name="skill_ids" nolabel="1">
+                            <tree editable="top">
+                                <field name="skill_type_id" />
+                                <field name="skill_id"/>
+                                <field name="skill_level_id"/>
+                                <field name="level_progress" widget="progressbar"/>
+                            </tree>
+                        </field>
+                        </group>
+                    </page>
+                    <page string="Licenses">
+                        <group string="Licenses" name="licenses">
+                            <field name="license_ids" nolabel="1">
+                            <tree editable="top">
+                                <field name="license_type" />
+                                <field name="license_no"/>
+                                <field name="granted_by"/>
+                            </tree>
+                        </field>
+                        </group>
+                    </page>
+                    <page string="Training">
+                        <group string="Training" name="training">
+                            <field name="training_ids" nolabel="1">
+                                <tree editable="top" string="Training">
+                                <field name="to_course_name"/>
+                                <field name="training_institute_name"/>
+                                <field name="training_location"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+<!--                                <field name="training_duration"/>-->
+                                <field name="training_result"/>
+                                <field name="training_country_id"/>
+                            </tree>
+                            </field>
+                        </group>
+                    </page>
+                    <page string="References">
+                        <group string="References" name="references">
+                            <field name="reference_ids" nolabel="1">
+                            <tree editable="top">
+                                <field name="full_name" />
+                                <field name="designation"/>
+                                <field name="organization"/>
+                                <field name="address" />
+                                <field name="reference_email"/>
+                                <field name="phone_no"/>
+                                <field name="relationship"/>
+                            </tree>
+                        </field>
+                        </group>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+</odoo>

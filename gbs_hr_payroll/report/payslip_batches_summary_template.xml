@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="report_payslip_batches_summary">
+            <t t-call="web.html_container">
+                <t t-call="web.internal_layout">
+                    <div class="page" style="page-break-inside:auto">
+                            <div>
+                                <t t-if="report_type == 'cash'">
+                                    <h3 class="text-center">Monthly Cash Salary Sheet</h3>
+                                </t>
+                                <t t-if="report_type != 'cash'">
+                                    <h3 class="text-center">Monthly Salary Sheet</h3>
+                                </t>
+                            </div>
+
+
+                            <table class="table table-bordered table-report-xs table-striped"
+                                   style="margin-bottom: 10px;">
+                                <thead>
+                                    <tr class="odo-bg-gray">
+                                        <th>SN</th>
+                                        <th>Employee</th>
+                                        <th>Designation</th>
+                                        <th style="min-width:120px">D.O.J</th>
+                                        <t t-foreach="rules" t-as="r">
+                                            <th>
+                                                <span t-esc="r['name']"></span>
+                                            </th>
+                                        </t>
+                                        <th style="min-width:130px">Signature</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <t t-foreach="docs" t-as="k">
+                                        <t t-if="k['val']">
+                                            <td class="odo-bg-info" t-att-colspan="docs_len" style="padding-left:15px">
+                                                <strong t-esc="k['name']"></strong>
+                                            </td>
+
+                                            <t t-foreach="k['val']" t-as="p">
+                                                <tr>
+                                                    <td>
+                                                        <span t-esc="p['sn']"></span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-nowrap" t-esc="p['emp_name']"></span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-nowrap" t-esc="p['designation']"></span>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="p['doj']"></span>
+                                                    </td>
+                                                    <t t-foreach="rules" t-as="r">
+
+                                                        <td class="text-right">
+                                                            <span t-esc="p[r['code']]"></span>
+                                                        </td>
+                                                    </t>
+                                                    <td></td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </t>
+
+                                    <tr style="page-break-inside: avoid">
+<!--                                        <t t-if="data['type'] != '1'">-->
+                                            <td></td>
+                                            <td>Total</td>
+                                            <td></td>
+                                            <td></td>
+                                            <t t-foreach="rules" t-as="r">
+                                                <td class="text-right">
+                                                    <strong class="text-nowrap" t-esc="row_total[r['code']]"></strong>
+                                                </td>
+                                            </t>
+<!--                                        </t>-->
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="7">
+                                            <h5 class="text-left pr-5">
+                                                <strong>In Words:
+                                                    <span t-esc="amt_to_word"></span>
+                                                </strong>
+                                            </h5>
+                                        </td>
+                                        <td class="odo-bg-info" t-att-colspan="docs_len" style="padding-left:15px">
+                                            <h5 class="text-right">
+                                                <strong>Total:
+                                                    <span t-esc="total_sum"></span>
+                                                </strong>
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                    </div>
+                </t>
+            </t>
+        </template>
+        <record id="action_payslip_batches_summary_report" model="ir.actions.report">
+			<field name="name">Payslip Batches Summary</field>
+			<field name="model">hr.payslip.run</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">gbs_hr_payroll.report_payslip_batches_summary</field>
+			<field name="report_file">gbs_hr_payroll.report_payslip_batches_summary</field>
+			<field name="paperformat_id" ref="gbs_hr_payroll.paperformat_backend_landscape"/>
+			<field name="binding_model_id" ref="hr_payroll.model_hr_payslip_run"/>
+			<field name="binding_type">report</field>
+		</record>
+    </data>
+</odoo>

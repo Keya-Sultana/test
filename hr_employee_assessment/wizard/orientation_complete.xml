@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_assessment_force_complete_form" model="ir.ui.view">
+            <field name="name">assessment.force.complete.form</field>
+            <field name="model">assessment.force.complete</field>
+            <field name="arch" type="xml">
+                <form string="Complete Assessment">
+                    <p class="oe_gray">
+                        Please make sure that assessments programs are already done.
+                    </p>
+                    <field name="assessment_id" invisible="1"/>
+                    <label for="assessment_lines" string="Pending Lines"/>
+                    <field name="assessment_lines" readonly="1"/>
+                    <footer>
+                        <button name="force_complete" string="Force Complete" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

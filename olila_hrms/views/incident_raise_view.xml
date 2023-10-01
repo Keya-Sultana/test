@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_incident_raise" model="ir.sequence">
+        <field name="name">Incident Sequences</field>
+        <field name="code">incident.raise</field>
+        <field name="active">TRUE</field>
+        <field name="prefix">IR</field>
+        <field name="padding">6</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="incident_raise_view_tree" model="ir.ui.view">
+        <field name="name">incident.raise.view.tree</field>
+        <field name="model">incident.raise</field>
+        <field name="arch" type="xml">
+            <tree string="Incident Raise">
+                <field name="name"/>
+                <field name="incident_person_id"/>
+                <field name="date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="incident_raise_view_form" model="ir.ui.view">
+        <field name="name">incident.raise.view.form</field>
+        <field name="model">incident.raise</field>
+        <field name="arch" type="xml">
+            <form string="Incident Raise">
+                <header>
+                    <button name="action_confirm" type="object"
+                            string="Apply" states="draft"
+                            class="oe_highlight"/>
+                    <button name="action_done" type="object" groups="hr.group_hr_manager"
+                            string="Approve" states="to approve"
+                            class="oe_highlight"/>
+                    <button string="Reject" states="to approve" name="action_reject" type="object"
+                            class="oe_highlight"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approve"/>
+                </header>
+                <sheet>
+                    <!--                        <separator string="Create Incident Raise" colspan="4"/>-->
+                    <!--                        <label for="ref_no"/>-->
+                    <!--                    	<h1>-->
+                    <!--                        	<field name="ref_no"/>-->
+                    <!--                    	</h1>-->
+                    <div class="oe_title">
+                        <h5>
+                            <field name="name"/>
+                        </h5>
+                    </div>
+                    <group>
+                        <!--                        <separator string="Create Incident Raise" colspan="4"/>-->
+                        <group>
+                            <field name="name" invisible="1"/>
+                            <field name="incident_person_id"
+                                   options='{"no_open": True,"no_create": 1, "no_create_edit":1}'
+                                   attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="incident_person_no"/>
+                        </group>
+                        <group>
+                            <field name="date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="department_id"/>
+                            <field name="job_id"/>
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Incident Line">
+                            <field name="line_ids" attrs="{'readonly':[('state','!=','draft')]}">
+                                <tree string="List" editable="bottom">
+                                    <field name="person_id"
+                                           options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
+                                    <field name="person_no"/>
+                                    <field name="department_id"
+                                           options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
+                                    <field name="job_id"
+                                           options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
+                                    <field name="incident_date"/>
+                                    <field name="incident_location"/>
+                                    <!--                                    <field name="incident_time"/>-->
+                                    <field name="incident_detail"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="incident_raise_action" model="ir.actions.act_window">
+        <field name="name">Incident Raise</field>
+        <field name="res_model">incident.raise</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--    Incident Menu-->
+    <menuitem id="main_incident_raise_menu" name="Employee Incidents" groups="base.group_user" parent="hr.menu_hr_root"
+              sequence="93"/>
+
+    <menuitem
+            id="menu_view_incident_raise_form"
+            name="Raise Incident"
+            action="incident_raise_action"
+            parent="main_incident_raise_menu"
+            groups="base.group_no_one"
+            sequence="1"/>
+
+</odoo>

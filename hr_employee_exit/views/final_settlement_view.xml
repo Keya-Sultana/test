@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="final_settlement_form_view" model="ir.ui.view">
+            <field name="name">final.settlement.form.view</field>
+            <field name="model">final.settlement</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Full &amp; Final Settlement" create="false">
+                    <header>
+                        <button name="action_confirm" states="draft" type="object" string="Confirm" class="oe_highlight"/>
+                        <button string="Validate" name="action_approved"
+                                attrs="{'invisible': [('state','not in',['validate'])]}"
+                                type="object" class="oe_highlight"/>
+
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,validate,approved"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <separator string="Employee Details" colspan="2"/>
+                            <group>
+                                <field name="employee_id"
+                                       options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+<!--                                <field name="employee_code"/>-->
+                                <field name="emp_designation"/>
+                                <field name="department_id"/>
+                                <field name="work_location"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="settlement_date" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                                <field name="joining_date"/>
+                                <field name="permanent_date" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                                <field name="leaving_date"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="remark"/>
+                        </group>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="final_settlement_tree_view" model="ir.ui.view">
+            <field name="name">final.settlement.tree</field>
+            <field name="model">final.settlement</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Exit Interview" create="false">
+                    <field name="employee_id"/>
+                    <field name="emp_designation"/>
+                    <field name="joining_date"/>
+                    <field name="leaving_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_final_settlement" model="ir.actions.act_window">
+            <field name="name">Final Settlement</field>
+            <field name="res_model">final.settlement</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="open_view_final_settlement" model="ir.actions.act_window">
+            <field name="name">Final Settlement</field>
+            <field name="res_model">final.settlement</field>
+            <field name="view_mode">form,tree</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="final_settlement_tree_view"/>
+        </record>
+    </data>
+</odoo>

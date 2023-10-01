@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <menuitem
+                name="Leave Management"
+                id="hr_holidays.menu_hr_holidays_root"
+                sequence="95"
+                web_icon="hr_holidays,static/description/icon.png"
+                groups="base.group_user"/>
+
+        <menuitem
+                id="hr_holidays.menu_hr_holidays_my_leaves"
+                name="My Leave"
+                parent="hr_holidays.menu_hr_holidays_root"
+                sequence="1"/>
+
+        <menuitem
+                id="hr_holidays.menu_open_department_leave_approve"
+                name="Leaves"
+                parent="hr_holidays.menu_hr_holidays_approvals"
+                action="hr_holidays.hr_leave_action_action_approve_department"
+                sequence="1"/>
+
+        <menuitem
+                id="hr_holidays.hr_holidays_status_menu_configuration"
+                action="hr_holidays.open_view_holiday_status"
+                name="Leave Types"
+                parent="hr_holidays.menu_hr_holidays_configuration"
+                groups="hr_holidays.group_hr_holidays_user"
+                sequence="1"/>
+
+        <menuitem
+                id="hr_holidays.hr_leave_menu_my"
+                name="My Leave Requests"
+                parent="hr_holidays.menu_hr_holidays_my_leaves"
+                action="hr_holidays.hr_leave_action_my"
+                sequence="2"/>
+
+        <menuitem
+                id="hr_holidays.hr_holidays_status_menu_configuration"
+                action="hr_holidays.open_view_holiday_status"
+                name="Leave Types"
+                parent="hr_holidays.menu_hr_holidays_configuration"
+                groups="hr_holidays.group_hr_holidays_user"
+                sequence="1"/>
+
+        <menuitem
+                id="employee_operations"
+                name="Employee Operations"
+                parent="hr.menu_hr_root"
+                sequence="90"/>
+
+        <menuitem
+                id="hr_employee_orientation.menu_employee_orientation"
+                name="Employee Orientations"
+                parent="employee_operations"
+                sequence="90"/>
+
+        <menuitem id="hr_employee_loan.main_loan_menu" name="Employee Loans" groups="base.group_user"
+                  parent="employee_operations" sequence="91"/>
+
+        <menuitem id="hr_employee_mobile_bills.hr_mobile_bill_menu" name="Employee Mobile Bills"
+                  parent="employee_operations"
+                  groups="hr_payroll.group_hr_payroll_user" sequence="92"/>
+
+        <menuitem id="hr_employee_asset.main_employee_asset_menu" name="Employee Assets" groups="base.group_user"
+                  parent="employee_operations"
+                  sequence="93"/>
+
+        <menuitem id="main_incident_raise_menu" name="Incidents" groups="base.group_user" parent="employee_operations"
+                  sequence="93"/>
+
+        <menuitem id="main_employee_transfer_menu" name="Transfers" groups="hr.group_hr_manager" parent="employee_operations"
+              sequence="94"/>
+
+        <menuitem id="main_employee_expense_menu" name="Expenses" groups="hr.group_hr_manager" parent="employee_operations"
+              sequence="95"/>
+
+        <menuitem id="hr_employee_training.main_training_program_menu" name="Training" groups="hr.group_hr_manager" parent="employee_operations"
+              sequence="96"/>
+
+        <menuitem
+                id="hr_employee_assessment.menu_employee_assessment"
+                name="Employee Assessments"
+                parent="employee_operations"
+                sequence="90"
+        />
+
+        <menuitem id="hr_employee_exit.menu_exit_management" name="Employee Exit" parent="employee_operations"
+                  sequence="98"/>
+
+    </data>
+
+</odoo>

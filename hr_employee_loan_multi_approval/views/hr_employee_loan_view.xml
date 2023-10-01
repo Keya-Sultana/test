@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+		<record id="view_hr_employee_loan_form" model="ir.ui.view">
+			<field name="name">Hr Employee Loan</field>
+			<field name="model">hr.employee.loan</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="hr_employee_loan.hr_employee_loan_form" />
+			<field name="arch" type="xml">
+
+				<button name="action_disbursed" position="after">
+					<button string="Validate" name="action_validate" states="applied"
+						type="object" groups="hr_employee_loan.group_manager_loan,hr.group_hr_manager"
+						class="oe_highlight"/>
+				</button>
+
+				<button name="action_done" position="replace">
+					<field name="current_user_is_approver" invisible="True" />
+					<button string="Approve" name="btn_action_approve" type="object"
+						attrs="{'invisible': ['|', ('current_user_is_approver', '!=', True),('state', '!=', 'applied')]}"
+						class="oe_highlight" />
+				</button>
+
+				<button name="action_draft" position="after">
+					<field name="can_reset" invisible="1"/>
+					<button string="Reset to Draft" name="action_reset" type="object"
+                                    attrs="{'invisible': ['|', ('can_reset', '=', False), ('state', 'not in', ['applied'])]}"/>
+				</button>
+
+				<button name="action_confirm" position="replace">
+					<button string="Reject" name="action_refuse" type="object"
+                                attrs="{'invisible': ['|',('current_user_is_approver', '!=', True),('state', '!=', 'applied')]}"/>
+				</button>
+
+
+				<field name="approved_date" position="replace"></field>
+				<field name="disbursement_date" position="after">
+					<field name="pending_approver" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+				</field>
+				<xpath expr="//div/h1/field[@name='employee_id']" position="replace">
+					<field name="compute_field" invisible="1"/>
+					<field name="employee_id" options="{'no_open':1,'no_create_edit':1,'no_create':1}"
+                                   attrs="{'readonly': [('compute_field', '=', True)]}"/>
+				</xpath>
+				<xpath expr="//notebook/page[4]" position="after">
+					<page string="Approbations">
+						<field name="approbations">
+							<tree>
+								<field name="approver_id" />
+								<field name="date" />
+							</tree>
+						</field>
+					</page>
+				</xpath>
+			</field>
+		</record>
+
+
+		
+	</data>
+</odoo>

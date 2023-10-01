@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+	<data>
+
+		<record id="employment_history_view_form" model="ir.ui.view">
+        <field name="name">Employment History info</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Employment History" groups="base.group_user">
+                    <group string="Employment History">
+                    <field name="employment_history_ids" nolabel="1">
+                        <tree editable="top" string="History">
+                            <field name="joining_date" />
+                            <field name="organization" />
+                            <field name="release_date" />
+                            <field name="department" />
+                            <field name="designation" />
+                            <field name="responsibility" />
+                            <field name="clearance_certification" />
+                        </tree>
+                    </field>
+                    </group>
+                </page>
+     <!--           <page string="Attachments">
+                    <field name="attachment_ids" widget="one2many" >
+                        <tree string="Attachments" editable="top">
+                            <field name="name" string="Title"/>
+                            <field name="datas_fname" invisible="1"/>
+                            <field name="db_datas" filename="datas_fname" string="File"/>
+                        </tree>
+                    </field>
+                </page>   -->
+            </notebook>
+        </field>
+    </record>
+		
+	</data>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <record id="hr_employee_expense_inherit_irn_status" model="ir.ui.view">
+        <field name="name">hr.employee.expense.form.inherit.irn.status</field>
+        <field name="model">hr.employee.expense</field>
+        <field name="inherit_id" ref="olila_hrms.hr_employee_expense_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form[1]/header[1]/button[@name='action_done']" position="replace">
+                <field name="current_user_is_approver_or_not" invisible="True"/>
+                <button string="Approve" type="object" name="new_approval_po"
+                        attrs="{'invisible': ['|',['current_user_is_approver_or_not','=',False],['state','!=','to approve']]}"/>
+            </xpath>
+            <xpath expr="//form[1]/header[1]/button[@name='action_reject']" position="replace">
+                <field name="current_user_is_approver_or_not" invisible="True"/>
+                <button string="Reject" type="object" name="action_reject"
+                        attrs="{'invisible': ['|',['current_user_is_approver_or_not','=',False],['state','!=','to approve']]}"/>
+            </xpath>
+            <xpath expr="//field[@name='currency_id']" position="after">
+                <field name="pending_approver" attrs="{'invisible': [['state','!=','to approve']]}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+</odoo>

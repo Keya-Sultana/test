@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="view_job_card_wizard" model="ir.ui.view">
+            <field name="name">job.card.wizard</field>
+            <field name="model">job.card.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Wizard Details">
+                    <sheet>
+                        <group>
+                            <field name="start_date" required="1"/>
+                            <field name="end_date" required="1"/>
+                            <field name="type" placeholder="Please Select"/>
+                            <field name="operating_unit_id"
+                                       options='{"no_open": True,"no_create": 1, "no_create_edit":1}'
+                                       groups="operating_unit.group_multi_operating_unit"
+                                   attrs="{'invisible': [('type', '!=', 'op_type')]}"/>
+                            <field name="department_id" placeholder="Please Select"
+                                           options="{'no_quick_create': True, 'no_create_edit': True, 'no_open': True}"
+                                           attrs="{'invisible': [('type', '!=', 'department_type')]}" />
+                            <field name="employee_ids" placeholder="Please Select"  widget="many2many_tags"
+                                           options="{'no_create_edit': True, 'no_open': True}"
+                                           attrs="{'invisible': [('type', '!=', 'employee_type')]}" />
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button icon="fa-cogs" string="Generate" name="process_report" type="object"
+                                class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_job_card_wizard" model="ir.actions.act_window">
+            <field name="name">Job Card Wizard</field>
+            <field name="res_model">job.card.wizard</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_job_card_wizard"/>
+            <field name="target">new</field>
+        </record>
+    <menuitem id="main_menu_job_card_wizard" name="Job Card Report" parent="hr_attendance.menu_hr_attendance_report"
+				  action="action_job_card_wizard" sequence="29" groups="base.group_user"/>
+
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="stellar_machine_form" model="ir.ui.view">
+            <field name="name">Stellar Device</field>
+            <field name="model">biometric.base.device</field>
+            <field name="inherit_id" ref="biometric_device_base.base_device_view_form"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="auth_user" attrs="{&quot;invisible&quot;: [[&quot;type&quot;,&quot;!=&quot;,&quot;stellar&quot;]]}" placeholder="Username of your client account"/>
+                    <field name="password" attrs="{&quot;invisible&quot;: [[&quot;type&quot;,&quot;!=&quot;,&quot;stellar&quot;]]}" placeholder="Please Enter your password" password="True" />
+                    <field name="auth_code" attrs="{&quot;invisible&quot;: [[&quot;type&quot;,&quot;!=&quot;,&quot;stellar&quot;]]}" placeholder="Contact the device manufacturer to get yours" password="True" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+
+</odoo>

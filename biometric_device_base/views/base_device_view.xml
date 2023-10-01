@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="base_device_view_form" model="ir.ui.view">
+            <field name="name">base.device.view.form</field>
+            <field name="model">biometric.base.device</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string="Fetch Data" type="object" name="manual_fetch_event" attrs="{&quot;invisible&quot;: [[&quot;type&quot;,&quot;!=&quot;,&quot;stellar&quot;]]}" />
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="type" string="Your device type"/>
+                            <field name="last_updated_time"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="biometric_base_device_tree" model="ir.ui.view">
+            <field name="name">base.device.view.tree</field>
+            <field name="model">biometric.base.device</field>
+            <field name="arch" type="xml">
+                <tree string="Companies">
+                    <field name="name"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="menu_approval_action" model="ir.actions.act_window">
+            <field name="name">Base Device</field>
+            <field name="res_model">biometric.base.device</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+    <menuitem id="base_device_menu" parent="hr_attendance.menu_hr_attendance_root" sequence="50"
+              name="Biometric Manager"/>
+    <menuitem id="base_device_sub_menu" parent="base_device_menu" name="Device Configuration"
+              action="menu_approval_action" sequence="1"/>
+
+</odoo>

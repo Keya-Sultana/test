@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_hobbies_interests_view_tree" model="ir.ui.view">
+        <field name="name">hr.hobbies.interests.view.tree</field>
+        <field name="model">hr.hobbies.interests</field>
+        <field name="arch" type="xml">
+            <tree string="Activities">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_hobbies_interests_view_form" model="ir.ui.view">
+        <field name="name">hr.hobbies.interests.view.form</field>
+        <field name="model">hr.hobbies.interests</field>
+        <field name="arch" type="xml">
+            <form string="Activity">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_hobbies_interests_action" model="ir.actions.act_window">
+        <field name="name">Hobbies</field>
+        <field name="res_model">hr.hobbies.interests</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+            id="menu_view_hobbies_form"
+            name="Hobbies"
+            action="hr_hobbies_interests_action"
+            parent="hr.menu_human_resources_configuration_employee"
+            groups="base.group_no_one"
+            sequence="4"/>
+
+</odoo>

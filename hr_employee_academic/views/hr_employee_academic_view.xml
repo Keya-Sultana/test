@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+	<data>
+
+		<record id="hr_employee_academic_view_form" model="ir.ui.view">
+        <field name="name">employees academic info</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Academic" groups="base.group_user">
+                    <group string="Academic Information">
+                    <field name="academicinfor_ids" nolabel="1">
+                        <tree string="Academic">
+                            <field name="institute_university" />
+                            <field name="major_subject" />
+                            <field name="degree" />
+                            <field name="degree_level" />
+                            <field name="passing_year" />
+                            <field name="result" />
+                            <field name="board_university" />
+                        </tree>
+                        <form>
+                            <group>
+                                <group>
+                                    <field name="institute_university" />
+                                    <field name="major_subject" />
+                                    <field name="degree" />
+                                </group>
+                                <group>
+                                    <field name="degree_level" />
+                                    <field name="passing_year" />
+                                    <field name="result" />
+                                    <field name="board_university" />
+                                </group>
+                            </group>
+                        </form>
+                    </field></group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+		
+	</data>
+</odoo>

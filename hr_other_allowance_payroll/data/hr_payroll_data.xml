@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Salary Other Input -->
+        <record id="allowance_other_input" model="hr.payslip.input.type">
+            <field name="name">Other Allowance</field>
+            <field name="code">OAS</field>
+        </record>
+
+    </data>
+</odoo>

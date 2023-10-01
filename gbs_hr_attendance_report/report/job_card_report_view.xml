@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<template id="report_jobcard_doc">
+			<t t-call="web.html_container">
+				<t t-call="web.external_layout">
+					<div class="page">
+                        <div class="oe_structure"/>
+                        <t t-foreach="employee_data" t-as="obj">
+						    <div class="row">
+								<div class="col-6">
+									<h4>Employee Job Card Report </h4>
+								</div>
+                                <div class="col-6 text-right">
+                                    <t t-if="start_date">
+                                        <strong>Date Range : </strong>
+                                        <span t-esc="start_date"/>
+                                    </t>
+                                    <t t-if="end_date">
+                                        <strong>To </strong>
+                                        <span t-esc="end_date"/>
+                                    </t>
+                                </div>
+						</div>
+							<div class="row" style="border: 1px solid black;">
+                                        <div class="col-2">
+                                            Employee ID
+                                            Name
+                                            Department
+                                        </div>
+                                        <div class="col-6">
+                                            : <span t-esc="obj['personal_info']['employee_identification']"></span><br/>
+                                            : <span t-esc="obj['personal_info']['name']"></span><br/>
+                                            : <span t-esc="obj['personal_info']['department']"></span>
+                                        </div>
+                                    <div class="col-2 text-center">
+                                            Date of Joining
+                                    </div>
+                                        <div class="col-2">
+                                            : <span t-esc="obj['personal_info']['joining_date']"></span>
+                                        </div>
+							</div>
+							<br/>
+                            <b style="text-decoration: underline;">Attendance Summary</b>
+							<div class="row">
+                                <div class="col-2">
+                                    Present
+                                </div>
+                                <div class="col-2">
+                                   :   <span t-esc="obj['attendance_summary']['present']"></span> Days
+                                </div>
+                                <div class="col-2">
+                                    Total Holiday
+                                </div>
+                                <div class="col-2">
+                                    :    <span t-esc="obj['attendance_summary']['holiday']"></span> Days
+                                </div>
+                                <div class="col-2">
+                                    Total Early In
+                                </div>
+                                <div class="col-2">
+                                    :    <span t-esc="obj['attendance_summary']['total_early_in']"></span> Days
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2">
+                                    Absent
+                                </div>
+                                <div class="col-2">
+                                    :  <span t-esc="obj['attendance_summary']['absent']"></span> Days
+                                </div>
+                                <div class="col-2">
+                                    Total Day Off
+                                </div>
+                                <div class="col-2">
+                                    :    <span t-esc="obj['attendance_summary']['day_off']"></span> Days
+                                </div>
+                                <div class="col-2">
+                                    Total In Late
+                                </div>
+                                <div class="col-2">
+                                    :     <span t-esc="obj['attendance_summary']['total_late_in']"></span> Days
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2">
+                                    Leave
+                                </div>
+                                <div class="col-2">
+                                    :    <span t-esc="obj['attendance_summary']['leave']"></span> Days
+                                </div>
+                                <div class="col-2">
+                                    Total Payable Day
+                                </div>
+                                <div class="col-2">
+                                    :   <span t-esc="obj['attendance_summary']['payable_day']"></span> Days
+                                </div>
+                                <div class="col-2">
+                                    Total Early Out
+                                </div>
+                                <div class="col-2">
+                                    :   <span t-esc="obj['attendance_summary']['total_early_out']"></span> Days
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2">
+                                    Late Attend
+                                </div>
+                                <div class="col-2">
+                                    :  <span t-esc="obj['attendance_summary']['late']"></span> Days
+                                </div>
+                                <div class="col-2">
+                                    Present Percentage
+                                </div>
+                                <div class="col-2">
+                                    :  <span t-esc="obj['attendance_summary']['present_percentage']"></span> %
+                                </div>
+                                <div class="col-2">
+                                    Total Over Time
+                                </div>
+                                <div class="col-2">
+                                    :   <span t-esc="obj['attendance_summary']['total_overtime']"></span> Days
+                                </div>
+                            </div>
+                            <br/>
+
+                            <b>Attendance Details</b>
+                            <table class="table table-bordered" style="width:100%;">
+                                <thead style="display: table-row-group">
+                                    <tr class="odo-bg-gray">
+                                        <th class="text-center" style="min-width:120px">
+                                            <span>Date</span>
+                                        </th>
+                                        <th class="text-center" style="max-width:70px">
+                                            <span>In Time</span>
+                                        </th>
+                                        <th class="text-center" style="max-width:70px">
+                                            <span>Out Time</span>
+                                        </th>
+                                        <th class="text-center">
+                                            <span>Status</span>
+                                        </th>
+                                        <th class="text-center">
+                                            <span>Note</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="obj['attendance_details']" t-as="emp">
+										<tr>
+                                        <td class="text-center">
+                                            <span t-esc="emp['date']"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-esc="emp['in_time']"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-esc="emp['out_time']"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-esc="emp['state']"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-esc="emp['note']"></span>
+                                        </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+
+                            <br/>
+                            <p style="page-break-before:always;" />
+                        </t>
+                    </div>
+				</t>
+			</t>
+		</template>
+
+		<record id="action_job_card_doc" model="ir.actions.report">
+			<field name="name">JOb Card Report</field>
+			<field name="model">hr.attendance</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">gbs_hr_attendance_report.report_jobcard_doc</field>
+			<field name="report_file">gbs_hr_attendance_report.report_jobcard_doc</field>
+			<field name="binding_model_id" ref="hr_attendance.model_hr_attendance"/>
+			<field name="binding_type">report</field>
+		</record>
+
+	</data>
+</odoo>

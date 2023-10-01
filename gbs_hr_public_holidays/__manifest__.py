@@ -1,0 +1,25 @@
+{
+    'name': 'HR Public Holidays',
+    'version': "14.0.1.0.0",
+    'sequence': 30,
+    'category': 'Human Resources',
+    'author': 'Odoo Bangladesh',
+    'website': '',
+    'summary': "Manage All kinds of Public Holiday",
+    'depends': [
+        'hr',
+        'hr_holidays',
+        'hr_payroll',
+        # 'operating_unit',
+        'hr_holiday_year',
+    ],
+    'data': [
+        "data/data.xml",
+        'security/ir.model.access.csv',
+        'wizard/hr_calendar_clone_wizard_view.xml',
+        'views/hr_public_holidays_view.xml',
+        'views/hr_holidays_calendar_view.xml',
+    ],
+    'installable': True,
+    'application': True,
+}

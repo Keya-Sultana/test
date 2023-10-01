@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+
+    <menuitem
+            id="approvals_menu_root"
+            name="Multi Level Approval"
+            web_icon="approvals,static/description/icon.png"
+            sequence="0"/>
+
+    <menuitem
+            id="menu_approval_root"
+            name="Configuration"
+            parent="approvals_menu_root"
+            sequence="0"/>
+
+
+<menuitem
+            id="submenu_approval_root"
+            name="Multi Level Approval"
+            action="menu_approval_action"
+            parent="menu_approval_root"
+            sequence="1"/>
+
+</odoo>

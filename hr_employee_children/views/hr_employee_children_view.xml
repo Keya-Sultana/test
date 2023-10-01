@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<!-- HR Employee Form View -->
+		<record id="inherit_hr_children_view_tree" model="ir.ui.view">
+            <field name="name">inherit.hr.employee.children.tree</field>
+            <field name="model">hr.employee.children</field>
+            <field name="inherit_id" ref="hr_family.hr_children_view_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='date_of_birth']" position="after">
+                        <field name="educational_institute"/>
+                        <field name="class_no"/>
+                        <field name="last_exam_result"/>
+                        <field name="blood_group"/>
+                        <field name="special_skill"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+		
+	</data>
+</odoo>

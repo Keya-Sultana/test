@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+"access_multi_level_approval_category","multi_level_approval","model_multi_level_approval_category","base.group_user",1,1,1,1
+"access_multi_level_category_approver","multi_level_approval","model_mla_category_approver","base.group_user",1,0,1,0
+"access_multi_level_approval","multi_level_approval","model_multi_level_approval","base.group_user",1,0,0,0
+"access_ir_model_group_internal_user","ir_model_group_internal_user","base.model_ir_model","base.group_user",1,0,0,0

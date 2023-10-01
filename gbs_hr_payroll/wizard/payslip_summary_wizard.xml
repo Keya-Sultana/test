@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="view_payslip_batches_summary_wizard" model="ir.ui.view">
+            <field name="name">payslip.batches.summary.wizard</field>
+            <field name="model">payslip.batches.summary.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Payslip Batches Summary Wizard">
+                    <group colspan="4" >
+                        <group>
+                            <field name="start_date"/>
+                        </group>
+                        <group>
+                            <field name="end_date" />
+                        </group>
+                    </group>
+                    <footer>
+                        <button icon="fa-cogs" string="Print" name="process_report" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_payslip_batches_summary_wizard" model="ir.actions.act_window">
+            <field name="name">Payslip Batches Summary Wizard</field>
+            <field name="res_model">payslip.batches.summary.wizard</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_payslip_batches_summary_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+    <!-- **** Reporting **** -->
+    <menuitem id="menu_payslip_batches_summary_wizard"
+              name="Payslip Batches"
+              action="action_payslip_batches_summary_wizard"
+              parent="hr_payroll.menu_hr_payroll_report" sequence="2"/>
+
+</odoo>

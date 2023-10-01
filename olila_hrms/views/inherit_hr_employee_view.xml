@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherited Employee Form view-->
+    <record id="inherit_employee_form_sales_force_form_olila" model="ir.ui.view">
+        <field name="name">hr.employee.sales.force.olila</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="dsl_employee_access.view_employee_form_sales_force"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='active_status']" position="after">
+                    <field name="division_id"/>
+                    <field name="district_id"/>
+                    <field name="upazila_id"/>
+                    <field name="zone_id"/>
+                    <field name="territory_id"/>
+                    <field name="area_id"/>
+                </xpath>
+            </data>
+
+        </field>
+    </record>
+
+    <record id="hr_employee_view_form_inherit_olila" model="ir.ui.view">
+        <field name="name">hr.employee.form.seniority.olila</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_employee_seniority.hr_employee_view_form_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/field[@name='length_of_service']" position="before">
+                <field name="is_quarterly_assessment"/>
+                <label for="probation_duration"/>
+                <div class="o_row" name="div_km_home_work">
+                    <field name="probation_duration" groups="hr.group_hr_user"/>
+                    <span>Months</span>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="hr_employee_view_form_olila" model="ir.ui.view">
+        <field name="name">hr.employee.view.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_employee_age.hr_employee_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='age']" position="replace"/>
+        </field>
+    </record>
+
+    <record id="hr_employee_view_form_family" model="ir.ui.view">
+        <field name="name">hr.employee.view.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_family.hr_employee_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page/group/group/field[@name='fam_spouse']" position="after">
+                <field name="spouse_complete_name"/>
+                <field name="spouse_birthdate"/>
+            </xpath>
+            <xpath expr="//page/group/group[@name='fam_parents']" position="after">
+                <group string="Dependant" attrs="{'invisible':[('marital','=','single')]}">
+                    <field name="children"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inherit_employment_history_view_form" model="ir.ui.view">
+        <field name="name">Employment History info inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_employment_history.employment_history_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page/group/field/tree/field[@name='clearance_certification']" position="after">
+                <field name="last_salary_drawn"/>
+                <field name="reasons_for_leaving"/>
+                <field name="address"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherited Employee Form view-->
+    <record id="inherit_hr_employee_form_olila" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.olila</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='initial_employment_date']" position="attributes">
+                <attribute name="string">Date of Joining</attribute>
+            </xpath>
+            <xpath expr="//field[@name='default_operating_unit_id']" position="attributes">
+                <attribute name="string">Job Location</attribute>
+            </xpath>
+            <xpath expr="//field[@name='department_id']" position="attributes">
+                <attribute name="string">Section Name</attribute>
+            </xpath>
+            <xpath expr="//field[@name='emergency_phone']" position="after">
+                <field name="relation"/>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']/group/group/field[@name='address_home_id']"
+                   position="replace">
+                <field name="address_home_id"
+                       context="{'show_address': 1,
+                                     'default_type': 'private',
+                                     'form_view_ref': 'base.res_partner_view_form_private'}"
+                       options='{"always_reload": True, "highlight_first_line": True}' invisible="1"/>
+                <field name="permanent_address"/>
+                <field name="present_address"/>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']/group/group/field[@name='bank_account_id']"
+                   position="replace">
+                <field name="bank_account_id"/>
+            </xpath>
+            <xpath expr="//page[@name='hr_settings']/group/group/field[@name='job_id']" position="after">
+                <field name="is_eligible_bonus"/>
+                <field name="is_previously_applied"/>
+            </xpath>
+            <xpath expr="//field[@name='passport_id']" position="replace"/>
+            <xpath expr="//field[@name='gender']" position="replace"/>
+            <xpath expr="//field[@name='birthday']" position="replace"/>
+
+            <xpath expr="//page[@name='personal_information']/group/group[3]" position="replace">
+                <group string="Personal Information" name="personal_info">
+                    <field name="gender"/>
+                    <field name="birthday"/>
+                    <field name="age"/>
+                    <field name="marital"/>
+                    <field name="marriage_date"
+                           attrs="{'invisible': [('marital', 'not in', ['married', 'cohabitant'])]}"/>
+                    <field name="religion"/>
+                    <field name="blood_group"/>
+                    <field name="hobbie_interest" widget="many2many_tags"/>
+                    <field name="is_emp_training" invisible="1"/>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']/group/group[4]" position="replace"/>
+
+
+            <xpath expr="//page[@name='personal_information']/group/group[5]" position="replace">
+                <group string="Work Permit" name="work_permit">
+                    <field name="work_permit" widget="boolean_toggle"/>
+                    <field name="visa_no" attrs="{'invisible': [('work_permit', '=', False)]}"/>
+                    <field name="permit_no" attrs="{'invisible': [('work_permit', '=', False)]}"/>
+                    <field name="wp_place_issue" attrs="{'invisible': [('work_permit', '=', False)]}"/>
+                    <field name="visa_expire" attrs="{'invisible': [('work_permit', '=', False)]}"/>
+                </group>
+                <group string="Passport" name="passport_no">
+                    <field name="passport" widget="boolean_toggle"/>
+                    <field name="passport_id" attrs="{'invisible': [('passport', '=', False)]}"/>
+                    <field name="date_issue" attrs="{'invisible': [('passport', '=', False)]}"/>
+                    <field name="passport_issue_place" attrs="{'invisible': [('passport', '=', False)]}"/>
+                    <field name="date_expiry" attrs="{'invisible': [('passport', '=', False)]}"/>
+                </group>
+            </xpath>
+
+            <xpath expr="//page[@name='hr_settings']" position="after">
+                <page string="Professional Qualifications" groups="base.group_user">
+                    <group>
+                        <field name="professional_qualification_ids" nolabel="1">
+                            <tree editable="top" string="History">
+                                <field name="pq_certification_name"/>
+                                <field name="pq_certificate_number"/>
+                                <field name="pq_institute"/>
+                                <field name="pq_country_id"/>
+                                <field name="pq_expiry_date"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+                <page string="License Detail" groups="base.group_user">
+                    <group string="License" name="license">
+                        <field name="other_professional_license_ids" nolabel="1">
+                            <tree editable="top" string="License">
+                                <field name="license_no"/>
+                                <field name="license_type"/>
+                                <field name="license_issue_date"/>
+                                <field name="license_expiry_date"/>
+                                <field name="given_by"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+                <page string="Training" groups="base.group_user">
+                    <group>
+                        <field name="training_other_ids" nolabel="1">
+                            <tree editable="top" string="Training">
+                                <field name="training_institute_name"/>
+                                <field name="to_course_name"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="training_duration"/>
+                                <field name="training_result"/>
+                                <field name="training_location"/>
+                                <field name="training_country_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+                <page string="Incident" groups="hr.group_hr_user">
+                    <group>
+                        <field name="incident_line_ids" nolabel="1">
+                            <tree string="List" editable="bottom">
+                                <field name="person_id"/>
+                                <field name="person_no"/>
+                                <field name="department_id"/>
+                                <field name="job_id"/>
+                                <field name="incident_date"/>
+                                <field name="incident_location"/>
+                                <!--                                    <field name="incident_time"/>-->
+                                <field name="incident_detail"/>
+                                <field name="remarks"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+                <page string="Employee Training" groups="hr.group_hr_user">
+                    <group>
+                        <field name="filtered_training_line_ids" nolabel="1" readonly="1">
+                            <tree string="List" editable="bottom">
+                                <field name="program_id"/>
+                                <field name="training_id"/>
+                                <field name="training_name"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="duration"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+                <page string="Relatives in Olila Group" groups="hr.group_hr_user">
+                    <group>
+                        <field name="olila_relative_ids" nolabel="1">
+                            <tree editable="top" string="Relative">
+                                <field name="relative_name"/>
+                                <field name="job_id"/>
+                                <field name="department_id"/>
+                                <field name="relationship"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+                <page string="Declaration" groups="hr.group_hr_user">
+                    <group name="declaration">
+                        <group>
+                            <field name="current_major_illness"/>
+                        </group>
+                        <group>
+                            <field name="declaration"/>
+                        </group>
+                    </group>
+                </page>
+                <page string="Personal Checklist" groups="hr.group_hr_user">
+                    <group col="5">
+                        <group colspan="3">
+                            <separator string="Name of Document"/>
+                        </group>
+                        <group colspan="1">
+                            <separator string="Submitted"/>
+                        </group>
+                        <group colspan="1">
+                            <separator string="Verified" class="text-center"/>
+                        </group>
+                        <group>
+<!--                            <separator string="Verified"/>-->
+                        </group>
+                    </group>
+                    <group col="5">
+                        <group colspan="3">
+                            <label for="copy_requisition_form" string="Copy of Requisition form"/>
+                            <br/>
+                            <label for="copy_of_advertisement" string="Copy of Advertisement"/>
+                            <br/>
+                            <label for="copy_of_resume" string="Copy of Resume/CV/Cover Letter"/>
+                            <br/>
+                            <label for="job_application_form" string="Job Application Form"/>
+                            <br/>
+                            <separator colspan="4"
+                                       string="Copy of academic certificates/ documents as per CV/ Resume:"/>
+                            <label for="masters_pg" string="Masters/PG"/>
+                            <br/>
+                            <label for="bachelor" string="Bachelor"/>
+                            <br/>
+                            <label for="hsc" string="H.S.C"/>
+                            <br/>
+                            <label for="ssc" string="S.S.C"/>
+                            <br/>
+                            <label for="diploma" string="Diploma"/>
+                            <br/>
+                            <label for="other_academic" string="Others"/>
+                            <br/>
+                            <separator colspan="4"
+                                       string="Copy of professional certificates/ Documents as per CV/ Resume:"/>
+                            <label for="experience" string="Professional Experience"/>
+                            <br/>
+                            <label for="training_professional" string="Professional Training"/>
+                            <br/>
+                            <label for="other_professional" string="Others Professional"/>
+                            <br/>
+                            <label for="copy_of_photograph" string="Copy of Photograph"/>
+                            <br/>
+                            <label for="copy_of_nid" string="Copy of National ID"/>
+                            <br/>
+                            <label for="copy_of_appointment" string="Copy of Appointment Letter"/>
+                            <br/>
+                            <label for="copy_of_joining_letter" string="Copy of Joining Letter"/>
+                            <br/>
+                            <label for="copy_of_accept_letter" string="Copy of Acceptance Letter"/>
+                            <br/>
+                            <separator colspan="4" string="Release letter from the past employer"/>
+                            <label for="copy_police_verification" string="Police Verification"/>
+                            <br/>
+                            <label for="copy_of_chairman_certificate" string="Copy of Chairman Certificate"/>
+                            <br/>
+                            <label for="copy_of_employee_information" string="Copy of Employee Information Form"/>
+                            <br/>
+                            <label for="copy_visiting_card" string="Visiting Card"/>
+                            <br/>
+                            <label for="copy_id_card" string="ID Card"/>
+                            <br/>
+                            <label for="copy_mobile_sim" string="Mobile Sim"/>
+                            <br/>
+                            <label for="copy_motor_bike" string="Motor Bike"/>
+                            <br/>
+                            <label for="copy_car" string="Car"/>
+                            <br/>
+                            <label for="passport_copy" string="Passport"/>
+                            <br/>
+                            <label for="work_permit_copy" string="Work Permit"/>
+                            <br/>
+                            <separator colspan="4"/>
+                            <field name="copy_any_other_documents"/>
+
+                            <separator string="Addition:"/>
+                            <field name="copy_bank_account"/>
+                            <field name="copy_job_permanent"/>
+                            <field name="copy_shoe_cause_issue"/>
+                            <field name="copy_increment_letter"/>
+                            <field name="copy_transfer_letter"/>
+                            <field name="copy_termination_resignation"/>
+                            <field name="copy_others_checklist"/>
+                        </group>
+                        <group colspan="1">
+<!--                            <div style="align:center;">-->
+                            <div class="text-center">
+                                <field name="copy_requisition_form"/>
+                                <br/>
+                                <field name="copy_of_advertisement"/>
+                                <br/>
+                                <field name="copy_of_resume"/>
+                                <br/>
+                                <field name="job_application_form"/>
+                                <br/>
+                                <separator colspan="4"/>
+                                <separator colspan="4"/>
+                                <separator colspan="4"/>
+                                <separator colspan="4"/>
+                                <!--                                <separator colspan="4"/>-->
+                                <field name="masters_pg"/>
+                                <br/>
+                                <field name="bachelor"/>
+                                <br/>
+                                <field name="hsc"/>
+                                <br/>
+                                <field name="ssc"/>
+                                <br/>
+                                <field name="diploma"/>
+                                <br/>
+                                <field name="other_academic"/>
+                                <br/>
+                                <separator colspan="4"/>
+                                <separator colspan="4"/>
+                                <separator colspan="4"/>
+                                <separator colspan="4"/>
+                                <!--                                <separator colspan="4"/>-->
+                                <field name="experience"/>
+                                <br/>
+                                <field name="training_professional"/>
+                                <br/>
+                                <field name="other_professional"/>
+                                <br/>
+                                <field name="copy_of_photograph"/>
+                                <br/>
+                                <field name="copy_of_nid"/>
+                                <br/>
+                                <field name="copy_of_appointment"/>
+                                <br/>
+                                <field name="copy_of_joining_letter"/>
+                                <br/>
+                                <field name="copy_of_accept_letter"/>
+                                <br/>
+                                <separator colspan="4"/>
+                                <separator colspan="4"/>
+                                <separator colspan="4"/>
+                                <field name="copy_police_verification"/>
+                                <br/>
+                                <field name="copy_of_chairman_certificate"/>
+                                <br/>
+                                <field name="copy_of_employee_information"/>
+                                <br/>
+                                <field name="copy_visiting_card"/>
+                                <br/>
+                                <field name="copy_id_card"/>
+                                <br/>
+                                <field name="copy_mobile_sim"/>
+                                <br/>
+                                <field name="copy_motor_bike"/>
+                                <br/>
+                                <field name="copy_car"/>
+                                <br/>
+                                <field name="passport_copy"/>
+                                <br/>
+                                <field name="work_permit_copy"/>
+                                <br/>
+                            </div>
+                        </group>
+                        <group colspan="1">
+                            <div class="text-center">
+                                <field name="copy_requisition_form_hrd"/>
+                                <br/>
+                                <field name="copy_of_advertisement_hrd"/>
+                                <br/>
+                                <field name="copy_of_resume_hrd"/>
+                                <br/>
+                                <field name="job_application_form_hrd"/>
+                                <br/>
+                                <separator colspan="4"/>
+                                <separator colspan="4"/>
+                                <separator colspan="4"/>
+                                <separator colspan="4"/>
+                                <!--                                <separator colspan="4"/>-->
+                                <field name="masters_pg_hrd"/>
+                                <br/>
+                                <field name="bachelor_hrd"/>
+                                <br/>
+                                <field name="hsc_hrd"/>
+                                <br/>
+                                <field name="ssc_hrd"/>
+                                <br/>
+                                <field name="diploma_hrd"/>
+                                <br/>
+                                <field name="other_academic_hrd"/>
+                                <br/>
+                                <separator colspan="4"/>
+                                <separator colspan="4"/>
+                                <separator colspan="4"/>
+                                <separator colspan="4"/>
+                                <!--                                <separator colspan="4"/>-->
+                                <field name="experience_hrd"/>
+                                <br/>
+                                <field name="training_professional_hrd"/>
+                                <br/>
+                                <field name="other_professional_hrd"/>
+                                <br/>
+                                <field name="copy_of_photograph_hrd"/>
+                                <br/>
+                                <field name="copy_of_nid_hrd"/>
+                                <br/>
+                                <field name="copy_of_appointment_hrd"/>
+                                <br/>
+                                <field name="copy_of_joining_letter_hrd"/>
+                                <br/>
+                                <field name="copy_of_accept_letter_hrd"/>
+                                <br/>
+                                <separator colspan="4"/>
+                                <separator colspan="4"/>
+                                <separator colspan="4"/>
+                                <field name="copy_police_verification_hrd"/>
+                                <br/>
+                                <field name="copy_of_chairman_certificate_hrd"/>
+                                <br/>
+                                <field name="copy_of_employee_information_hrd"/>
+                                <br/>
+                                <field name="copy_visiting_card_hrd"/>
+                                <br/>
+                                <field name="copy_id_card_hrd"/>
+                                <br/>
+                                <field name="copy_mobile_sim_hrd"/>
+                                <br/>
+                                <field name="copy_motor_bike_hrd"/>
+                                <br/>
+                                <field name="copy_car_hrd"/>
+                                <br/>
+                                <field name="passport_copy_hrd"/>
+                                <br/>
+                                <field name="work_permit_copy_hrd"/>
+                                <br/>
+                            </div>
+                        </group>
+                        <group></group>
+                    </group>
+
+
+                    <!--                    <group name="personal_checklist">-->
+                    <!--                        <group>-->
+                    <!--                            <div class="row">-->
+                    <!--                                <div class="col-10 text-left">-->
+                    <!--                                    <separator string="Name of Document"/>-->
+                    <!--                                </div>-->
+                    <!--                                <div class="col-2 text-left">-->
+                    <!--                                    <separator string="Submitted/Verified"/>-->
+                    <!--                                </div>-->
+                    <!--                                &lt;!&ndash;                                <div class="col-2 text-right">&ndash;&gt;-->
+                    <!--                                &lt;!&ndash;                                    <separator string="Verified"/>&ndash;&gt;-->
+                    <!--                                &lt;!&ndash;                                </div>&ndash;&gt;-->
+                    <!--                            </div>-->
+                    <!--                            <br/>-->
+
+                    <!--                            <label for="copy_requisition_form" string="Copy of Requisition form"/>-->
+                    <!--                            <div class="row">-->
+                    <!--                                <div>-->
+                    <!--                                    <field name="copy_requisition_form"/>-->
+                    <!--                                </div>-->
+                    <!--                                <div>-->
+                    <!--                                    <field name="copy_requisition_form_hrd"/>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="copy_of_advertisement" string="Copy of Advertisement"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="copy_of_advertisement"/>-->
+                    <!--                                <field name="copy_of_advertisement_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="copy_of_resume" string="Copy of Resume/CV/Cover Letter"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="copy_of_resume"/>-->
+                    <!--                                <field name="copy_of_resume_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="job_application_form" string="Job Application Form"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="job_application_form"/>-->
+                    <!--                                <field name="job_application_form_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <separator colspan="4"-->
+                    <!--                                       string="Copy of academic certificates/ documents as per CV/ Resume:"/>-->
+                    <!--                            <label for="masters_pg" string="Masters/PG"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="masters_pg"/>-->
+                    <!--                                <field name="masters_pg_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="bachelor" string="Bachelor"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="bachelor"/>-->
+                    <!--                                <field name="bachelor_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="hsc" string="H.S.C"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="hsc"/>-->
+                    <!--                                <field name="hsc_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="ssc" string="S.S.C"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="ssc"/>-->
+                    <!--                                <field name="ssc_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="diploma" string="Diploma"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="diploma"/>-->
+                    <!--                                <field name="diploma_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="other_academic" string="Others"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="other_academic"/>-->
+                    <!--                                <field name="other_academic_hrd"/>-->
+                    <!--                            </div>-->
+
+
+                    <!--                            <separator colspan="4"-->
+                    <!--                                       string="Copy of professional certificates/ Documents as per CV/ Resume:"/>-->
+                    <!--                            <label for="experience" string="Professional Experience"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="experience"/>-->
+                    <!--                                <field name="experience_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="training_professional" string="Professional Training"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="training_professional"/>-->
+                    <!--                                <field name="training_professional_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="other_professional" string="Others Professional"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="other_professional"/>-->
+                    <!--                                <field name="other_professional_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <separator colspan="4"/>-->
+                    <!--                            <label for="copy_of_photograph" string="Copy of Photograph"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="copy_of_photograph"/>-->
+                    <!--                                <field name="copy_of_photograph_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="copy_of_nid" string="Copy of National ID"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="copy_of_nid"/>-->
+                    <!--                                <field name="copy_of_nid_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="copy_of_appointment" string="Copy of Appointment Letter"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="copy_of_appointment"/>-->
+                    <!--                                <field name="copy_of_appointment_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="copy_of_joining_letter" string="Copy of Joining Letter"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="copy_of_joining_letter"/>-->
+                    <!--                                <field name="copy_of_joining_letter_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="copy_of_accept_letter" string="Copy of Acceptance Letter"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="copy_of_accept_letter"/>-->
+                    <!--                                <field name="copy_of_accept_letter_hrd"/>-->
+                    <!--                            </div>-->
+
+
+                    <!--                            <separator colspan="4" string="Release letter from the past employer"/>-->
+                    <!--                            <label for="copy_police_verification" string="Police Verification"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="copy_police_verification"/>-->
+                    <!--                                <field name="copy_police_verification_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="copy_of_chairman_certificate" string="Copy of Chairman Certificate"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="copy_of_chairman_certificate"/>-->
+                    <!--                                <field name="copy_of_chairman_certificate_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="copy_of_employee_information" string="Copy of Employee Information Form"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="copy_of_employee_information"/>-->
+                    <!--                                <field name="copy_of_employee_information_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="copy_visiting_card" string="Visiting Card"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="copy_visiting_card"/>-->
+                    <!--                                <field name="copy_visiting_card_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="copy_id_card" string="ID Card"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="copy_id_card"/>-->
+                    <!--                                <field name="copy_id_card_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="copy_mobile_sim" string="Mobile Sim"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="copy_mobile_sim"/>-->
+                    <!--                                <field name="copy_mobile_sim_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="copy_motor_bike" string="Motor Bike"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="copy_motor_bike"/>-->
+                    <!--                                <field name="copy_motor_bike_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="copy_car" string="Car"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="copy_car"/>-->
+                    <!--                                <field name="copy_car_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="passport_copy" string="Passport"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="passport_copy"/>-->
+                    <!--                                <field name="passport_copy_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <label for="work_permit_copy" string="Work Permit"/>-->
+                    <!--                            <div>-->
+                    <!--                                <field name="work_permit_copy"/>-->
+                    <!--                                <field name="work_permit_copy_hrd"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <field name="copy_any_other_documents"/>-->
+
+                    <!--                            <separator string="Addition:"/>-->
+                    <!--                            <field name="copy_bank_account"/>-->
+                    <!--                            <field name="copy_job_permanent"/>-->
+                    <!--                            <field name="copy_shoe_cause_issue"/>-->
+                    <!--                            <field name="copy_increment_letter"/>-->
+                    <!--                            <field name="copy_transfer_letter"/>-->
+                    <!--                            <field name="copy_termination_resignation"/>-->
+                    <!--                            <field name="copy_others_checklist"/>-->
+                    <!--                        </group>-->
+                    <!--                        <group>-->
+                    <!--                        </group>-->
+                    <!--                    </group>-->
+                </page>
+            </xpath>
+
+            <!--                        <xpath expr="//page[@name='public']/div/div/group/field[@name='work_location']" position="replace">-->
+            <!--                            <label for="work_location" string="Work Location"/>-->
+            <!--                            <div>-->
+            <!--                                <field name="division_id" class="o_address_state" placeholder="Division......."-->
+            <!--                                       options="{'no_create': True, 'no_open': True}"/>-->
+            <!--                                <field name="district_id" class="o_address_state" placeholder="District........"-->
+            <!--                                       options="{'no_create': True, 'no_open': True}"/>-->
+            <!--                                <field name="upazila_id" class="o_address_state" placeholder="Upazila........."-->
+            <!--                                       options="{'no_create': True, 'no_open': True}"/>-->
+            <!--                                <field name="zone_id" class="o_address_state" placeholder="Region........."-->
+            <!--                                       options="{'no_create': True, 'no_open': True}"/>-->
+            <!--                                <field name="territory_id" class="o_address_state" placeholder="Territory........."-->
+            <!--                                       options="{'no_create': True, 'no_open': True}"/>-->
+            <!--                                <field name="area_id" class="o_address_state" placeholder="Area........."-->
+            <!--                                       options="{'no_create': True, 'no_open': True}"/>-->
+            <!--                                <field name="work_location" placeholder="Work Location........." class="o_address_street"/>-->
+            <!--                            </div>-->
+            <!--                        </xpath>-->
+
+        </field>
+    </record>
+
+    <record id="hr_employee_form_inherit_olila" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.olila</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_employee_ssn.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sinid']" position="attributes">
+                <attribute name="string">NID No</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherited Employee Tree view-->
+    <record id="view_employee_tree" model="ir.ui.view">
+        <field name="name">hr.employee.tree.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='identification_id']" position="attributes">
+                <attribute name="string">Employee ID</attribute>
+            </xpath>
+            <xpath expr="//field[@name='identification_id']" position="after">
+                <field name="employee_device_id" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_job_form_olila" model="ir.ui.view">
+        <field name="name">hr job form view</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr.view_hr_job_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_title']" position="after">
+                <div class="oe_title">
+                    <label for="job_code" class="oe_edit_only"/>
+                    <field name="job_code"  placeholder="e.g. Job Code"/>
+                </div>
+            </xpath>
+            <xpath expr="//notebook/page[1]" position="replace">
+                <page string="Job Description">
+                    <div attrs="{'invisible': [('state', '!=', 'recruit')]}">
+                        <label for="description"/>
+                        <field name="description"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="duties_responsibile"/>
+                            <field name="type_id"/>
+                        </group>
+                        <group>
+                            <field name="certifications"/>
+                            <field name="experience"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//notebook/page[2]" position="after">
+                <page string="TA/DA">
+                    <group>
+                        <group name="da_master" string="DA">
+                            <field name="fixt_wit_att"/>
+                            <field name="night_stay"/>
+                            <field name="hotel_night_rent"/>
+                            <field name="own_arrang"/>
+                        </group>
+                        <group name="ta_master" string="TA">
+                            <field name="ta_name"/>
+                            <field name="ta_type"/>
+                            <field name="transport_type"/>
+                            <field name="service_type"/>
+                            <field name="fuel_type"/>
+                            <field name="fuel_price"/>
+                            <field name="per_kilo_price"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

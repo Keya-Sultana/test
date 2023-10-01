@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_employee_assessment_tree" model="ir.ui.view">
+            <field name="name">employee.assessment.tree</field>
+            <field name="model">employee.assessment</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Employee Assessment List">
+                    <field name="assessment_request_id"/>
+                    <field name="employee_name"/>
+                    <field name="assessment_user_id"/>
+                    <!--                    <field name="checklist_department" />-->
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_employee_assessment_form" model="ir.ui.view">
+            <field name="name">employee.assessment.form</field>
+            <field name="model">employee.assessment</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Employee Assessment Form">
+
+                    <header>
+
+                        <button name="confirm_request" string="Complete" type="object" states="draft"
+                                class="btn-primary"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,complete"/>
+
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="assessment_request_id"/>
+                                <field name="assessment_user_id"/>
+                            </group>
+
+
+                        </group>
+                        <field name="line_ids" options='{"no_open": True}'>
+                            <tree string="Employee Assessment Line" editable="bottom">
+                                <field name="display_type" attrs="{}" invisible="1"/>
+                                <field name="sequence" widget="handle"/>
+                                <field name="checklist_item_id"
+                                       attrs="{
+                                                    'required': [('display_type', '=', False)],
+                                                }"
+                                       options="{'no_open': True}"
+                                       force_save="1"
+                                       readonly="1"
+                                />
+                                <field name="user_id"
+                                       attrs="{
+                                                    'required': [('display_type', '=', False)],
+                                                }"
+                                       readonly="1"
+                                       optional="1"
+                                />
+                                <field name="marking" readonly="1"/>
+                                <field name="assessment_value"/>
+
+                                <field name="name" widget="section_and_note_text" optional="show" readonly="1"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_employee_assessment_search" model="ir.ui.view">
+            <field name="name">employee.assessment.search</field>
+            <field name="model">employee.assessment</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Employee Assessment List">
+                    <field name="assessment_request_id"/>
+                    <newline/>
+
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_employee_assessment">
+            <field name="name">Employee Assessment List</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.assessment</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_employee_assessment_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_active': True}</field>
+            <field name="help" type="html">
+                <field class="oe_view_nocontent_create">
+                    Create Assessment
+                </field>
+            </field>
+        </record>
+
+        <menuitem action="action_employee_assessment"
+                  id="menu_employee_assessment_list_config"
+                  name="Employee Assessments"
+                  parent="menu_employee_assessment"
+                  sequence="22"
+                  groups="hr.group_hr_manager"
+        />
+    </data>
+</odoo>

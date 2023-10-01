@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_holidays_public_tree_olila" model="ir.ui.view">
+        <field name="name">hr.holidays.public.tree.olila</field>
+        <field name="model">hr.holidays.public</field>
+        <field name="inherit_id" ref="hr_holidays_public.view_holidays_public_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='display_name']" position="after">
+                <field name="operating_unit_id"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_holidays_public_form_olila" model="ir.ui.view">
+        <field name="name">hr.holidays.public.olila</field>
+        <field name="model">hr.holidays.public</field>
+        <field name="inherit_id" ref="hr_holidays_public.view_holidays_public_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_main_right']" position="replace">
+                <group name="group_main_right">
+                    <field name="operating_unit_id"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

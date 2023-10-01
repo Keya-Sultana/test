@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_assessment_type_tree" model="ir.ui.view">
+            <field name="name">assessment.type.tree</field>
+            <field name="model">assessment.type</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Assessment Types">
+                    <field name="name"/>
+                    <!--                    <field name="checklist_department" />-->
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_assessment_type_form" model="ir.ui.view">
+            <field name="name">assessment.type.form</field>
+            <field name="model">assessment.type</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Assessment Type">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                 <field name="active"/>
+                            </group>
+
+
+                        </group>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_assessment_type_search" model="ir.ui.view">
+            <field name="name">assessment.type.search</field>
+            <field name="model">assessment.type</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Assessment Type">
+                    <field name="name"/>
+                    <newline/>
+
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_assessment_type">
+            <field name="name">Assessment Types</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">assessment.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_assessment_type_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_active': True}</field>
+            <field name="help" type="html">
+                <field class="oe_view_nocontent_create">
+                    Create Assessment Types.
+                </field>
+            </field>
+        </record>
+
+        <menuitem action="action_assessment_type"
+                  id="menu_assessment_type_config"
+                  name="Assessment Types"
+                  parent="menu_employee_assessment_config"
+                  sequence="10"
+                  groups="hr.group_hr_manager"
+        />
+    </data>
+</odoo>

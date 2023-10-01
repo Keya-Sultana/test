@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="grade_master_view_tree" model="ir.ui.view">
+        <field name="name">grade.master.view.tree</field>
+        <field name="model">grade.master</field>
+        <field name="arch" type="xml">
+            <tree string="Activities">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="grade_master_view_form" model="ir.ui.view">
+        <field name="name">grade.master.view.form</field>
+        <field name="model">grade.master</field>
+        <field name="arch" type="xml">
+            <form string="Activity">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="grade_master_action" model="ir.actions.act_window">
+        <field name="name">Grade Master</field>
+        <field name="res_model">grade.master</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+            id="menu_view_grade_master_form"
+            name="Grade Master"
+            action="grade_master_action"
+            parent="hr.menu_human_resources_configuration_employee"
+            groups="base.group_no_one"
+            sequence="6"/>
+
+</odoo>

@@ -1,0 +1,20 @@
+{
+    'name': 'Biometric Device Integration',
+    'version': '1.0.0',
+    'summary': """Integrating Biometric Device With HR Attendance (Face + Thumb)""",
+    'description': 'This module integrates Odoo with the biometric device',
+    'category': 'Generic Modules/Human Resources',
+    'author': 'Odoo Bangladesh',
+    'company': 'Odoo Bangladesh',
+    'website': 'www.odoo.com.bd',
+    'depends': ['hr_attendance'],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/base_device_view.xml',
+        'views/base_attendance_view.xml',
+    ],
+    'license': 'AGPL-3',
+    'installable': True,
+    'auto_install': False,
+    'application': False,
+}

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Custom report. -->
+<odoo>
+	<data>
+
+        <record id="final_paperformat_backend_portrait" model="report.paperformat">
+            <field name="name">Custom Final Potrait Reports</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">15</field>
+            <field name="margin_right">15</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="action_report_final_settlement" model="ir.actions.report">
+			<field name="name">Full &amp; Final Report</field>
+			<field name="model">final.settlement</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">hr_employee_exit.report_final_settlement</field>
+			<field name="report_file">hr_employee_exit.report_final_settlement</field>
+            <field name="paperformat_id" ref="final_paperformat_backend_portrait"/>
+			<field name="binding_model_id" ref="hr_employee_exit.model_final_settlement"/>
+			<field name="binding_type">report</field>
+		</record>
+
+<!--		<report-->
+<!--			id="action_report_final_settlement"-->
+<!--			model="final.settlement"-->
+<!--			string="Full &amp; Final Report"-->
+<!--			report_type="qweb-pdf"-->
+<!--			name="hr_employee_exit.report_final_settlement"-->
+<!--			file="hr_employee_exit.report_final_settlement"/>-->
+<!--            paperformat="report_layout.paperformat_backend_portrait"-->
+
+
+		<template id="report_final_settlement">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="o">
+				<t t-call="web.external_layout">
+                        <div class="page" style="page-break-inside:auto">
+                            <div style="padding-top:0px;">
+                                <style type="text/css">
+                                    .report-title { text-align:center; }
+                                    .odo-bg-gray, .odo-bg-gray > td { background-color: #f5f5f5; }
+                                </style>
+                                <div class="clearfix">
+<!--                                    <h3 class="report-title">Employee Exit Interview Report</h3>-->
+                                    <h3 class="report-title">Final Settlement</h3>
+                                    <br/>
+
+                                    <h4>Employee Details</h4>
+                                    <div class="row">
+                                        <div class="col-6 text-left">
+                                            <h6><b>Employee :  </b><span t-esc="o.employee_id.name"/></h6>
+                                            <h6><b>Designation :  </b><span t-esc="o.emp_designation.name"/></h6>
+                                            <h6><b>Department :  </b><span t-esc="o.employee_id.department_id.name"/></h6>
+                                            <h6><b>Date of Joining :  </b><span t-esc="o.joining_date"/></h6>
+                                        </div>
+                                        <div class="col-6 text-left">
+                                            <h6><b>Employee Code :  </b><span t-esc="o.employee_code"/></h6>
+                                            <h6><b>Status :  </b></h6>
+                                            <h6><b>Date of Leaving :  </b><span t-esc="o.leaving_date"/></h6>
+                                            <h6><b>Service Length :  </b><span t-esc="o.employee_id.length_of_service"/></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
+                                <h4>Salary Details:</h4>
+                                <table class="table table-report-xs table-bordered table-striped">
+                                    <thead>
+                                        <tr class="odo-bg-gray">
+                                            <t t-foreach="o.emp_payslip_ids" t-as="slip">
+                                                <th class="text-center"><span t-esc="slip.name"/></th>
+                                            </t>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="o.emp_payslip_ids" t-as="slip">
+                                            <td class="text-center"><span t-esc="'%.2f' %slip.total"/></td>
+                                        </t>
+                                    </tbody>
+                                </table>
+
+                                <h6 class="text-center">PAYABLE AMOUNT</h6>
+                                <table class="table table-bordered table-report-xs table-striped"
+                                   style="margin-bottom: 10px;">
+                                <thead>
+                                    <tr class="odo-bg-gray">
+                                        <th>SL</th>
+                                        <th class="text-center">Particulars</th>
+                                        <th class="text-center">Rate</th>
+                                        <th class="text-center">Amount(in Taka)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.payment_ids" t-as="p">
+                                        <tr>
+                                            <td>
+                                                <span t-esc="p_index+1"></span>
+                                            </td>
+                                            <td>
+                                                <span class="text-nowrap" t-esc="p['name']"></span>
+                                            </td>
+                                            <td>
+<!--                                                <span class="text-nowrap" t-esc="p['designation']"></span>-->
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'%.2f' %p['amount']"></span>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td class="text-right" colspan="2">Total Payment:</td>
+                                        <td></td>
+                                        <td class="text-right"><span t-esc="'%.2f' %o.payment_total_amount"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                                <h6 class="text-center">DEDUCTION AMOUNT</h6>
+                                <table class="table table-bordered table-report-xs table-striped"
+                                   style="margin-bottom: 10px;">
+                                <thead>
+                                    <tr class="odo-bg-gray">
+                                        <th>SL</th>
+                                        <th class="text-center">Particulars</th>
+                                        <th class="text-center">Rate</th>
+                                        <th class="text-center">Amount(in Taka)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.deduction_ids" t-as="d">
+                                        <tr>
+                                            <td>
+                                                <span t-esc="d_index+1"></span>
+                                            </td>
+                                            <td>
+                                                <span class="text-nowrap" t-esc="d['name']"></span>
+                                            </td>
+                                            <td>
+<!--                                                <span class="text-nowrap" t-esc="p['designation']"></span>-->
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'%.2f' %d['amount']"></span>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td class="text-right" colspan="2">Total Deduction:</td>
+                                        <td></td>
+                                        <td class="text-right"><span t-esc="'%.2f' %o.deduction_total_amount"/></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+
+<!--                                <h4>Payment Details:</h4>-->
+<!--                                <table class="table table-report-xs table-bordered table-striped">-->
+<!--                                    <thead>-->
+<!--                                        <tr class="odo-bg-gray">-->
+<!--                                            <t t-foreach="o.payment_ids" t-as="pay">-->
+<!--                                                <th class="text-center"><span t-esc="pay.name"/></th>-->
+<!--                                            </t>-->
+<!--                                        </tr>-->
+<!--                                    </thead>-->
+<!--                                    <tbody>-->
+<!--                                        <t t-foreach="o.payment_ids" t-as="pay">-->
+<!--                                            <td class="text-center"><span t-esc="'%.2f' %pay.amount"/></td>-->
+<!--                                        </t>-->
+<!--                                    </tbody>-->
+<!--                                </table>-->
+<!--                                <h4>Deduction Details:</h4>-->
+<!--                                <table class="table table-report-xs table-bordered table-striped">-->
+<!--                                    <thead>-->
+<!--                                        <tr class="odo-bg-gray">-->
+<!--                                            <t t-foreach="o.deduction_ids" t-as="deduction">-->
+<!--                                                <th class="text-center"><span t-esc="deduction.name"/></th>-->
+<!--                                            </t>-->
+<!--                                        </tr>-->
+<!--                                    </thead>-->
+<!--                                    <tbody>-->
+<!--                                        <t t-foreach="o.deduction_ids" t-as="deduction">-->
+<!--                                            <td class="text-center"><span t-esc="'%.2f' %deduction.amount"/></td>-->
+<!--                                        </t>-->
+<!--                                    </tbody>-->
+<!--                                </table>-->
+                                <hr/>
+                                <div class="text-right">
+<!--                                    <h5>Total Payment: <span t-esc="'%.2f' %o.payment_total_amount"/></h5>-->
+<!--                                    <h5>Total Deduction: <span t-esc="'%.2f' %o.deduction_total_amount"/></h5>-->
+                                    <h5>Net Payable Amount: <span t-esc="'%.2f' %o.total_amount"/></h5>
+                                </div>
+                                <p class="text-left">In Words:<span t-esc="o.amount_words"/></p><br/><br/>
+
+                                <div class="row">
+                                    <div class="col-3" style="display:inline; text-decoration:underline;">
+                                        <h6><b> Prepared by: </b></h6>
+                                    </div>
+                                    <div class="col-3" style="display:inline; text-decoration:underline;">
+                                        <h6><b> Authorized by: </b></h6>
+                                    </div>
+                                    <div class="col-3" style="display:inline; text-decoration:underline;">
+                                        <h6><b> Checked by: </b></h6>
+                                    </div>
+                                    <div class="col-3" style="display:inline; text-decoration:underline;">
+                                        <h6><b> Approved by: </b></h6>
+                                    </div>
+
+                                </div><br/><br/>
+                                <p><b style="text-decoration:underline;">Receive By: </b><br/>I Md. Abdullah Al Mamun is hereby confirming that the calculation of full and final settlement amounting tk. <span t-esc="'%.2f' %o.total_amount"/> is
+                                correct and giving the same amount Tk. <span t-esc="'%.2f' %o.total_amount"/> through check no........................, Check date:................... of ........................
+                                Bank as full and final settlement of my accounts from Olila Glass Industries Limited.</p>
+                                <p>Date:</p>
+                            </div>
+                        </div>
+                    </t>
+				</t>
+			</t>
+		</template>
+	</data>
+</odoo>

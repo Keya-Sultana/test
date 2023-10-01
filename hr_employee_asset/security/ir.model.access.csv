@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_employee_asset_allocation_request_user,employee_asset_allocation_request,model_employee_asset_allocation_request,base.group_user,1,1,1,1
+access_employee_asset_replacement_request_user,employee_asset_replacement_request,model_employee_asset_replacement_request,base.group_user,1,1,1,1
+access_asset_replacement_wizard_user,asset_replacement_wizard,model_asset_replacement_wizard,base.group_user,1,1,1,1

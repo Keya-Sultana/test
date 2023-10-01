@@ -1,0 +1,58 @@
+<odoo>
+    <data>
+        <menuitem id="exit_checklist_menu" name="Exit Configurations" groups ="hr.group_hr_manager"
+                  parent="hr.menu_human_resources_configuration" sequence="30"/>
+
+        <!-- Employee Checklist Menu -->
+        <menuitem id="menu_exit_management" name="Employee Exit" parent="hr.menu_hr_root"
+                  sequence="98"/>
+
+		<!-- Checklist Type Menu -->
+		<menuitem id="checklist_type_menu" name="Checklist Types" parent="exit_checklist_menu"
+			sequence="6" action="hr_employee_exit.action_checklist_type_view" />
+
+
+		<!-- Checklist Item Menu -->
+		<menuitem id="checklist_item_menu" name="Checklist Items"
+			parent="exit_checklist_menu" sequence="7"
+			action="hr_employee_exit.action_checklist_item_view" />
+
+		<!-- Configure Checklists Menu -->
+		<menuitem id="configure_checklists_type_menu" name="Exit Checklists"
+			parent="exit_checklist_menu" sequence="8"
+			action="hr_employee_exit.action_configure_checklists_type_view" />
+
+		<!-- Pending Employee  Checklist Item Menu -->
+		<menuitem id="checklist_item_line_menu" name="Pending Checklists"
+			parent="menu_exit_management" sequence="40"
+			action="hr_employee_exit.action_hr_exit_checklists_line_view" />
+
+        <!-- Exit Requests Item Menu -->
+
+        <menuitem name="Exit Requests" parent="menu_exit_management" id="menu_exit_req" sequence="10"
+                  action="hr_employee_exit.action_exit_req_view"/>
+
+		<!-- Final Settlement Menu -->
+
+        <menuitem
+				name="Final Settlement" groups ="hr.group_hr_manager"
+				id="final_settlement_menu" parent="menu_exit_management"
+				sequence="30" action="hr_employee_exit.action_final_settlement" />
+
+		<!-- Exit Interview Menu -->
+        <menuitem
+				name="Exit Interview"
+				id="exit_interview_menu"
+                parent="menu_exit_management"
+				sequence="20"
+                action="hr_employee_exit.action_exit_interview"
+        />
+
+		<!-- Factors Set Menu -->
+<!--		<menuitem id="factor_menu" name="Factors"-->
+<!--			parent="exit_checklist_menu" sequence="10"-->
+<!--			action="hr_employee_exit.action_factor_action_view" />-->
+
+
+    </data>
+</odoo>

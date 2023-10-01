@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="approval_category_view_form" model="ir.ui.view">
+            <field name="name">approval.category.view.form</field>
+            <field name="model">multi.level.approval.category</field>
+            <field name="priority">10</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <!--                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', False)]}"/>-->
+                        <field name="image" widget="image" class="oe_avatar"
+                               options='{"preview_image": "image", "size": [80, 80]}'/>
+                        <div class="oe_title">
+                            <label for="name" string="Name"/>
+                            <h1>
+                                <field name="name" placeholder="e.g. Procurement"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="description"/>
+                            <field name="approval_model_id"/>
+                            <!--                        <field name="user_ids" string ="Approver Users" />-->
+
+                            <field name="company_id" options="{'no_create': True}"/>
+                        </group>
+                        <notebook>
+                            <page string="Options" name="options">
+                                <group>
+                                    <group string="Fields" name="option_settings">
+                                        <field name="active" widget="boolean_toggle"/>
+                                        <field name="requirer_document" string="Document" widget="radio"
+                                               options="{'horizontal': true}"/>
+                                        <field name="has_partner" string="Has Contact" widget="radio"
+                                               options="{'horizontal': true}"/>
+                                        <field name="has_date" string="Has Date" widget="radio"
+                                               options="{'horizontal': true}"/>
+                                        <field name="has_period" string="Has Period" widget="radio"
+                                               options="{'horizontal': true}"/>
+                                        <field name="has_product" string="Has Product"
+                                               widget="radio" options="{'horizontal': true}"/>
+                                        <field name="has_quantity" string="Has Quantity" widget="radio"
+                                               options="{'horizontal': true}"/>
+                                        <field name="has_amount" string="Has Amount" widget="radio"
+                                               options="{'horizontal': true}"/>
+                                        <field name="has_reference" string="Has Reference" widget="radio"
+                                               options="{'horizontal': true}"/>
+                                        <field name="has_payment_method" string="Has Payment" widget="radio"
+                                               options="{'horizontal': true}"/>
+                                        <field name="has_location" string="Has Location" widget="radio"
+                                               options="{'horizontal': true}"/>
+
+                                    </group>
+                                    <group string="Approvers" name="approvers">
+                                        <field name="manager_approval"/>
+                                        <separator colspan="2"/>
+                                        <field name="approver_ids">
+                                                <tree string="Edit" editable="bottom" >
+                                                <field name="user_id" options="{'no_open': True}"/>
+<!--                                                <field name="required" options="{'no_open': True}"/>-->
+
+                                            </tree>
+                                        </field>
+
+                                        <field name="approval_minimum"/>
+                                        <field name="invalid_minimum" invisible="1"/>
+                                        <div class="text-warning" colspan="2"
+                                             attrs="{'invisible': [('invalid_minimum', '=', False)]}">
+                                            <span class="fa fa-warning" title="Invalid minimum approvals"/>
+                                            <field name="invalid_minimum_warning" nolabel="1"/>
+                                        </div>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="menu_approval_action" model="ir.actions.act_window">
+            <field name="name">Multi Level Approval</field>
+            <field name="res_model">multi.level.approval.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record id="view_department_tree" model="ir.ui.view">
+            <field name="name">hr.department.tree</field>
+            <field name="model">multi.level.approval.category</field>
+            <field name="arch" type="xml">
+                <tree string="Companies">
+                    <field name="name"/>
+
+                </tree>
+            </field>
+        </record>
+
+
+    </data>
+
+
+</odoo>

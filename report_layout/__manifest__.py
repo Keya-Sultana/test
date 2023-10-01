@@ -1,0 +1,21 @@
+{
+    'name': 'Report Layout',
+    'category': 'Reprot',
+    'summary': 'Add custom header and footer',
+    'author': 'Odoo Bangladesh',
+    'website': 'www.odoo.com.bd',
+    'depends': ['web', 'base'],
+    'data': [
+        'data/paperformat.xml',
+        # 'views/inherite_layout.xml',
+        # 'views/templates.xml',
+        # 'views/gbs_internal_layout.xml',
+        # 'views/gbs_external_layout.xml',
+        # 'views/external_layout_address.xml',
+        # 'views/gbs_custom_pad_report_template.xml',
+        # 'views/gbs_custom_pad_report_with_system_sig_template.xml',
+        # 'views/gbs_po_layout.xml',
+    ],
+    'installable': True,
+    'application': False,
+}

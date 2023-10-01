@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="other_deduction_type_tree" model="ir.ui.view">
+        <field name="name">hr.other.deduction.type.tree</field>
+        <field name="model">hr.other.deduction.type</field>
+        <field name="arch" type="xml">
+            <tree string="Deduction Type">
+                <field name="name"/>
+                <field name="payroll_ref_code"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="other_deduction_type_view_form" model="ir.ui.view">
+        <field name="name">hr.other.deduction.type.form</field>
+        <field name="model">hr.other.deduction.type</field>
+        <field name="arch" type="xml">
+            <form string="Type">
+                <sheet>
+                    <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="payroll_ref_code"/>
+                    </group>
+                    <group>
+                        <field name="active"/>
+                    </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="other_deduction_type_action" model="ir.actions.act_window">
+        <field name="name">Other Deduction Types</field>
+        <field name="res_model">hr.other.deduction.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+            id="menu_view_other_deduction_form"
+            action="other_deduction_type_action"
+            parent="hr_payroll.menu_hr_salary_configuration"
+            sequence="41"/>
+
+</odoo>

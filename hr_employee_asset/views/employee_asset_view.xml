@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="employee_asset_kanban_view" model="ir.ui.view">
+        <field name="name">employee.asset.kanban</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="arch" type="xml">
+            <kanban sample="1">
+                <field name="name"/>
+                <field name="allocation_count"/>
+                <field name="available_count"/>
+                <field name="category_id"/>
+                <field name="serial_no"/>
+                <field name="model"/>
+                <field name="operating_unit_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <b class="o_kanban_record_title">
+                                        <field name="name"/>
+                                        <small>
+                                            <span t-if="record.model.raw_value">(<field name="model"/>)
+                                            </span>
+                                        </small>
+                                    </b>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div t-if="record.serial_no.raw_value">
+                                        <field name="serial_no"/>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div t-if="record.employee_id.raw_value">
+                                        <field name="employee_id"/>
+                                    </div>
+                                </div>
+                                <!--                                <div class="o_kanban_record_body">-->
+                                <!--                                    <div t-if="record.allocation_type.raw_value">-->
+                                <!--                                        <field name="allocation_type"/>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <div class="badge badge-success" t-if="record.available_count.raw_value">
+                                            Available
+                                        </div>
+                                        <div class="badge badge-danger" t-if="record.allocation_count.raw_value">
+                                            Allocated
+                                        </div>
+                                        <div class="badge badge-secondary" t-if="record.operating_unit_id.raw_value">
+                                            <field name="operating_unit_id"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="oe_clear"></div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="employee_asset_tree_view" model="ir.ui.view">
+        <field name="name">employee.asset.tree.view</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <tree string="Employee Asset Tree" sample="1">
+                <field name="name" string="Asset"/>
+                <field name="serial_no"/>
+                <field name="technician_user_id"/>
+                <field name="category_id"/>
+                <field name="operating_unit_id"/>
+                <field name="partner_id" invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="activity_exception_decoration" widget="activity_exception"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="employee_asset_form_view" model="ir.ui.view">
+        <field name="name">employee.asset.form.view</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <form string="Employee Asset Form">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(maintenance.hr_equipment_request_action_from_equipment)d"
+                                type="action"
+                                class="oe_stat_button"
+                                context="{'default_company_id': company_id}"
+                                icon="fa-wrench">
+                            <field string="Maintenance" name="maintenance_count" widget="statinfo"/>
+                        </button>
+                        <button name="button_allocation_request"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-external-link">
+                            <field string="Allocation" name="allocation_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
+                    <div class="oe_title">
+                        <label for="name" string="Asset Name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" string="Name" placeholder="Asset Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="active" invisible="1"/>
+                            <field name="category_id" string="Asset Category" options="{&quot;no_open&quot;: True}"
+                                   context="{'default_company_id':company_id}"/>
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                            <field name="operating_unit_id"/>
+                            <!--                            <field name="employee_id"/>-->
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page string="Description" name="description">
+                            <field name="note"/>
+                        </page>
+                        <page string="Product Information" name="product_information">
+                            <group>
+                                <group>
+                                    <field name="partner_id"/>
+                                    <field name="partner_ref"/>
+                                    <field name="model"/>
+                                    <field name="serial_no"/>
+                                </group>
+                                <group>
+                                    <field name="effective_date"/>
+                                    <field name="cost" groups="maintenance.group_equipment_manager"/>
+                                    <field name="warranty_date"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Maintenance" name="maintenance">
+                            <group>
+                                <group name="maintenance">
+                                    <field name="next_action_date" class="oe_read_only"
+                                           string="Next Preventive Maintenance"/>
+                                    <label for="period" string="Preventive Maintenance Frequency"/>
+                                    <div class="o_row">
+                                        <field name="period"/>
+                                        days
+                                    </div>
+                                    <label for="maintenance_duration" string="Maintenance Duration"/>
+                                    <div class="o_row">
+                                        <field name="maintenance_duration"/>
+                                        hours
+                                    </div>
+                                </group>
+
+                                <group>
+                                    <field name="maintenance_team_id" attrs="{'required': [('period', '!=', 0)]}"
+                                           context="{'default_company_id':company_id}"/>
+                                    <field name="technician_user_id" domain="[('share', '=', False)]"/>
+                                    <field name="assign_date" groups="base.group_no_one"/>
+                                    <field name="scrap_date" groups="base.group_no_one"/>
+                                    <field name="location" string="Used in location"/>
+                                    <field name="allocation_request_id"/>
+                                </group>
+
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="employee_asset_search_view" model="ir.ui.view">
+        <field name="name">employee.asset.search</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field string="Asset" name="name" filter_domain="[
+                    '|', '|', '|',
+                    ('name', 'ilike', self), ('model', 'ilike', self), ('serial_no', 'ilike', self), ('partner_ref', 'ilike', self)]"/>
+                <field string="Category" name="category_id"/>
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="operating_unit_id" />
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                <group expand='0' string='Group by...'>
+                    <filter string='State' name="state" domain="[]" context="{'group_by': 'state'}"/>
+<!--                    <field string='Operating Unit'-->
+<!--                    name="operating_unit_id"-->
+<!--                    domain="[]"-->
+<!--                    groups="operating_unit.group_multi_operating_unit"-->
+<!--                    context="{'group_by': 'operating_unit_id'}"-->
+<!--                />-->
+<!--                    <filter string="Department" domain="[]" context="{'group_by': 'department_id'}"/>-->
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="employee_asset_action" model="ir.actions.act_window">
+        <field name="name">Assets</field>
+        <field name="res_model">maintenance.equipment</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="employee_asset_search_view"/>
+        <field name="view_id" ref="employee_asset_kanban_view"/>
+    </record>
+
+    <record id="child_action_window_kanban" model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="employee_asset_kanban_view"/>
+        <field name="act_window_id" ref="employee_asset_action"/>
+    </record>
+
+    <record id="child_action_window_tree" model="ir.actions.act_window.view">
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="employee_asset_tree_view"/>
+        <field name="act_window_id" ref="employee_asset_action"/>
+    </record>
+
+    <record id="child_action_window_form" model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="employee_asset_form_view"/>
+        <field name="act_window_id" ref="employee_asset_action"/>
+    </record>
+
+    <menuitem
+            id="menu_employee_asset_dashboard"
+            name="Employee Assets"
+            parent="hr_employee_asset.main_employee_asset_menu"
+            action="employee_asset_action"
+            sequence="2"/>
+
+</odoo>

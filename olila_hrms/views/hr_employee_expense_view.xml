@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_employee_expense_form" model="ir.ui.view">
+        <field name="name">hr.employee.expense</field>
+        <field name="model">hr.employee.expense</field>
+        <field name="arch" type="xml">
+            <form string="Expense">
+                <header>
+                    <button name="action_confirm" type="object" states="draft" string="Confirm" class="oe_highlight"/>
+
+                    <button string="Approve" states="to approve" name="action_done" type="object" class="oe_highlight"/>
+                    <button string="Reject" states="to approve" name="action_reject" type="object"
+                            class="oe_highlight"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approve"/>
+
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="job_id"/>
+                            <field name="currency_id" groups="base.group_multi_currency" force_save="1" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="zone_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="territory_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="TA" name="TA">
+                            <group>
+                                <field name="ta_ids" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
+                                    <tree editable="top" string="TA">
+                                        <field name="date"/>
+                                        <field name="mode_of_transport"/>
+                                        <field name="from_destination"/>
+                                        <field name="to_destination"/>
+                                        <field name="kilo_meter"/>
+                                        <field name="ta_fare"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="total_fare" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Fuel Purchase/Lubricant" name="fuel_purchase">
+                            <group>
+                                <field name="purchase_ids" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
+                                    <tree editable="top" string="Fuel Purchase">
+                                        <field name="date"/>
+                                        <field name="start_mileage"/>
+                                        <field name="end_mileage"/>
+                                        <field name="daily_km"/>
+                                        <field name="fare_qty"/>
+                                        <field name="purchase_fare"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="total_fuel_fare" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                            </group>
+
+                        </page>
+                        <page string="Repair" name="repair">
+                            <group>
+                                <field name="repair_ids" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
+                                    <tree editable="top" string="Repair">
+                                        <field name="date"/>
+                                        <field name="repair_details"/>
+                                        <field name="repair_cost"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="total_repair_cost" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Others Purchase" name="other_purchase">
+                            <group>
+                                <field name="other_purchase_ids" nolabel="1"
+                                       attrs="{'readonly':[('state','!=','draft')]}">
+                                    <tree editable="top" string="Others Purchase">
+                                        <field name="date"/>
+                                        <field name="purchase_details"/>
+                                        <field name="purchase_cost"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="total_purchase_cost" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="DA" name="da">
+                            <group>
+                                <field name="da_ids" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
+                                    <tree editable="top" string="DA">
+                                        <field name="date"/>
+                                        <field name="da_details"/>
+                                        <field name="night_stay"/>
+                                        <field name="da_amount"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="total_da_amount" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name="total_fare" string="Total TA Amount"/>
+                        <field name="total_fuel_fare" string="Total Fuel Amount"/>
+                        <field name="total_repair_cost" string="Total Repair Amount"/>
+                        <field name="total_purchase_cost" string="Total Purchase Amount"/>
+                        <field name="total_da_amount" string="Total DA Amount"/>
+                        <div class="oe_subtotal_footer_separator">
+                            <h4><label for="amount_total"/></h4>
+                        </div>
+                        <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"
+                               options="{'currency_field': 'currency_id'}"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_employee_expense_tree" model="ir.ui.view">
+        <field name="name">hr.employee.expense</field>
+        <field name="model">hr.employee.expense</field>
+        <field name="arch" type="xml">
+            <tree string="Expense">
+                <field name="date"/>
+                <field name="employee_id"/>
+                <field name="job_id"/>
+                <field name="zone_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="employee_expense_search" model="ir.ui.view">
+        <field name="name">hr.employee.expense.search.view</field>
+        <field name="model">hr.employee.expense</field>
+        <field name="arch" type="xml">
+            <search string="Expense Search">
+                <field name="date"/>
+                <field name="employee_id"/>
+                <group expand='0' string='Group by...'>
+                    <filter string='State' name="state" domain="[]" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hr_employee_expense" model="ir.actions.act_window">
+        <field name="name">Employee Expenses</field>
+        <field name="res_model">hr.employee.expense</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="employee_expense_search"/>
+    </record>
+
+    <!--    Employee Expense Menu-->
+    <menuitem id="main_employee_expense_menu" name="Employee Expenses" groups="base.group_user"
+              parent="hr.menu_hr_root"
+              sequence="95"/>
+
+    <menuitem
+            id="menu_view_expense_form"
+            action="action_hr_employee_expense"
+            parent="main_employee_expense_menu"
+            sequence="1"/>
+</odoo>

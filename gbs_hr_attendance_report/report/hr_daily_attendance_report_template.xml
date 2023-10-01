@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Custom report.-->
+<odoo>
+        <record id="custom_report_of_daily_attendance" model="ir.actions.report">
+                <field name="model">daily.attendance.report.wizard</field>
+                <field name="name">Daily Attendance Report</field>
+                <field name="report_type">qweb-pdf</field>
+                <field name="report_name">gbs_hr_attendance_report.report_daily_att_doc</field>
+<!--                <field name="file">gbs_hr_attendance_report.report_daily_att_doc</field>-->
+                <field name="report_file">gbs_hr_attendance_report.report_daily_att_doc</field>
+                <field name="paperformat_id" ref="gbs_hr_attendance_report.paperformat_backend_portrait"/>
+<!--                <field name="paperformat">web.report_layout.paperformat_backend_portrait</field>-->
+        </record>
+        <template id="report_daily_att_doc">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <!--<t t-foreach="docs" t-as="o">-->
+                    <div class="page" style="page-break-inside: auto">
+                        <div class="oe_structure"/>
+                        <style>
+                            .table-caption {
+                                border: 1px solid #ddd;
+                                border-bottom: none;
+                                font-size: 14px;
+                                font-weight: bold;
+                                margin: 0;
+                                padding: 5px 5px;
+                            }
+                        </style>
+                        <div>
+                            <h4 class="text-center">Daily Attendance Summary Report</h4>
+                            <br/>
+                            <hr class="hr-sm mb-0"/>
+                            <div id="informations" class="row mt32 mb32">
+                                <div class="col-3 bm-2">
+                                    <strong>Report Date : </strong><span t-esc="required_date"/>
+                                </div>
+                                <div class="col-3 bm-2">
+
+                                </div>
+                                <div class="col-2 bm-2">
+                                </div>
+                                <div class="col-4 bm-2">
+                                    <div><strong>Printing Time : </strong><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/></div>
+                                    <div><strong>Printed By : </strong><span t-esc="user.name"/></div>
+                                </div>
+                            </div>
+                            <hr class="hr-xs"/>
+                        </div>
+
+                        <t t-if="not operating_unit">
+                            <div>
+                                <h4 class="text-primary mt-0">
+                                    <strong>Company Name :</strong> <span t-esc="company_name"/>
+                                </h4>
+                                <div class="row mt32 mb32">
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col-9"><strong>Total Employee:</strong></div>
+                                            <div class="col-3"><span t-esc="sum(l['total_emp'] for l in att_summary_list)"/></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-9"><strong>On Time Present:</strong></div>
+                                            <div class="col-3"><span t-esc="sum(len(l['on_time_present']) for l in att_summary_list)"/></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-9"><strong>Late:</strong></div>
+                                            <div class="col-3"><span t-esc="sum(len(l['late']) for l in att_summary_list)"/></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-9"><strong>Absent:</strong></div>
+                                            <div class="col-3"><span t-esc="sum(len(l['absent']) for l in att_summary_list)"/></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-9"><strong>Leave:</strong></div>
+                                            <div class="col-3"><span t-esc="sum(len(l['leave']) for l in att_summary_list)"/></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-9"><strong>Alter Roster:</strong></div>
+                                            <div class="col-3"><span t-esc="sum(len(l['alter_roster']) for l in att_summary_list)"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 bm-2"></div>
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col-9"><strong>Short Leave:</strong></div>
+                                            <div class="col-3"><span t-esc="short_leave_count"/></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-9"><strong>Rest:</strong></div>
+                                            <div class="col-3"><span t-esc="sum(len(l['rest']) for l in att_summary_list)"/></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-9"><strong>Roster Not Mapped:</strong></div>
+                                            <div class="col-3"><span t-esc="sum(len(l['roster_obligation']) for l in att_summary_list)"/></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-9"><strong>Duty Not Start:</strong></div>
+                                            <div class="col-3"><span t-esc="sum(len(l['unworkable']) for l in att_summary_list)"/></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-9"><strong>Holidays:</strong></div>
+                                            <div class="col-3"><span t-esc="sum(len(l['holidays']) for l in att_summary_list)"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-foreach="att_summary_list" t-as="att_summary">
+                            <div>
+                                <hr class="hr-sm mb-0"/>
+                                <h4 class="text-primary">
+                                    <strong>Operating Unit :</strong> <span t-esc="att_summary['unit_name']"/>
+                                </h4>
+                                <hr class="hr-xxs mb-0"/>
+                                <div class="row mt32 mb32">
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col-9"><strong>Total Employee:</strong></div>
+                                            <div class="col-3"><span t-esc="att_summary['total_emp']"/></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-9"><strong>On Time Present:</strong></div>
+                                            <div class="col-3"><span t-esc="len(att_summary['on_time_present'])"/></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-9"><strong>Late Present:</strong></div>
+                                            <div class="col-3"><span t-esc="len(att_summary['late'])"/></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-9"><strong>Absent:</strong></div>
+                                            <div class="col-3"><span t-esc="len(att_summary['absent'])"/></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-9"><strong>Leave:</strong></div>
+                                            <div class="col-3"><span t-esc="len(att_summary['leave'])"/></div>
+                                        </div>
+<!--                                        <div class="row">-->
+<!--                                            <div class="col-9"><strong>Alter Roster:</strong></div>-->
+<!--                                            <div class="col-3"><span t-esc="len(att_summary['alter_roster'])"/></div>-->
+<!--                                        </div>-->
+                                    </div>
+                                    <div class="col-4 bm-2"></div>
+                                    <div class="col-4">
+<!--                                        <div class="row">-->
+<!--                                            <div class="col-9"><strong>Short Leave:</strong></div>-->
+<!--                                            <div class="col-3"><span t-esc="short_leave_count"/></div>-->
+<!--                                        </div>-->
+                                        <div class="row">
+                                            <div class="col-9"><strong>Alter Roster:</strong></div>
+                                            <div class="col-3"><span t-esc="len(att_summary['alter_roster'])"/></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-9"><strong>Rest:</strong></div>
+                                            <div class="col-3"><span t-esc="len(att_summary['rest'])"/></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-9"><strong>Roster Not Mapped:</strong></div>
+                                            <div class="col-3"><span t-esc="len(att_summary['roster_obligation'])"/></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-9"><strong>Duty Not Start:</strong></div>
+                                            <div class="col-3"><span t-esc="len(att_summary['unworkable'])"/></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-9"><strong>Holidays:</strong></div>
+                                            <div class="col-3"><span t-esc="len(att_summary['holidays'])"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <t t-if="att_summary['late']">
+                                <div>
+                                    <h4 class="table-caption">Late Employee List</h4>
+                                    <table class="table table-report table-bordered table-striped">
+                                        <thead>
+                                            <tr class="odo-bg-gray">
+                                                <th>Sl</th>
+                                                <th>Name</th>
+                                                <th>Department</th>
+                                                <th>Designation</th>
+                                                <th>Check In Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="att_summary['late']" t-as="l">
+                                                <tr style="page-break-inside: avoid">
+                                                    <td><span t-esc="l_index+1"/></td>
+                                                    <td><span t-esc="att_summary['late'][l_index].name"/></td>
+                                                    <td><span t-esc="att_summary['late'][l_index].dept"/></td>
+                                                    <td><span t-esc="att_summary['late'][l_index].designation"/></td>
+                                                    <td><span t-esc="att_summary['late'][l_index].check_in"/></td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </t>
+
+                            <t t-if="att_summary['absent']">
+                                <div>
+                                    <h4 class="table-caption">Absent Employee List</h4>
+                                    <table class="table table-report table-bordered table-striped">
+                                        <thead>
+                                            <tr class="odo-bg-gray">
+                                                <th>Sl</th>
+                                                <th>Name</th>
+                                                <th>Department</th>
+                                                <th>Designation</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="att_summary['absent']" t-as="l">
+                                                <tr style="page-break-inside: avoid">
+                                                    <td><span t-esc="l_index+1"/></td>
+                                                    <td><span t-esc="att_summary['absent'][l_index].name"/></td>
+                                                    <td><span t-esc="att_summary['absent'][l_index].dept"/></td>
+                                                    <td><span t-esc="att_summary['absent'][l_index].designation"/></td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </t>
+
+                            <t t-if="att_summary['roster_obligation']">
+                                <div>
+                                    <h4 class="table-caption">Roster Not Mapped</h4>
+                                    <table class="table table-report table-bordered table-striped">
+                                        <thead>
+                                            <tr class="odo-bg-gray">
+                                                <th>Sl</th>
+                                                <th>Name</th>
+                                                <th>Department</th>
+                                                <th>Designation</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="att_summary['roster_obligation']" t-as="l">
+                                                <tr style="page-break-inside: avoid">
+                                                    <td><span t-esc="l_index+1"/></td>
+                                                    <td><span t-esc="att_summary['roster_obligation'][l_index].name"/></td>
+                                                    <td><span t-esc="att_summary['roster_obligation'][l_index].dept"/></td>
+                                                    <td><span t-esc="att_summary['roster_obligation'][l_index].designation"/></td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </t>
+                        </t>
+<!--                        <t t-call="web.report_layout.report_signing"></t>-->
+                    </div>
+                </t>
+            </t>
+        </template>
+</odoo>

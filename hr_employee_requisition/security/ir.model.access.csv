@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_employee_requisition_officer,hr.employee.requisition.user,model_hr_employee_requisition,hr_recruitment.group_hr_recruitment_user,1,1,1,1
+access_hr_employee_requisition_line_officer,hr.employee.requisition.line,model_hr_employee_requisition_line,hr_recruitment.group_hr_recruitment_user,1,1,1,1
+
+access_hr_employee_requisition_manager,hr.employee.requisition.user,model_hr_employee_requisition,hr_recruitment.group_hr_recruitment_manager,1,1,1,1
+access_hr_employee_requisition_line_manager,hr.employee.requisition.line,model_hr_employee_requisition_line,hr_recruitment.group_hr_recruitment_manager,1,1,1,1
+
+access_hr_employee_requisition_head,hr.employee.requisition.user,model_hr_employee_requisition,base.group_user,1,1,1,1
+access_hr_employee_requisition_line_head,hr.employee.requisition.line,model_hr_employee_requisition_line,base.group_user,1,1,1,1

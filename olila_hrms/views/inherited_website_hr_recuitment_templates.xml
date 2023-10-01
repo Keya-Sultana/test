@@ -1,0 +1,430 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <template id="inherited_website_job_apply" inherit_id="website_hr_recruitment.apply"
+                  name="Job description on Portal">
+            <xpath expr="//form/div/div[1]" position="before">
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     style="display: grid;text-align: center;">
+                    <h3 class="panel-title">Personal Information</h3>
+                </div>
+
+            </xpath>
+            <xpath expr="//form/div/div[5]" position="after">
+
+
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment1">
+                            <span class="s_website_form_label_content">Father's Name
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment1" type="text" class="form-control s_website_form_input"
+                                   name="fam_father_name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment2">
+                            <span class="s_website_form_label_content">Present Address
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment2" type="text" class="form-control s_website_form_input"
+                                   name="present_address" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment3">
+                            <span class="s_website_form_label_content">Permanent Address
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment3" type="text" class="form-control s_website_form_input"
+                                   name="permanent_address" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment4">
+                            <span class="s_website_form_label_content">Emergency Contact
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment4" type="text" class="form-control s_website_form_input"
+                                   name="emergency_contact" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment5">
+                            <span class="s_website_form_label_content">Relationship to Emergency Contact
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment5" type="text" class="form-control s_website_form_input"
+                                   name="relation" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     style="display: grid;text-align: center;">
+                    <h3 class="panel-title">Personal Details</h3>
+                </div>
+
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment6">
+                            <span class="s_website_form_label_content">Date of Birth
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment6" type="date" class="form-control s_website_form_input"
+                                   name="birth_date"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment7">
+                            <span class="s_website_form_label_content">Sex
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <select id="recruitment7" class="form-control s_website_form_input"
+                                    name="gender" >
+                                <option value="">Select an option</option>
+                                <t t-foreach="env['hr.applicant'].GENDER" t-as="gender">
+                                    <option t-att-value="gender[0]" t-esc="gender[1]"/>
+                                </t>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment8">
+                            <span class="s_website_form_label_content">Nationality
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <select id="country_field" class="form-control s_website_form_input"
+                                    name="country_id" >
+                                <option value="">Select an option</option>
+                                <t t-foreach="env['res.country'].search([])" t-as="country">
+                                    <option t-att-value="country.id" t-esc="country.name"/>
+                                </t>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment9">
+                            <span class="s_website_form_label_content">Religion
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <select id="recruitment9" class="form-control s_website_form_input"
+                                    name="religion" >
+                                <option value="">Select an option</option>
+                                <t t-foreach="env['hr.applicant'].RELIGION" t-as="religion">
+                                    <option t-att-value="religion[0]" t-esc="religion[1]"/>
+                                </t>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment10">
+                            <span class="s_website_form_label_content">Marital Status
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <select id="recruitment10" class="form-control s_website_form_input"
+                                    name="marital" >
+                                <option value="">Select an option</option>
+                                <t t-foreach="env['hr.applicant'].MARITAL" t-as="marital">
+                                    <option t-att-value="marital[0]" t-esc="marital[1]"/>
+                                </t>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment11">
+                            <span class="s_website_form_label_content">Marriage Date (if applicable)
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment11" type="date" class="form-control s_website_form_input"
+                                   name="full_name" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment12">
+                            <span class="s_website_form_label_content">Number of Children
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment12" type="number" class="form-control s_website_form_input"
+                                   name="full_name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment13">
+                            <span class="s_website_form_label_content">Blood Group
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <select id="recruitment13" class="form-control s_website_form_input"
+                                    name="blood_group">
+                                <option value="">Select an option</option>
+                                <t t-foreach="env['hr.applicant'].BLOOD" t-as="blood">
+                                    <option t-att-value="blood[0]" t-esc="blood[1]"/>
+                                </t>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment14">
+                            <span class="s_website_form_label_content">Spouse Name (if applicable)
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment14" type="text" class="form-control s_website_form_input"
+                                   name="applicant_spouse" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment15">
+                            <span class="s_website_form_label_content">Spouse Profession
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment15" type="text" class="form-control s_website_form_input"
+                                   name="applicant_spouse_occupation"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment16">
+                            <span class="s_website_form_label_content">Spouse Date of Birth
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment16" type="date" class="form-control s_website_form_input"
+                                   name="applicant_spouse_birthday" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     style="display: grid;text-align: center;">
+                    <h3 class="panel-title">Identification Details</h3>
+                </div>
+
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment17">
+                            <span class="s_website_form_label_content">Passport Number
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment17" type="text" class="form-control s_website_form_input"
+                                   name="passport_no" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment18">
+                            <span class="s_website_form_label_content">Date of Issue
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment18" type="date" class="form-control s_website_form_input"
+                                   name="date_issue" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment19">
+                            <span class="s_website_form_label_content">Place of Issue
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment19" type="text" class="form-control s_website_form_input"
+                                   name="passport_issue_place" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment20">
+                            <span class="s_website_form_label_content">NID Number
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment20" type="text" class="form-control s_website_form_input"
+                                   name="nidid" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment21">
+                            <span class="s_website_form_label_content">Place of Issue
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment21" type="text" class="form-control s_website_form_input"
+                                   name="nid_issue_place" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     style="display: grid;text-align: center;">
+                    <h3 class="panel-title">Additional Information</h3>
+                </div>
+
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment22">
+                            <span class="s_website_form_label_content">Have you applied for OLiLa job before?
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <div class="form-check">
+                                <input id="recruitment22" type="checkbox" class="form-check-input s_website_form_input"
+                                       name="is_applied_before"/>
+                                <label class="form-check-label" for="recruitment22">Yes</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment23">
+                            <span class="s_website_form_label_content">Notice Period
+
+                            </span>
+                            
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment23" type="number" class="form-control s_website_form_input"
+                                   name="mention_period" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required s_website_form_model_required"
+                     style="display: grid;text-align: center;">
+                    <h3 class="panel-title">Document Upload</h3>
+                </div>
+
+                <div class="form-group col-12 s_website_form_field s_website_form_custom" data-type="binary"
+                     data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                               for="recruitment24">
+                            <span class="s_website_form_label_content">Image</span>
+                        </label>
+                        <div class="col-sm">
+                            <input id="recruitment5" type="file" class="form-control s_website_form_input"
+                                   name="images"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

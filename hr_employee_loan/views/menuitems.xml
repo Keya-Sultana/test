@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        
+		<menuitem id="main_loan_menu" name="Employee Loans" groups="base.group_user" parent="hr.menu_hr_root" sequence="91"/>
+
+        <menuitem id="loan_request_menu" name="Loan Requests" parent="main_loan_menu"
+                  sequence="10" action="hr_employee_loan.hr_employee_loan_applied_action" groups="base.group_user"/>
+        <menuitem id="loan_request_approve_menu" name="Loans to Approve" parent="main_loan_menu" sequence="20"
+                  action="hr_employee_loan.hr_employee_loan_approved_action" groups="hr_employee_loan.group_manager_loan"/>
+        <menuitem id="loan_disburse_menu" name="Loans to Disburse" parent="main_loan_menu" sequence="30"
+                  action="hr_employee_loan.hr_employee_loan_disbursed_action" groups="hr_employee_loan.group_manager_loan"/>
+		
+		<menuitem id="configuration_menu" name="Employee Loan" sequence="8"
+				  parent="hr.menu_human_resources_configuration" groups="hr.group_hr_user"/>
+
+		<menuitem id="loan_type_menu" name="Loan Types" parent="configuration_menu"
+			sequence="5" action="hr_employee_loan.hr_loan_type_action" groups="hr_employee_loan.group_manager_loan" />
+
+        <menuitem id="loan_policy_menu" name="Loan Policies" parent="configuration_menu" sequence="10"
+                  action="hr_employee_loan.hr_loan_policy_action" groups="hr_employee_loan.group_manager_loan" />
+
+        <menuitem id="loan_proof_menu" name="Loan Proofs" parent="configuration_menu" sequence="15"
+                  action="hr_employee_loan.hr_loan_proof_action" groups="hr_employee_loan.group_manager_loan" />
+
+       
+    </data>
+</odoo>

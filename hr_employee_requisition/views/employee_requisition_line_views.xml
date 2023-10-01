@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Requisition Line Tree View  -->
+
+    <record model="ir.ui.view" id="requisition_line_view">
+        <field name="name">Employee Requisition Line</field>
+        <field name="model">hr.employee.requisition.line</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+           <tree string=" Requisition Line ">
+           	  <field name="department_id"/>
+              <field name="job_id"/>
+              <field name="current_employee"/>
+              <field name="expected_employee"/>
+           </tree>
+        </field>
+    </record>
+
+    <!-- Requisition LIne Form View -->
+
+    <record id="iou_slip_form" model="ir.ui.view">
+            <field name="name">Requisition Line</field>
+            <field name="model">hr.employee.requisition.line</field>
+            <field name="arch" type="xml">
+                <form string=" Requisition Line ">
+                  <sheet>
+                  <group>
+                        <group>
+                            <field name="department_id" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
+                            <field name="job_id" options='{"no_open": True,"no_create": 1, "no_create_edit":1}' domain="[('department_id','=',department_id)]"/>
+                            <field name="current_employee"/>
+                        </group>
+                        <group>
+                            <field name="required_date" attrs="{'readonly': [('state','not in',('draft'))]}"/>
+                            <field name="salary_range"/>
+                            <field name="expected_employee"/>
+                            <field name="state" invisible="1"/>
+                        </group>
+	                </group>
+                      <group>
+                          <field name="responsibilities"/>
+                          <field name="qualification_required"/>
+                          <field name="experience_required"/>
+                      </group>
+                  </sheet>
+                </form>
+            </field>
+        </record>
+
+</odoo>

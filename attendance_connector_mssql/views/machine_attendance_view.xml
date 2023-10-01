@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+		<!-- Tree View -->
+		<record id="machine_attendance_tree_view" model="ir.ui.view">
+			<field name="name">machine.attendance.tree</field>
+			<field name="model">machine.attendance</field>
+			<field name="arch" type="xml">
+				<tree string="Machine" create="false" edit ="false" delete="false">
+					<field name="employee_id"/>
+					<field name="employee_code"/>
+					<field name="operating_unit_id"/>
+					<field name="device_id"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+
+		<record id="machine_attendance_form_view" model="ir.ui.view">
+			<field name="name">machine.attendance.form</field>
+			<field name="model">machine.attendance</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Machine Attendance" create="false" edit ="false" delete="false">
+					<header>
+						<field name="state" widget="statusbar" statusbar_visible="0,1"/>
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="employee_id" />
+								<field name="employee_code" />
+								<field name="operating_unit_id" options="{'no_open':True,'no_quick_create':True,'no_create_edit':True}"/>
+							</group>
+							<group>
+								<field name="punching_time"/>
+								<field name="device_id"/>
+								<field name="attendance_id"/>
+							</group>
+						</group>
+					</sheet>
+
+				</form>
+			</field>
+		</record>
+
+		<record id="machine_attendance_action" model="ir.actions.act_window">
+			<field name="name">Machine Attendance</field>
+			<field name="res_model">machine.attendance</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem id="menu_machine_attendance" name="Machine Attendance" parent="hr_attendance.menu_hr_attendance_settings"
+				  action="machine_attendance_action" sequence="10" groups="base.group_user"/>
+</odoo>

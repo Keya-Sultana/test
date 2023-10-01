@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_assessment_checklist_tree" model="ir.ui.view">
+            <field name="name">assessment.checklist.tree</field>
+            <field name="model">assessment.checklist</field>
+             <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Assessment Checklists">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_assessment_checklist_form" model="ir.ui.view">
+            <field name="name">assessment.checklist.form</field>
+            <field name="model">assessment.checklist</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Assessment Checklists">
+                    <sheet>
+                        <group colspan="1" col="4" name="main">
+                            <field name="name"/>
+                            <!--                            <field name="checklist_department"/>-->
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                        <notebook name="main_book">
+                            <page name="checklist_line" string="Checklist Lines">
+                                <field name="checklist_line_ids" string="Checklist Line"
+                                       widget="section_and_note_one2many">
+<!--                                    <form string="Quotation Template Lines">-->
+<!--                                        &lt;!&ndash;-->
+<!--                                            We need the sequence field to be here for new lines to be added at the correct position.-->
+<!--                                            TODO: at some point we want to fix this in the framework so that an invisible field is not required.-->
+<!--                                        &ndash;&gt;-->
+<!--                                        <field name="sequence" invisible="1"/>-->
+<!--                                        <field name="display_type" invisible="1"/>-->
+
+<!--                                        <notebook colspan="4" name="description">-->
+
+<!--                                            <page string="Description" name="order_description"-->
+<!--                                                  attrs="{'invisible': [('display_type', '!=', False)]}">-->
+<!--                                                <field name="name"/>-->
+<!--                                            </page>-->
+<!--                                            <page string="Section" name="order_section"-->
+<!--                                                  attrs="{'invisible': [('display_type', '!=', 'line_section')]}">-->
+<!--                                                <field name="name"/>-->
+<!--                                            </page>-->
+<!--                                            <page string="Note" name="order_note"-->
+<!--                                                  attrs="{'invisible': [('display_type', '!=', 'line_note')]}">-->
+<!--                                                <field name="name"/>-->
+<!--                                            </page>-->
+
+<!--                                        </notebook>-->
+<!--                                    </form>-->
+
+
+                                    <tree string="Checklist Items" editable="bottom">
+                                        <control>
+                                            <create name="add_product_control" string="Add a line"/>
+                                            <create name="add_section_control" string="Add a section"
+                                                    context="{'default_display_type': 'line_section'}"/>
+
+                                        </control>
+                                        <field name="display_type" invisible="1"/>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="checklist_item_id"
+                                               attrs="{
+                                                    'required': [('display_type', '=', False)],
+                                                }"
+                                               options="{'no_open': True}"
+                                               force_save="1"
+                                        />
+                                        <field name="marking" />
+                                        <field name="user_id"
+                                                attrs="{
+                                                    'required': [('display_type', '=', False)],
+                                                }"
+                                        />
+                                        <field name="name" widget="section_and_note_text" optional="show"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_assessment_checklist_search" model="ir.ui.view">
+            <field name="name">assessment.checklist.search</field>
+            <field name="model">assessment.checklist</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Assessment Checklists">
+                    <field name="name"/>
+                    <!--                    <field name="checklist_department"/>-->
+                    <newline/>
+                    <!--                    <group expand="0" string="Group By">-->
+                    <!--                        <filter string="department" domain="[]"-->
+                    <!--                            context="{'group_by':'checklist_department'}" />-->
+                    <!--                    </group>-->
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_assessment_checklist">
+            <field name="name">Assessment Checklist</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">assessment.checklist</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_assessment_checklist_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_active': True}</field>
+            <field name="help" type="html">
+                <field class="oe_view_nocontent_create">
+                    Create Assessment Checklists.
+                </field>
+            </field>
+        </record>
+
+        <menuitem action="action_assessment_checklist"
+                  id="menu_assessment_checklist_config"
+                  name="Assessment Checklists"
+                  parent="menu_employee_assessment_config"
+                  sequence="15"
+                  groups="hr.group_hr_manager"
+        />
+    </data>
+</odoo>

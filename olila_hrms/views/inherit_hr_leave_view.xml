@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    <record id="hr_leave_view_form_olila" model="ir.ui.view">-->
+<!--        <field name="name">hr.leave.view.form.olila</field>-->
+<!--        <field name="model">hr.leave</field>-->
+<!--        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form" />-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//form" position="attributes">-->
+<!--                <attribute name="string">Leave Request</attribute>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="hr_leave_view_tree_olila" model="ir.ui.view">
+        <field name="name">hr leave tree view olila</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='holiday_status_id']" position="attributes">
+                <attribute name="string">Leave Type</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="edit_holiday_status_form_olila" model="ir.ui.view">
+        <field name="name">hr.leave.type.form olila</field>
+        <field name="model">hr.leave.type</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='request_unit']" position="attributes">
+                <attribute name="string">Take Leave in</attribute>
+            </xpath>
+            <xpath expr="//group[@name='leave_validation']" position="attributes">
+                <attribute name="string">Leave Requests</attribute>
+            </xpath>
+            <xpath expr="//field[@name='leave_notif_subtype_id']" position="attributes">
+                <attribute name="string">Leave Notification Subtype</attribute>
+            </xpath>
+            <xpath expr="//field[@name='create_calendar_meeting']" position="attributes">
+                <attribute name="string">Display Leave in Calendar</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_see_group_leaves']" position="replace">
+                <button class="oe_stat_button" type="object" name="action_see_group_leaves" icon="fa-archive">
+                            <div class="o_stat_info">
+                                <field name="group_days_leave"/>
+                                <span class="o_stat_text">Group Leave</span>
+                            </div>
+                        </button>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_leave_allocation_view_tree_olila" model="ir.ui.view">
+        <field name="name">hr.leave.allocation.view.tree.olila</field>
+        <field name="model">hr.leave.allocation</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_allocation_view_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='holiday_status_id']" position="attributes">
+                <attribute name="string">Leave Type</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_leave_allocation_view_form_olila" model="ir.ui.view">
+        <field name="name">hr.leave.allocation.view.form.olila</field>
+        <field name="model">hr.leave.allocation</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_allocation_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='holiday_status_id']" position="attributes">
+                <attribute name="string">Leave Type</attribute>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="replace">
+                <div class="oe_button_box" name="button_box">
+                        <button
+                            class="oe_stat_button"
+                            icon="fa-calendar"
+                            type="action"
+                            attrs="{'invisible': [('holiday_type', '!=', 'employee')]}"
+                            name="%(hr_holidays.hr_leave_action_action_approve_department)d"
+                            context="{'search_default_employee_id': [employee_id], 'search_default_holiday_status_id': [holiday_status_id], 'default_holiday_status_id': holiday_status_id}"
+                            help="Leave Taken/Total Allocated">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="leaves_taken" digits="[42,1]"/>/<field name="max_leaves" digits="[42,1]"/>
+                                </span>
+                                <span class="o_stat_text">
+                                    Leave
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_leave_view_dashboard_olila" model="ir.ui.view">
+        <field name="name">hr.leave.view.dashboard.olila</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_dashboard" />
+        <field name="arch" type="xml">
+            <xpath expr="//calendar[@js_class='time_off_calendar']" position="replace">
+                <calendar js_class="time_off_calendar" string="Leave Request" form_view_id="%(hr_holidays.hr_leave_view_form_dashboard)d" event_open_popup="true" date_start="date_from" date_stop="date_to" mode="month" quick_add="False" show_unusual_days="True" color="holiday_status_id" hide_time="True">
+                    <field name="display_name"/>
+                    <field name="holiday_status_id" filters="1" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                </calendar>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_leave_view_calendar_olila" model="ir.ui.view">
+        <field name="name">hr.leave.view.calendar.olila</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_calendar" />
+        <field name="arch" type="xml">
+            <xpath expr="//calendar[@js_class='time_off_calendar_all']" position="replace">
+                <calendar js_class="time_off_calendar_all" string="Leave Request" event_open_popup="true" date_start="date_from" date_stop="date_to" mode="month" quick_add="False" color="employee_id">
+                    <field name="display_name"/>
+                    <field name="holiday_status_id" filters="1" invisible="1"/>
+                    <field name="employee_id" filters="1" invisible="1"/>
+                </calendar>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_leave_report_calendar_view_olila" model="ir.ui.view">
+        <field name="name">hr.leave.report.calendar.view.olila</field>
+        <field name="model">hr.leave.report.calendar</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_report_calendar_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//calendar[@js_class='time_off_calendar_all']" position="replace">
+                <calendar string="Leave" date_start="start_datetime" date_stop="stop_datetime" mode="month" quick_add="False" color="employee_id" event_open_popup="True" js_class="time_off_calendar_all" show_unusual_days="True">
+                <field name="name"/>
+                <field name="employee_id" filters="1" invisible="1"/>
+            </calendar>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_leave_report_calendar_view_gantt_olila" model="ir.ui.view">
+        <field name="name">hr.leave.report.calendar.view.gantt.olila</field>
+        <field name="model">hr.leave.report.calendar</field>
+        <field name="inherit_id" ref="hr_holidays_gantt.hr_leave_report_calendar_view_gantt" />
+        <field name="arch" type="xml">
+            <xpath expr="//gantt[@js_class='hr_gantt']" position="attributes">
+                <attribute name="string">Leave</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_holidays.hr_leave_action_my_request" model="ir.actions.act_window">
+        <field name="name">Leave Requests</field>
+    </record>
+
+    <record id="hr_holidays.hr_leave_action_my" model="ir.actions.act_window">
+        <field name="name">My Leave Requests</field>
+    </record>
+
+    <record id="hr_holidays.hr_leave_action_action_approve_department" model="ir.actions.act_window">
+        <field name="name">All Leave</field>
+    </record>
+
+    <record id="hr_holidays.action_hr_holidays_dashboard" model="ir.actions.act_window">
+        <field name="name">All Leave</field>
+    </record>
+
+    <record id="hr_holidays.open_view_holiday_status" model="ir.actions.act_window">
+        <field name="name">Leave Types</field>
+    </record>
+
+</odoo>

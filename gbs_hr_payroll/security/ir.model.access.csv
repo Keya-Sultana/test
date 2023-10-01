@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_payslip_report_wizard,access_payslip_report_wizard,model_payslip_report_wizard,hr_payroll.group_hr_payroll_user,1,1,1,0
+access_provident_fund_wizard,access_provident_fund_wizard,model_provident_fund_wizard,hr_payroll.group_hr_payroll_user,1,1,1,0
+
+"access_hr_payroll_line_report","hr.payroll.line.report","model_hr_payroll_line_report","hr.group_hr_manager",1,1,1,1
+"access_payslip_batches_summary_wizard","payslip.batches.summary.wizard","model_payslip_batches_summary_wizard","hr_payroll.group_hr_payroll_user",1,1,1,1

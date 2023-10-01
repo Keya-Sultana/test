@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+<!--        <menuitem id="hr_attendance.menu_hr_attendance_view_attendances" name="Attendances" parent="hr_attendance.menu_hr_attendance_manage_attendances" sequence="10" groups="hr_attendance.group_hr_attendance_user,base.group_user" action="hr_attendance.hr_attendance_action"/>-->
+
+        <record id="hr_attendance_form_view_inherit" model="ir.ui.view">
+            <field name="name">hr.attendance.form.view.inherit</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">0</attribute>
+                    <attribute name="edit">0</attribute>
+                </xpath>
+            </field>
+		</record>
+
+        <record id="hr_attendance_view_filter_inherit" model="ir.ui.view">
+            <field name="name">HR Attendance View Filter Inherit</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter" />
+            <field name="arch" type="xml">
+                <xpath expr="//search/filter[@name='myattendances']" position="before">
+                    <filter name="today" string="Today"
+                            domain="[('check_in', '&gt;=', datetime.datetime.now().replace(hour=0, minute=0, second=0)),('check_in', '&lt;=', datetime.datetime.now().replace(hour=23, minute=59, second=59))]" />
+                </xpath>
+                <xpath expr="//search/filter[@name='nocheckout']" position="after">
+                    <filter name="duty_date_not_set" string="Duty Date Not Set" domain="[('duty_date', '=', False)]"/>
+                </xpath>
+            </field>
+        </record>
+
+<!--        <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_view_employees_kanban">-->
+<!--            <field name="groups_id" eval="[(6,0,[ref('gbs_application_group.make_invisible')])]"/>-->
+<!--        </record>-->
+<!--        <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_kiosk_mode">-->
+<!--            <field name="groups_id" eval="[(6,0,[ref('gbs_application_group.make_invisible')])]"/>-->
+<!--        </record>-->
+
+
+</odoo>

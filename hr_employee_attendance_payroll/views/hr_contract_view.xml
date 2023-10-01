@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<!--  Inherits HR Contract View-->
+
+			<record id="hr_contract_view_form2" model="ir.ui.view">
+	            <field name="name">hr.contract.form2</field>
+	            <field name="model">hr.contract</field>
+	            <field name="inherit_id" ref="hr_payroll.hr_contract_form_inherit"/>
+	            <field name="arch" type="xml">
+	                <data>
+<!--						<xpath expr="//field[@name='struct_id']" position="before">-->
+						<xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='information']/group[@name='main_info']/group[@name='salary_and_advantages']/div[@name='wage']" position="after">
+	                		<field name="ot_wage"/>
+	                	</xpath>
+						<xpath expr="//field[@name='hr_responsible_id']" position="before">
+	                		<field name="working_hour"/>
+	                	</xpath>
+	                </data>
+	            </field>
+            </record>
+
+	</data>
+</odoo>

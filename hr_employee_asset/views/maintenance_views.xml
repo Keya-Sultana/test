@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="inherit_maintenance_equipment_view_form" model="ir.ui.view">
+        <field name="name">Inherit maintenance.equipment.view.form</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+            </xpath>
+            <xpath expr="//sheet/div[@name='button_box']" position="inside">
+                <button name="button_allocation_request"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-external-link">
+                    <field string="Allocation" name="allocation_count" widget="statinfo"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='location']" position="after">
+                <field name="allocation_request_id"/>
+            </xpath>
+            <xpath expr="//sheet/group/group[1]" position="replace"/>
+        </field>
+    </record>
+
+    <record id="inherit_maintenance_equipment_view_kanban" model="ir.ui.view">
+        <field name="name">inherit.maintenance.equipment.view.kanban</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='color']" position="after">
+                <field name="allocation_count"/>
+            </xpath>
+            <xpath expr="//templates//div[@class='badge badge-danger']" position='after'>
+                <div class="badge badge-secondary" t-if="record.allocation_count.raw_value" >Allocated</div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

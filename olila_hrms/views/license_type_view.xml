@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="license_type_tree" model="ir.ui.view">
+        <field name="name">license.type.tree</field>
+        <field name="model">license.type</field>
+        <field name="arch" type="xml">
+            <tree string="Type">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="license_type_view_form" model="ir.ui.view">
+        <field name="name">license.type.view.form</field>
+        <field name="model">license.type</field>
+        <field name="arch" type="xml">
+            <form string="Type">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="license_type_action" model="ir.actions.act_window">
+        <field name="name">License</field>
+        <field name="res_model">license.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+            id="menu_view_license_form"
+            name="License"
+            action="license_type_action"
+            parent="hr.menu_human_resources_configuration_employee"
+            groups="base.group_no_one"
+            sequence="5"/>
+
+</odoo>

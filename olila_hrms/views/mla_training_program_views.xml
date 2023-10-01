@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <record id="hr_training_program_inherit_irn_status" model="ir.ui.view">
+        <field name="name">hr.training.program.form.inherit.irn.status</field>
+        <field name="model">hr.training.program</field>
+        <field name="inherit_id" ref="hr_employee_training.view_training_program_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form[1]/header[1]/button[@name='action_done']" position="replace">
+                <field name="current_user_is_approver_or_not" invisible="True"/>
+                <button string="Approve" type="object" name="new_approval_po"
+                        attrs="{'invisible': ['|',['current_user_is_approver_or_not','=',False],['state','!=','to approve']]}"/>
+            </xpath>
+            <xpath expr="//form[1]/header[1]/button[@name='action_reject']" position="replace">
+                <field name="current_user_is_approver_or_not" invisible="True"/>
+                <button string="Reject" type="object" name="action_reject"
+                        attrs="{'invisible': ['|',['current_user_is_approver_or_not','=',False],['state','!=','to approve']]}"/>
+            </xpath>
+
+
+            <xpath expr="//field[@name='remark']" position="before">
+                <field name="pending_approver"
+                       attrs="{'invisible': ['|',['current_user_is_approver_or_not','=',False],['state','!=','to approve']]}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+</odoo>

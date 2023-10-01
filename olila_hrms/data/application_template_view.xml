@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="acknowledgement_application_mailer" model="mail.template">
+            <field name="name">Job Acknowledgement Application</field>
+            <field name="email_from">${(object.user_id.email or object.company_id.email)}</field>
+            <field name="email_to">${(object.email_from)|safe}</field>
+            <field name="subject">Thank you for your application</field>
+            <field name="model_id" ref="olila_hrms.model_hr_applicant" />
+            <field name="auto_delete" eval="True" />
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.partner_name},</p>
+                    <br/>
+                    <p>Thank you for submitting your application for the position of ${object.job_id.name}. We are currently reviewing resumes and will be scheduling interviews.
+                    You will be contacted if we need additional information or wish to schedule a phone or personal interview with you. If you are not selected for an interview,
+                    we encourage you to view our job postings regularly as new positions are posted frequently.</p>
+                    <br/>
+                    <p>Again, thank you for applying for employment with ${object.company_id.name}</p>
+                    <br/><br/>
+                    <p>Best regards,</p>
+                    <p>Human Resources Department</p>
+                    <p>OLiLA Group</p>
+                    <br/>
+            ]]>
+            </field>
+        </record>
+        <record id="interview_letter_mailer" model="mail.template">
+            <field name="name">Interview Invitation Letter</field>
+            <field name="email_from">${(object.user_id.email or object.company_id.email)}</field>
+            <field name="email_to">${(object.email_from)|safe}</field>
+            <field name="subject">Interview Invitation - ${object.job_id.name}</field>
+            <field name="model_id" ref="olila_hrms.model_hr_applicant" />
+            <field name="auto_delete" eval="True" />
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.partner_name},</p>
+                    <br/>
+                    <p>Thank you for your application for the ${object.job_id.name} position at ${object.company_id.name}. We were impressed by your background.
+                    Your qualifications make you an excellent candidate for this role. I would like to invite you to a face-to-face interview at our office.</p>
+                    <br/>
+                    <p>Your interview is scheduled for Day_Month_Year, at Time at our office ${object.company_id.address}</p>
+                    <br/>
+                    <p>During the interview, you will have the chance to learn more about the role and to develop a deeper understanding of our company’s objectives.
+                    On our end, we want to understand your career goals and professional experience more so.
+                    </p>
+                    <br/>
+                    <p>Please respond with your availability. If you have any questions or problems, please contact me at Phone ${object.company_id.phone}. We look forward to seeing you.</p>
+                    <br/><br/>
+                    <p>Best regards,</p>
+                    <p>Human Resources Department</p>
+                    <p>OLiLA Group</p>
+                    <br/>
+            ]]>
+            </field>
+        </record>
+        <record id="regret_letter_mailer" model="mail.template">
+            <field name="name">Regret Letter</field>
+            <field name="email_from">${(object.user_id.email or object.company_id.email)}</field>
+            <field name="email_to">${(object.email_from)|safe}</field>
+            <field name="subject">Application for the ${object.job_id.name}</field>
+            <field name="model_id" ref="olila_hrms.model_hr_applicant" />
+            <field name="auto_delete" eval="True" />
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.partner_name},</p>
+                    <br/>
+                    <p>Thank you for taking the time to consider ${object.company_id.name}.
+                    Our recruitment team reviewed your application and we’d like to inform you that we are not able to advance
+                     you to the next step for the ${object.job_id.name} position at this time.</p>
+                    <br/>
+                    <p>We encourage you to apply again in the future, if you find an open role at our company that suits you.</p>
+                    <br/>
+                    <p>The recruitment team thanks you for the time you invested in applying for the ${object.job_id.name} position. We encourage you to apply for future openings for which you qualify.</
+                    <br/>
+                    <p>Thank you again for applying to ${object.company_id.name} and we wish you all the best in your job search.</p>
+                    <br/><br/>
+                    <p>Regards,</p>
+                    <p>Human Resources Department</p>
+                    <p>OLiLA Group</p>
+                    <br/>
+            ]]>
+            </field>
+        </record>
+    </data>
+</odoo>
